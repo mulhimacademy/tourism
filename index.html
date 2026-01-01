@@ -11,658 +11,271 @@
 
   <style>
     :root {
-      --primary-green: #1a7f5c;
-      --secondary-green: #2d9b8c;
-      --accent-blue: #2c5aa0;
-      --dark-blue: #1c3d5a;
-      --gold-color: #e6b422;
-      --light-green: #e8f5e9;
-      --medium-green: #4caf50;
+      --primary-color: #0056a6;
+      --secondary-color: #2a9d8f;
+      --accent-color: #e63946;
+      --gold-color: #d4af37;
+      --dark-blue: #003566;
       --text-color: #2d3748;
       --text-light: #4a5568;
       --white: #ffffff;
-      --off-white: #f9fafb;
-      --shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --border-radius: 18px;
-      --border-radius-lg: 26px;
-      --gradient-primary: linear-gradient(135deg, #1a7f5c 0%, #2d9b8c 100%);
-      --gradient-secondary: linear-gradient(135deg, #2c5aa0 0%, #1c3d5a 100%);
-      --gradient-accent: linear-gradient(135deg, #e6b422 0%, #d4a017 100%);
-      --gradient-green: linear-gradient(135deg, #1a7f5c 0%, #2d9b8c 100%);
-      --gradient-blue: linear-gradient(135deg, #2c5aa0 0%, #1c3d5a 100%);
-      --gradient-header: linear-gradient(135deg, rgba(26, 127, 92, 0.95) 0%, rgba(45, 155, 140, 0.95) 100%);
-      --gradient-light: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
-      --glass-bg: rgba(255, 255, 255, 0.18);
-      --glass-border: rgba(255, 255, 255, 0.28);
+      --border-radius: 12px;
+      --border-radius-lg: 20px;
+      --gradient-primary: linear-gradient(135deg, rgba(0, 86, 166, 0.92) 0%, rgba(0, 53, 102, 0.92) 100%);
+      --gradient-secondary: linear-gradient(135deg, #2a9d8f 0%, #1d7a6f 100%);
+      --gradient-accent: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
+      --gradient-gold: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+      --gradient-light: linear-gradient(135deg, #f8fafc 0%, #eef6ff 100%);
+      --glass-bg: rgba(255, 255, 255, 0.12);
+      --glass-border: rgba(255, 255, 255, 0.22);
     }
 
-    * { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
-      -webkit-tap-highlight-color: transparent; 
-    }
-    
-    html { 
-      scroll-behavior: smooth; 
-      overflow-x: hidden; 
-    }
-    
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
     body {
       font-family: 'Tajawal', 'Noto Naskh Arabic', sans-serif;
-      background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+      background: linear-gradient(135deg, #f8fafc 0%, #e8f4fd 100%);
       color: var(--text-color);
       line-height: 1.7;
       overflow-x: hidden;
       min-height: 100vh;
       width: 100%;
       max-width: 100%;
-      background-image: 
-        radial-gradient(circle at 20% 80%, rgba(76, 175, 80, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(26, 127, 92, 0.05) 0%, transparent 50%);
     }
 
-    .container { 
-      max-width: 1400px; 
-      margin: 0 auto; 
-      padding: 0 20px; 
-      width: 100%; 
-    }
-
-    /* شعار المدرسة في الهيدر */
-    .school-logo-header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 25px;
-      position: relative;
-    }
-    
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      padding: 20px 35px;
-      border-radius: var(--border-radius-lg);
-      border: 2px solid rgba(255, 255, 255, 0.35);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-      position: relative;
-      overflow: hidden;
-      transition: var(--transition);
-      max-width: 900px;
-      width: 100%;
-    }
-    
-    .logo-container::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 5px;
-      background: linear-gradient(90deg, var(--gold-color), var(--accent-blue), var(--primary-green));
-      z-index: 1;
-    }
-    
-    .logo-container:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-    }
-    
-    .logo-img {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      border: 4px solid var(--white);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-      object-fit: cover;
-      transition: var(--transition);
-      background: white;
-    }
-    
-    .logo-img:hover {
-      transform: scale(1.08) rotate(5deg);
-    }
-    
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex: 1;
-    }
-    
-    .logo-line {
-      font-weight: 900;
-      color: var(--white);
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-      line-height: 1.3;
-    }
-    
-    .logo-line-1 {
-      font-size: 1.6rem;
-      color: var(--gold-color);
-    }
-    
-    .logo-line-2 {
-      font-size: 1.3rem;
-    }
-    
-    .logo-line-3 {
-      font-size: 1.2rem;
-      color: rgba(255, 255, 255, 0.95);
-    }
-    
-    .logo-line-4 {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.9);
-      margin-top: 5px;
-    }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 18px; width: 100%; }
 
     header {
-      background: var(--gradient-header), url('https://d.top4top.io/p_36520q11g1.png') center/cover no-repeat;
+      background: var(--gradient-primary), url('https://d.top4top.io/p_36520q11g1.png') center/cover no-repeat;
       color: var(--white);
-      padding: 40px 0 30px;
+      padding: 34px 0 28px;
       text-align: center;
       border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
-      margin-bottom: 40px;
+      margin-bottom: 34px;
       position: relative;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
       overflow: hidden;
     }
-    
-    header::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.08)"/></svg>');
-      background-size: cover;
-      pointer-events: none;
-    }
-    
-    header::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: linear-gradient(90deg, var(--gold-color), var(--accent-blue));
-    }
 
-    .header-content { 
-      padding: 0 20px; 
-      position: relative;
-      z-index: 2;
-    }
-    
+    .header-content { padding: 0 12px; }
     h1 {
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-weight: 900;
-      line-height: 1.3;
-      margin-bottom: 15px;
+      font-size: clamp(1.8rem, 4.8vw, 3rem);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 10px;
       background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
-      padding: 0 10px;
     }
 
     .header-subtitle {
-      font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+      font-size: clamp(1.2rem, 3.2vw, 2rem);
       color: var(--gold-color);
       font-weight: 800;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-      margin: 15px 0 20px;
-      position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
-    }
-    
-    .header-subtitle::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 70%;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, var(--gold-color));
-      border-radius: 2px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      margin: 10px 0 14px;
     }
 
     .header-meta {
       display: inline-block;
-      font-size: clamp(1rem, 2.4vw, 1.2rem);
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
       font-weight: 700;
-      padding: 14px 28px;
+      padding: 12px 22px;
       border-radius: 999px;
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
       max-width: 95%;
-      margin: 20px auto;
-      transition: var(--transition);
-    }
-    
-    .header-meta:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: translateY(-5px);
     }
 
     .school-info {
       display: flex;
       justify-content: center;
-      gap: 25px;
+      gap: 18px;
       flex-wrap: wrap;
-      margin: 20px auto 0;
-      max-width: 1000px;
-      padding: 20px 25px;
+      margin: 14px auto 0;
+      max-width: 920px;
+      padding: 14px 18px;
       border-radius: var(--border-radius);
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.16);
     }
     
     .info-item {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       font-weight: 700;
       font-size: 1.1rem;
-      padding: 10px 18px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      transition: var(--transition);
     }
     
-    .info-item:hover {
-      background: rgba(255, 255, 255, 0.25);
-      transform: translateY(-5px);
-    }
-    
-    .info-item i { 
-      color: var(--gold-color); 
-      font-size: 1.3rem; 
-    }
+    .info-item i { color: var(--gold-color); font-size: 1.2rem; }
 
     .header-time-date {
       display: flex;
       justify-content: center;
-      gap: 25px;
+      gap: 18px;
       flex-wrap: wrap;
-      margin: 25px auto 0;
-      max-width: 1000px;
-      padding: 20px 25px;
+      margin: 18px auto 0;
+      max-width: 920px;
+      padding: 14px 18px;
       border-radius: var(--border-radius);
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.16);
     }
     
-    .header-time, .header-date { 
-      display: flex; 
-      align-items: center; 
-      gap: 12px; 
-      font-weight: 800; 
-      font-size: 1.2rem;
-      padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      transition: var(--transition);
-    }
-    
-    .header-time:hover, .header-date:hover {
-      background: rgba(255, 255, 255, 0.25);
-      transform: translateY(-5px);
-    }
-    
-    .header-time i, .header-date i { 
-      color: var(--gold-color); 
-      font-size: 1.5rem; 
-    }
+    .header-time, .header-date { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+    .header-time i, .header-date i { color: var(--gold-color); font-size: 1.35rem; }
 
     .main-nav {
       display: flex;
       justify-content: center;
-      gap: 20px;
-      margin-top: 25px;
+      gap: 12px;
+      margin-top: 18px;
       flex-wrap: wrap;
-      padding: 0 20px;
+      padding: 0 10px;
     }
-    
     .nav-btn {
       color: var(--white);
-      border: 1px solid rgba(255,255,255,0.35);
-      padding: 18px 28px;
-      border-radius: 16px;
-      font-size: 1.1rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-size: 1.05rem;
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       transition: var(--transition);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      min-height: 65px;
-      width: min(380px, 100%);
-      position: relative;
-      overflow: hidden;
-      letter-spacing: 0.5px;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      min-height: 52px;
+      width: min(330px, 100%);
     }
-    
-    .nav-btn::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-      transition: 0.6s;
-    }
-    
-    .nav-btn:hover::before {
-      left: 100%;
-    }
-    
-    .nav-btn:hover { 
-      transform: translateY(-8px); 
-      box-shadow: 0 22px 45px rgba(0,0,0,0.3); 
-    }
-    
-    /* زر تعليمات الاختبار - أزرق */
-    .instructions-btn { 
-      background: var(--gradient-blue); 
-      border: 2px solid rgba(255, 255, 255, 0.4);
-    }
-    
-    /* زر بيانات اليوم - أخضر */
-    .dropdown-btn { 
-      background: var(--gradient-green); 
-      border: 2px solid rgba(255, 255, 255, 0.4);
-    }
+    .nav-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 26px rgba(0,0,0,0.22); }
+    .instructions-btn { background: var(--gradient-secondary); }
+    .dropdown-btn { background: var(--gradient-gold); }
 
     .exam-table-container {
       background: var(--white);
       border-radius: var(--border-radius-lg);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-      padding: 25px;
-      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      border: 1px solid rgba(0,0,0,0.06);
       width: 100%;
       max-width: 100%;
-      margin-bottom: 60px;
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, #ffffff 0%, #f8fdf8 100%);
-    }
-    
-    .exam-table-container::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 8px;
-      height: 100%;
-      background: var(--gradient-green);
+      margin-bottom: 50px;
     }
 
-    .exam-table { 
-      width: 100%; 
-      border-collapse: separate; 
-      border-spacing: 0; 
-      min-width: 800px; 
-    }
-    
+    .exam-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 800px; }
     .exam-table th {
-      background: var(--gradient-green);
+      background: var(--gradient-primary);
       color: var(--white);
-      padding: 20px 16px;
+      padding: 16px 12px;
       text-align: center;
       font-weight: 900;
       position: sticky;
       top: 0;
       z-index: 10;
       white-space: nowrap;
-      font-size: 1.1rem;
-      letter-spacing: 0.5px;
-      border-bottom: 4px solid var(--gold-color);
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
-    
-    .exam-table td { 
-      padding: 18px 16px; 
-      text-align: center; 
-      border-bottom: 1px solid rgba(0,0,0,0.1); 
-      font-size: 1.05rem;
-      transition: var(--transition);
-    }
-    
-    .exam-table tr:hover td {
-      background: rgba(26, 127, 92, 0.08);
-    }
+    .exam-table td { padding: 14px 12px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.08); }
 
     .countdown {
       font-weight: 900;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      font-size: 1.1rem;
-      padding: 14px 22px;
+      gap: 10px;
+      font-size: 1rem;
+      padding: 10px 14px;
       border-radius: 999px;
-      min-width: 260px;
-      border: 3px solid rgba(0,0,0,0.1);
-      transition: var(--transition);
+      min-width: 230px;
+      border: 2px solid rgba(0,0,0,0.06);
     }
-    
-    .countdown:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-    }
-    
-    .countdown.upcoming { 
-      background: rgba(45, 155, 140, 0.18); 
-      color: var(--secondary-green); 
-      border-color: rgba(45, 155, 140, 0.35); 
-    }
-    
-    .countdown.active { 
-      background: rgba(230, 180, 34, 0.18); 
-      color: #b8941f; 
-      border-color: rgba(230, 180, 34, 0.35); 
-      animation: pulse 2s infinite; 
-    }
-    
-    .countdown.finished { 
-      background: rgba(100,116,139,0.15); 
-      color: #64748b; 
-      border-color: rgba(100,116,139,0.2); 
-    }
+    .countdown.upcoming { background: rgba(42, 157, 143, 0.14); color: var(--secondary-color); border-color: rgba(42, 157, 143, 0.25); }
+    .countdown.active { background: rgba(230, 57, 70, 0.14); color: var(--accent-color); border-color: rgba(230, 57, 70, 0.25); animation: pulse 1.8s infinite; }
+    .countdown.finished { background: rgba(100,116,139,0.12); color: #64748b; border-color: rgba(100,116,139,0.18); }
 
     .status-dot {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border-radius: 999px;
       display: inline-block;
-      box-shadow: 0 0 0 5px rgba(0,0,0,0.06);
-      transition: var(--transition);
+      box-shadow: 0 0 0 4px rgba(0,0,0,0.04);
     }
-    
-    .dot-upcoming { background: var(--secondary-green); }
-    .dot-active { background: #d4a017; }
+    .dot-upcoming { background: var(--secondary-color); }
+    .dot-active { background: var(--accent-color); }
     .dot-finished { background: #94a3b8; }
 
-    .holiday { 
-      background: rgba(230, 180, 34, 0.1); 
-      color: #b8941f; 
-    }
-    
-    .holiday td { 
-      font-weight: 900; 
-      font-size: 1.2rem;
-    }
+    .holiday { background: rgba(230, 57, 70, 0.06); color: var(--accent-color); }
+    .holiday td { font-weight: 900; }
 
-    .exam-active-row { 
-      background: rgba(230, 180, 34, 0.1) !important; 
-      border-right: 5px solid #d4a017;
-    }
+    .exam-active-row { background: rgba(230, 57, 70, 0.06) !important; }
 
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(230, 180, 34, 0.35); }
-      70% { box-shadow: 0 0 0 15px rgba(230, 180, 34, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(230, 180, 34, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(230,57,70,0.25); }
+      70% { box-shadow: 0 0 0 10px rgba(230,57,70,0); }
+      100% { box-shadow: 0 0 0 0 rgba(230,57,70,0); }
     }
 
     footer {
       text-align: center;
-      padding: 40px 20px;
-      background: var(--gradient-header), url('https://d.top4top.io/p_36520q11g1.png') center/cover no-repeat;
+      padding: 36px 14px;
+      background: var(--gradient-primary), url('https://d.top4top.io/p_36520q11g1.png') center/cover no-repeat;
       color: var(--white);
       border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
-      box-shadow: 0 -15px 45px rgba(0,0,0,0.18);
-      position: relative;
-      overflow: hidden;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.12);
     }
-    
-    footer::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.12);
-      z-index: 1;
-    }
-    
-    footer > * {
-      position: relative;
-      z-index: 2;
-    }
-    
-    footer strong { 
-      color: var(--gold-color); 
-    }
-    
-    footer p {
-      margin-bottom: 15px;
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
+    footer strong { color: var(--gold-color); }
 
     .whatsapp-link {
-      margin-top: 20px;
+      margin-top: 14px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      color: var(--white);
+      gap: 10px;
+      color: var(--gold-color);
       text-decoration: none;
       font-weight: 900;
-      padding: 16px 28px;
+      padding: 12px 18px;
       border-radius: 999px;
-      border: 2px solid rgba(255,255,255,0.35);
-      background: rgba(255,255,255,0.25);
-      width: min(400px, 100%);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      transition: var(--transition);
-      font-size: 1.1rem;
+      border: 2px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.14);
+      width: min(360px, 100%);
     }
-    
-    .whatsapp-link:hover {
-      background: rgba(255, 255, 255, 0.35);
-      transform: translateY(-6px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-    }
-    
-    .whatsapp-icon { 
-      color: #25D366; 
-      font-size: 1.8rem; 
-    }
+    .whatsapp-icon { color: #25D366; font-size: 1.5rem; }
 
-    /* ✅ الهاتف: بطاقات إبداعية وواضحة */
+    /* ✅ الهاتف: بطاقات إبداعية وواضحة + تمييز كل يوم عن الثاني + "انتهى" واضح */
     @media (max-width: 768px) {
-      .school-logo-header {
-        margin-bottom: 20px;
-      }
-      
-      .logo-container {
-        flex-direction: column;
-        gap: 20px;
-        padding: 20px;
-        text-align: center;
-      }
-      
-      .logo-line-1 {
-        font-size: 1.4rem;
-      }
-      
-      .logo-line-2, .logo-line-3 {
-        font-size: 1.1rem;
-      }
-      
-      .logo-line-4 {
-        font-size: 1rem;
-      }
-      
-      .logo-img {
-        width: 100px;
-        height: 100px;
-      }
-      
-      .exam-table-container { 
-        padding: 15px; 
-        margin-bottom: 40px;
-      }
-      
-      .exam-table { 
-        min-width: 0 !important; 
-        width: 100% !important; 
-        display: block; 
-      }
-      
-      .exam-table thead { 
-        display: none; 
-      }
-      
-      .exam-table tbody { 
-        display: block; 
-        width: 100%; 
-      }
+      .exam-table-container { padding: 12px; }
+      .exam-table { min-width: 0 !important; width: 100% !important; display: block; }
+      .exam-table thead { display: none; }
+      .exam-table tbody { display: block; width: 100%; }
 
       .exam-table tr {
         display: block;
         position: relative;
         background: #fff;
-        border-radius: 20px;
+        border-radius: 18px;
         overflow: hidden;
-        margin: 0 0 20px 0;
-        border: 1px solid rgba(0,0,0,0.1);
-        box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+        margin: 0 0 14px 0;
+        border: 1px solid rgba(0,0,0,0.06);
+        box-shadow: 0 14px 28px rgba(0,0,0,0.10);
         transform: translateZ(0);
-        transition: var(--transition);
-      }
-      
-      .exam-table tr:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 25px 50px rgba(0,0,0,0.18);
       }
 
       /* شريط علوي يميز اليوم */
@@ -670,115 +283,71 @@
         content: "";
         position: absolute;
         inset: 0 0 auto 0;
-        height: 8px;
-        background: var(--gradient-green);
+        height: 7px;
+        background: var(--gradient-primary);
       }
 
       /* شارة حالة كبيرة */
       .badge {
         position: absolute;
-        top: 15px;
-        left: 15px;
-        padding: 8px 16px;
+        top: 10px;
+        left: 10px;
+        padding: 6px 12px;
         border-radius: 999px;
         font-weight: 900;
-        font-size: 1rem;
-        border: 2px solid rgba(255,255,255,0.35);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        z-index: 2;
+        font-size: 0.95rem;
+        border: 1px solid rgba(255,255,255,0.25);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 10px 18px rgba(0,0,0,0.12);
       }
-      
-      .badge.upcoming { 
-        background: rgba(45, 155, 140, 0.3); 
-        color: var(--secondary-green); 
-      }
-      
-      .badge.active { 
-        background: rgba(230, 180, 34, 0.3); 
-        color: #b8941f; 
-      }
-      
-      .badge.finished { 
-        background: rgba(100,116,139,0.25); 
-        color: #64748b; 
-      }
+      .badge.upcoming { background: rgba(42,157,143,0.16); color: var(--secondary-color); }
+      .badge.active { background: rgba(230,57,70,0.16); color: var(--accent-color); }
+      .badge.finished { background: rgba(100,116,139,0.14); color: #64748b; }
 
-      .exam-table tr.holiday::before { 
-        background: linear-gradient(135deg, #e6b422 0%, #d4a017 100%); 
-      }
-      
-      .exam-table tr.holiday .badge { 
-        display: none; 
-      }
+      .exam-table tr.holiday::before { background: var(--gradient-accent); }
+      .exam-table tr.holiday .badge { display: none; }
 
-      .exam-table tr.exam-finished::before { 
-        background: linear-gradient(135deg, #64748b 0%, #94a3b8 100%); 
-      }
-      
-      .exam-table tr.exam-upcoming::before { 
-        background: var(--gradient-green); 
-      }
-      
-      .exam-table tr.exam-active::before { 
-        background: linear-gradient(135deg, #e6b422 0%, #d4a017 100%); 
-      }
+      .exam-table tr.exam-finished::before { background: linear-gradient(135deg, #64748b 0%, #94a3b8 100%); }
+      .exam-table tr.exam-upcoming::before { background: var(--gradient-secondary); }
+      .exam-table tr.exam-active::before { background: var(--gradient-accent); }
 
       .exam-table td {
         display: grid;
-        grid-template-columns: 120px 1fr;
-        gap: 15px;
+        grid-template-columns: 110px 1fr;
+        gap: 10px;
         text-align: right !important;
         width: 100%;
-        padding: 18px 15px;
-        border-bottom: 1px dashed rgba(0,0,0,0.15);
-        align-items: center;
+        padding: 14px 14px;
+        border-bottom: 1px dashed rgba(0,0,0,0.10);
+        align-items: start;
       }
-      
-      .exam-table td:last-child { 
-        border-bottom: none; 
-      }
+      .exam-table td:last-child { border-bottom: none; }
 
       .exam-table td::before {
         content: attr(data-label);
         font-weight: 900;
         color: var(--dark-blue);
-        font-size: 1.05rem;
+        font-size: 1rem;
         opacity: 0.9;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      
-      .exam-table td::before::after {
-        content: ":";
-        margin-right: 5px;
       }
 
-      .exam-table td > * { 
-        text-align: right; 
-      }
+      .exam-table td > * { text-align: right; }
 
       /* وضع العداد في سطر كامل */
       .exam-table td[data-label="الحالة"] {
         grid-template-columns: 1fr;
-        padding-top: 12px;
       }
-      
-      .exam-table td[data-label="الحالة"]::before { 
-        display: none; 
-      }
+      .exam-table td[data-label="الحالة"]::before { display: none; }
 
       .countdown {
         width: 100% !important;
         min-width: 0 !important;
         justify-content: flex-start !important;
-        padding: 16px 20px;
-        border-radius: 16px;
+        padding: 12px 14px;
+        border-radius: 14px;
         display: flex;
-        gap: 12px;
-        margin-bottom: 12px;
+        gap: 10px;
       }
 
       /* زر/لمسة لفتح شاشة اليوم */
@@ -786,62 +355,24 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 12px;
+        gap: 10px;
         width: 100%;
-        margin-top: 12px;
-        padding: 16px 20px;
-        border-radius: 16px;
-        background: var(--gradient-green);
+        margin-top: 8px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: var(--gradient-gold);
         border: none;
         color: white;
         font-weight: 900;
         cursor: pointer;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.18);
-        font-size: 1.05rem;
-        transition: var(--transition);
+        box-shadow: 0 10px 22px rgba(0,0,0,0.14);
       }
-      
-      .open-daily:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-      }
-      
-      .open-daily:active { 
-        transform: scale(0.98); 
-      }
+      .open-daily:active { transform: scale(0.98); }
       
       .school-info {
         flex-direction: column;
-        gap: 15px;
-        padding: 18px;
-      }
-      
-      .info-item {
-        padding: 12px 15px;
-      }
-      
-      .header-time-date {
-        flex-direction: column;
-        gap: 15px;
-        padding: 18px;
-      }
-      
-      .main-nav {
-        gap: 15px;
-      }
-      
-      .nav-btn {
-        width: 100%;
-        padding: 20px 22px;
-        min-height: 60px;
-      }
-      
-      h1 {
-        font-size: 1.6rem;
-      }
-      
-      .header-subtitle {
-        font-size: 1.3rem;
+        gap: 12px;
+        padding: 12px;
       }
     }
 
@@ -851,154 +382,123 @@
       position: fixed;
       z-index: 9999;
       inset: 0;
-      background: rgba(0,0,0,0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      padding: 0;
-      animation: fadeIn 0.3s ease-out;
-      overflow: hidden;
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 12px;
     }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
     .modal-content {
-      background: var(--white);
-      width: min(1000px, 100%);
+      background: white;
+      width: min(900px, 100%);
       margin: 0 auto;
-      border-radius: 0;
-      padding: 30px;
-      max-height: 100vh;
+      border-radius: 20px;
+      padding: 22px;
+      max-height: 92vh;
       overflow: auto;
       position: relative;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
-      animation: slideUp 0.4s ease-out;
-      min-height: 100vh;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
     }
-    
-    @keyframes slideUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    
     .close {
       position: sticky;
       top: 0;
       float: left;
-      width: 50px;
-      height: 50px;
+      width: 42px;
+      height: 42px;
       border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
+      font-size: 1.8rem;
       cursor: pointer;
-      background: rgba(0,0,0,0.1);
-      color: var(--text-color);
-      transition: var(--transition);
-      z-index: 100;
-      margin-bottom: 20px;
+      background: rgba(0,0,0,0.06);
     }
-    
-    .close:hover { 
-      color: var(--accent-blue); 
-      background: rgba(44, 90, 160, 0.15);
-      transform: rotate(90deg);
-    }
+    .close:hover { color: var(--accent-color); }
 
-    /* ✅ شاشة بيانات الاختبار اليومية - كاملة الشاشة */
+    /* ✅ شاشة بيانات الاختبار اليومية - التصميم الجديد مع العد التنازلي المدمج */
     .daily-fullscreen .modal-content {
       width: 100%;
-      height: 100vh;
+      height: 100%;
       max-height: 100vh;
       border-radius: 0;
       padding: 0;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
-      animation: none;
-      margin: 0;
-      box-shadow: none;
+      background: linear-gradient(135deg, #f0f8ff 0%, #e6f0fa 100%);
     }
     
     .daily-header {
-      background: var(--gradient-header), url('https://d.top4top.io/p_36520q11g1.png') center/cover no-repeat;
+      background: var(--gradient-primary), url('https://d.top4top.io/p_36520q11g1.png') center/cover no-repeat;
       color: white;
-      padding: 30px 25px;
+      padding: 25px 20px;
       text-align: center;
       position: relative;
       overflow: hidden;
-      border-bottom: 5px solid var(--gold-color);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-      min-height: 180px;
+      border-bottom: 3px solid var(--gold-color);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      min-height: 150px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      flex-shrink: 0;
     }
     
     .daily-header::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(26, 127, 92, 0.95) 0%, rgba(45, 155, 140, 0.95) 100%);
+      background: linear-gradient(135deg, rgba(0, 53, 102, 0.85) 0%, rgba(0, 86, 166, 0.85) 100%);
     }
     
     .daily-header-content {
       position: relative;
       z-index: 2;
       width: 100%;
-      max-width: 1200px;
-      padding: 0 20px;
+      max-width: 1000px;
     }
     
+    /* ✅ تكبير العنوان ليكون بارزًا على الشاشة */
     .daily-main-title {
       font-size: clamp(2rem, 5vw, 3rem) !important;
       font-weight: 900;
-      margin-bottom: 10px;
-      text-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+      margin-bottom: 8px;
+      text-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
       color: white;
       line-height: 1.2;
       letter-spacing: -0.5px;
-      max-width: 100%;
+      max-width: 95%;
       margin-left: auto;
       margin-right: auto;
     }
     
     .daily-sub-title {
-      font-size: clamp(1.3rem, 3vw, 1.8rem);
-      font-weight: 800;
-      margin-bottom: 15px;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      margin-bottom: 12px;
       color: var(--gold-color);
       opacity: 0.95;
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-      line-height: 1.3;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
     
     .daily-year-info {
-      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      font-size: clamp(0.9rem, 1.8vw, 1.1rem);
       font-weight: 600;
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.2);
       display: inline-block;
-      padding: 10px 24px;
+      padding: 8px 18px;
       border-radius: 50px;
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      margin-top: 10px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      margin-top: 8px;
     }
     
     .header-divider {
-      width: 150px;
-      height: 5px;
+      width: 120px;
+      height: 4px;
       background: var(--gold-color);
-      margin: 20px auto;
-      border-radius: 3px;
+      margin: 15px auto;
+      border-radius: 2px;
       position: relative;
       overflow: hidden;
     }
@@ -1008,93 +508,82 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 50px;
+      width: 40px;
       height: 100%;
       background: white;
-      animation: shine 2.5s infinite;
+      animation: shine 2s infinite;
     }
     
     @keyframes shine {
       0% { transform: translateX(-100%); }
-      100% { transform: translateX(350%); }
+      100% { transform: translateX(300%); }
     }
     
     .daily-body {
       flex: 1;
-      padding: 25px;
+      padding: 20px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      width: 100%;
     }
     
+    /* ✅ جعل العد التنازلي بجانب البيانات في نفس النسق */
     .exam-status-container {
       display: flex;
       justify-content: center;
       align-items: stretch;
-      gap: 20px;
-      margin-bottom: 30px;
+      gap: 15px;
+      margin-bottom: 25px;
       flex-wrap: wrap;
       width: 100%;
-      max-width: 1000px;
+      max-width: 900px;
     }
     
     .exam-day-display {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 900;
       color: var(--dark-blue);
       display: flex;
       align-items: center;
-      gap: 15px;
-      padding: 20px 25px;
+      gap: 12px;
+      padding: 15px 20px;
       background: white;
-      border-radius: 20px;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
-      border: 3px solid rgba(26, 127, 92, 0.2);
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border: 2px solid rgba(0, 86, 166, 0.1);
       flex: 1;
-      min-width: 280px;
+      min-width: 250px;
       justify-content: center;
-      transition: var(--transition);
-    }
-    
-    .exam-day-display:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.2);
     }
     
     .exam-day-display i {
-      color: var(--primary-green);
-      font-size: 1.8rem;
+      color: var(--primary-color);
+      font-size: 1.5rem;
     }
     
     .exam-status-badge {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 20px 25px;
-      border-radius: 20px;
+      gap: 10px;
+      padding: 15px 20px;
+      border-radius: 16px;
       font-weight: 900;
-      font-size: 1.3rem;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+      font-size: 1.1rem;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       flex: 1;
-      min-width: 280px;
+      min-width: 250px;
       justify-content: center;
-      transition: var(--transition);
-    }
-    
-    .exam-status-badge:hover {
-      transform: translateY(-5px);
     }
     
     .exam-status-badge.upcoming {
-      background: var(--gradient-green);
+      background: var(--gradient-secondary);
       color: white;
     }
     
     .exam-status-badge.active {
-      background: linear-gradient(135deg, #e6b422 0%, #d4a017 100%);
+      background: var(--gradient-accent);
       color: white;
       animation: pulse 2s infinite;
     }
@@ -1104,52 +593,42 @@
       color: white;
     }
     
+    /* ✅ إعادة تصميم حاوية البيانات الرئيسية لتشمل العد التنازلي */
     .exam-data-container {
       background: white;
-      border-radius: 24px;
-      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.15);
-      padding: 35px;
-      border: 2px solid rgba(0, 0, 0, 0.12);
+      border-radius: 20px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
       margin: 0 auto;
       width: 100%;
-      max-width: 1000px;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .exam-data-container::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 10px;
-      height: 100%;
-      background: var(--gradient-green);
+      max-width: 900px;
     }
     
     .exam-subject {
-      font-size: 2.5rem !important;
+      font-size: 2.2rem !important;
       font-weight: 900;
       color: var(--dark-blue);
       text-align: center;
-      margin-bottom: 35px;
-      padding-bottom: 25px;
-      border-bottom: 5px dashed rgba(26, 127, 92, 0.25);
-      line-height: 1.3;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 3px dashed rgba(0, 86, 166, 0.2);
+      line-height: 1.4;
     }
     
+    /* ✅ إعادة تصميم شبكة التفاصيل لتشمل العد التنازلي */
     .exam-details-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      margin-bottom: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-bottom: 25px;
     }
     
     .exam-detail-item {
-      background: linear-gradient(135deg, rgba(26, 127, 92, 0.1) 0%, rgba(45, 155, 140, 0.1) 100%);
-      border-radius: 20px;
-      padding: 30px 25px;
-      border: 2px solid rgba(0, 0, 0, 0.1);
+      background: linear-gradient(135deg, rgba(0, 86, 166, 0.05) 0%, rgba(42, 157, 143, 0.05) 100%);
+      border-radius: 16px;
+      padding: 25px 20px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
       transition: var(--transition);
       position: relative;
       overflow: hidden;
@@ -1159,8 +638,8 @@
     }
     
     .exam-detail-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
     
     .exam-detail-item::before {
@@ -1168,188 +647,177 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 8px;
+      width: 6px;
       height: 100%;
-      background: var(--primary-green);
+      background: var(--primary-color);
     }
     
     .detail-label {
-      font-size: 1.1rem;
-      font-weight: 800;
+      font-size: 1.05rem;
+      font-weight: 700;
       color: var(--text-light);
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     
     .detail-label i {
-      color: var(--primary-green);
-      font-size: 1.4rem;
+      color: var(--primary-color);
+      font-size: 1.2rem;
     }
     
     .detail-value {
-      font-size: 1.8rem !important;
+      font-size: 1.6rem !important;
       font-weight: 900;
       color: var(--dark-blue);
       line-height: 1.3;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     
+    /* ✅ العد التنازلي كجزء من بيانات الامتحان */
     .countdown-container {
       grid-column: 1 / -1;
-      margin-top: 20px;
+      margin-top: 10px;
     }
     
     .countdown-title {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 900;
       color: var(--dark-blue);
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
-      gap: 15px;
-      padding-bottom: 15px;
-      border-bottom: 4px solid rgba(26, 127, 92, 0.2);
+      gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(0, 86, 166, 0.1);
     }
     
     .countdown-title i {
-      color: var(--accent-blue);
-      font-size: 1.6rem;
+      color: var(--accent-color);
+      font-size: 1.4rem;
     }
     
     .countdown-display {
       font-family: 'Tajawal', monospace;
-      font-size: clamp(2.2rem, 4.5vw, 3.2rem) !important;
+      font-size: clamp(2rem, 4vw, 2.8rem) !important;
       font-weight: 900;
-      padding: 30px 25px;
-      border-radius: 20px;
-      margin: 20px 0;
-      background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
-      border: 5px solid rgba(26, 127, 92, 0.25);
+      padding: 25px 20px;
+      border-radius: 16px;
+      margin: 15px 0;
+      background: linear-gradient(135deg, #f0f8ff 0%, #e6f0fa 100%);
+      border: 3px solid rgba(0, 86, 166, 0.15);
       color: var(--dark-blue);
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       direction: ltr;
       letter-spacing: 1px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 25px;
-      min-height: 140px;
+      gap: 20px;
+      min-height: 120px;
       text-align: center;
-      transition: var(--transition);
-    }
-    
-    .countdown-display:hover {
-      transform: translateY(-5px);
     }
     
     .countdown-display.upcoming {
-      border-color: rgba(45, 155, 140, 0.6);
-      color: var(--secondary-green);
-      background: linear-gradient(135deg, rgba(45, 155, 140, 0.15) 0%, rgba(45, 155, 140, 0.1) 100%);
+      border-color: rgba(42, 157, 143, 0.4);
+      color: var(--secondary-color);
+      background: linear-gradient(135deg, rgba(42, 157, 143, 0.1) 0%, rgba(42, 157, 143, 0.05) 100%);
     }
     
     .countdown-display.active {
-      border-color: rgba(230, 180, 34, 0.6);
-      color: #b8941f;
-      background: linear-gradient(135deg, rgba(230, 180, 34, 0.15) 0%, rgba(230, 180, 34, 0.1) 100%);
+      border-color: rgba(230, 57, 70, 0.4);
+      color: var(--accent-color);
+      background: linear-gradient(135deg, rgba(230, 57, 70, 0.1) 0%, rgba(230, 57, 70, 0.05) 100%);
       animation: pulse-border 1.5s infinite;
     }
     
     .countdown-display.finished {
-      border-color: rgba(100, 116, 139, 0.6);
+      border-color: rgba(100, 116, 139, 0.4);
       color: #64748b;
-      background: linear-gradient(135deg, rgba(100, 116, 139, 0.15) 0%, rgba(100, 116, 139, 0.1) 100%);
+      background: linear-gradient(135deg, rgba(100, 116, 139, 0.1) 0%, rgba(100, 116, 139, 0.05) 100%);
     }
     
     .countdown-hint {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--text-light);
       text-align: center;
-      margin-top: 15px;
+      margin-top: 10px;
       font-weight: 600;
-      padding: 12px 18px;
-      background: rgba(26, 127, 92, 0.1);
-      border-radius: 12px;
-      border: 2px solid rgba(26, 127, 92, 0.2);
+      padding: 10px 15px;
+      background: rgba(0, 86, 166, 0.05);
+      border-radius: 10px;
+      border: 1px solid rgba(0, 86, 166, 0.1);
     }
     
     @keyframes pulse-border {
-      0% { border-color: rgba(230, 180, 34, 0.6); }
-      50% { border-color: rgba(230, 180, 34, 0.9); }
-      100% { border-color: rgba(230, 180, 34, 0.6); }
+      0% { border-color: rgba(230, 57, 70, 0.4); }
+      50% { border-color: rgba(230, 57, 70, 0.8); }
+      100% { border-color: rgba(230, 57, 70, 0.4); }
     }
     
     .close-daily-top {
       position: absolute;
-      top: 20px;
-      left: 20px;
+      top: 15px;
+      left: 15px;
       z-index: 100;
-      width: 55px;
-      height: 55px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.2);
       color: white;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       cursor: pointer;
-      border: 3px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       transition: var(--transition);
     }
     
     .close-daily-top:hover {
-      background: rgba(44, 90, 160, 0.9);
-      transform: rotate(90deg) scale(1.1);
+      background: rgba(230, 57, 70, 0.8);
+      transform: rotate(90deg);
     }
     
     .info-row {
       display: flex;
       align-items: flex-start;
-      gap: 20px;
-      padding: 20px;
-      background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%);
-      border-radius: 18px;
-      border: 2px solid rgba(26, 127, 92, 0.2);
-      margin-bottom: 18px;
-      transition: var(--transition);
-    }
-    
-    .info-row:hover {
-      transform: translateX(5px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      gap: 16px;
+      padding: 14px;
+      background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(240, 248, 255, 0.8) 100%);
+      border-radius: 14px;
+      border: 1px solid rgba(0, 86, 166, 0.1);
+      margin-bottom: 12px;
     }
     
     .info-row i {
-      color: var(--primary-green);
-      font-size: 1.6rem;
-      margin-top: 5px;
+      color: var(--primary-color);
+      font-size: 1.3rem;
+      margin-top: 4px;
       flex-shrink: 0;
     }
     
     .info-row .label {
-      font-weight: 900;
+      font-weight: 800;
       color: var(--dark-blue);
-      margin-bottom: 8px;
-      font-size: 1.1rem;
+      margin-bottom: 4px;
+      font-size: 1.05rem;
     }
     
     .info-row .value {
       color: var(--text-color);
       font-weight: 500;
       line-height: 1.6;
-      font-size: 1.05rem;
     }
     
     /* تحسينات للهواتف */
     @media (max-width: 768px) {
       .daily-header {
-        padding: 25px 20px;
-        min-height: 160px;
+        padding: 20px 15px;
+        min-height: 140px;
       }
       
       .daily-main-title {
@@ -1357,138 +825,116 @@
       }
       
       .daily-sub-title {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
       }
       
       .daily-year-info {
-        font-size: 1rem;
-        padding: 8px 18px;
+        font-size: 0.9rem;
+        padding: 6px 14px;
       }
       
       .header-divider {
-        width: 120px;
-        height: 4px;
-        margin: 15px auto;
+        width: 100px;
+        height: 3px;
+        margin: 12px auto;
       }
       
       .exam-status-container {
         flex-direction: column;
-        gap: 15px;
-        margin-bottom: 25px;
+        gap: 12px;
+        margin-bottom: 20px;
       }
       
       .exam-day-display {
-        font-size: 1.8rem;
-        padding: 18px 20px;
+        font-size: 1.6rem;
+        padding: 12px 15px;
         width: 100%;
         min-width: unset;
       }
       
       .exam-status-badge {
-        padding: 18px 20px;
+        padding: 12px 15px;
         width: 100%;
         min-width: unset;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
       }
       
       .exam-data-container {
-        padding: 25px 20px;
-        margin-bottom: 20px;
-        border-radius: 20px;
-      }
-      
-      .exam-subject {
-        font-size: 2rem !important;
-        margin-bottom: 25px;
-      }
-      
-      .exam-details-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      
-      .exam-detail-item {
-        padding: 25px 20px;
-      }
-      
-      .detail-value {
-        font-size: 1.6rem !important;
-      }
-      
-      .countdown-title {
-        font-size: 1.4rem;
-      }
-      
-      .countdown-display {
-        font-size: 2rem !important;
-        padding: 25px 20px;
-        min-height: 120px;
-      }
-      
-      .close-daily-top {
-        top: 15px;
-        left: 15px;
-        width: 50px;
-        height: 50px;
-        font-size: 1.6rem;
-      }
-      
-      .countdown-hint {
-        font-size: 1.1rem;
-        padding: 10px 15px;
-      }
-      
-      .modal-content {
         padding: 20px 15px;
-      }
-    }
-    
-    @media (max-height: 700px) {
-      .daily-header {
-        min-height: 150px;
-        padding: 20px 25px;
-      }
-      
-      .daily-main-title {
-        font-size: 1.6rem !important;
-      }
-      
-      .daily-sub-title {
-        font-size: 1.2rem;
+        margin-bottom: 15px;
+        border-radius: 16px;
       }
       
       .exam-subject {
         font-size: 1.8rem !important;
+        margin-bottom: 20px;
+      }
+      
+      .exam-details-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .exam-detail-item {
+        padding: 18px 15px;
       }
       
       .detail-value {
         font-size: 1.4rem !important;
       }
       
+      .countdown-title {
+        font-size: 1.3rem;
+      }
+      
       .countdown-display {
         font-size: 1.8rem !important;
         padding: 20px 15px;
-        min-height: 100px;
+        min-height: 90px;
+      }
+      
+      .close-daily-top {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+      }
+      
+      .countdown-hint {
+        font-size: 1rem;
+        padding: 8px 12px;
       }
     }
     
-    /* تخصيص شريط التمرير */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-    
-    ::-webkit-scrollbar-track {
-      background: rgba(26, 127, 92, 0.1);
-      border-radius: 5px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-      background: var(--primary-green);
-      border-radius: 5px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--secondary-green);
+    /* تصغير حجم الهيدر لجعل كل شيء ظاهر */
+    @media (max-height: 700px) {
+      .daily-header {
+        min-height: 130px;
+        padding: 15px 20px;
+      }
+      
+      .daily-main-title {
+        font-size: 1.6rem !important;
+      }
+      
+      .daily-sub-title {
+        font-size: 1.1rem;
+      }
+      
+      .exam-subject {
+        font-size: 1.6rem !important;
+      }
+      
+      .detail-value {
+        font-size: 1.3rem !important;
+      }
+      
+      .countdown-display {
+        font-size: 1.6rem !important;
+        padding: 18px 15px;
+        min-height: 80px;
+      }
     }
   </style>
 </head>
@@ -1497,31 +943,18 @@
   <div class="container">
     <header>
       <div class="header-content">
-        <!-- شعار المدرسة الإبداعي -->
-        <div class="school-logo-header">
-          <div class="logo-container">
-            <img src="https://d.top4top.io/p_36520q11g1.png" alt="شعار مدرسة خولة بنت حكيم" class="logo-img">
-            <div class="logo-text">
-              <div class="logo-line logo-line-1">سلطنة عُمان</div>
-              <div class="logo-line logo-line-2">وزارة التربية والتعليم</div>
-              <div class="logo-line logo-line-3">المديرية العامة للتربية والتعليم بمحافظة ظفار</div>
-              <div class="logo-line logo-line-4">مدرسة خولة بنت حكيم للتعليم الأساسي</div>
-            </div>
-          </div>
-        </div>
-
-        <h1>نظام إدارة جدول امتحانات دبلوم التعليم العام</h1>
-        <div class="header-subtitle">العام الدراسي 2025/2026 - الفصل الدراسي الأول</div>
-        <div class="header-meta">الدور الأول - امتحانات نهاية الفصل</div>
+        <h1>نظام إدارة جداول امتحانات الدبلوم العام</h1>
+        <div class="header-subtitle">مدرسة خولة بنت حكيم للتعليم الاساسي للصفوف (9-12)</div>
+        <div class="header-meta"> الفصل الدراسي الأول - الدور الأول 2025/2026</div>
 
         <div class="school-info">
           <div class="info-item">
             <i class="fas fa-user-tie"></i>
-            <span>مديرة المدرسة: أ.ليلى المسهلي</span>
+            <span>مديرة المدرسة: الأستاذة ليلى المسهلي</span>
           </div>
           <div class="info-item">
             <i class="fas fa-map-marker-alt"></i>
-            <span>سلطنة عُمان - محافظة ظفار - صلالة</span>
+            <span>سلطنة عمان - محافظة ظفار- صلالة</span>
           </div>
           <div class="info-item">
             <i class="fas fa-phone"></i>
@@ -1536,7 +969,7 @@
 
         <div class="main-nav">
           <button class="nav-btn instructions-btn" id="instructionsBtn"><i class="fas fa-info-circle"></i>تعليمات الاختبار</button>
-          <button class="nav-btn dropdown-btn" id="optionsBtn"><i class="fas fa-calendar-day"></i>بيانات الاختبار اليومية</button>
+          <button class="nav-btn dropdown-btn" id="optionsBtn"><i class="fas fa-cogs"></i>بيانات الاختبار اليومية</button>
         </div>
       </div>
     </header>
@@ -1564,7 +997,7 @@
                 <span class="status-dot dot-upcoming"></span>
                 <span class="countdown-text">--</span>
               </div>
-              <button class="open-daily" onclick="openDailyForId(1)"><i class="fas fa-expand-alt"></i>عرض شاشة اليوم</button>
+              <button class="open-daily" onclick="openDailyForId(1)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
             </td>
           </tr>
 
@@ -1578,7 +1011,7 @@
                 <span class="status-dot dot-upcoming"></span>
                 <span class="countdown-text">--</span>
               </div>
-              <button class="open-daily" onclick="openDailyForId(2)"><i class="fas fa-expand-alt"></i>عرض شاشة اليوم</button>
+              <button class="open-daily" onclick="openDailyForId(2)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
             </td>
           </tr>
 
@@ -1604,7 +1037,7 @@
                 <span class="status-dot dot-upcoming"></span>
                 <span class="countdown-text">--</span>
               </div>
-              <button class="open-daily" onclick="openDailyForId(3)"><i class="fas fa-expand-alt"></i>عرض شاشة اليوم</button>
+              <button class="open-daily" onclick="openDailyForId(3)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
             </td>
           </tr>
 
@@ -1618,7 +1051,7 @@
                 <span class="status-dot dot-upcoming"></span>
                 <span class="countdown-text">--</span>
               </div>
-              <button class="open-daily" onclick="openDailyForId(4)"><i class="fas fa-expand-alt"></i>عرض شاشة اليوم</button>
+              <button class="open-daily" onclick="openDailyForId(4)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
             </td>
           </tr>
 
@@ -1632,7 +1065,7 @@
                 <span class="status-dot dot-upcoming"></span>
                 <span class="countdown-text">--</span>
               </div>
-              <button class="open-daily" onclick="openDailyForId(5)"><i class="fas fa-expand-alt"></i>عرض شاشة اليوم</button>
+              <button class="open-daily" onclick="openDailyForId(5)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
             </td>
           </tr>
 
@@ -1646,7 +1079,7 @@
                 <span class="status-dot dot-upcoming"></span>
                 <span class="countdown-text">--</span>
               </div>
-              <button class="open-daily" onclick="openDailyForId(6)"><i class="fas fa-expand-alt"></i>عرض شاشة اليوم</button>
+              <button class="open-daily" onclick="openDailyForId(6)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
             </td>
           </tr>
 
@@ -1660,7 +1093,7 @@
                 <span class="status-dot dot-upcoming"></span>
                 <span class="countdown-text">--</span>
               </div>
-              <button class="open-daily" onclick="openDailyForId(7)"><i class="fas fa-expand-alt"></i>عرض شاشة اليوم</button>
+              <button class="open-daily" onclick="openDailyForId(7)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
             </td>
           </tr>
 
@@ -1686,7 +1119,7 @@
                 <span class="status-dot dot-upcoming"></span>
                 <span class="countdown-text">--</span>
               </div>
-              <button class="open-daily" onclick="openDailyForId(8)"><i class="fas fa-expand-alt"></i>عرض شاشة اليوم</button>
+              <button class="open-daily" onclick="openDailyForId(8)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
             </td>
           </tr>
 
@@ -1700,7 +1133,7 @@
                 <span class="status-dot dot-upcoming"></span>
                 <span class="countdown-text">--</span>
               </div>
-              <button class="open-daily" onclick="openDailyForId(9)"><i class="fas fa-expand-alt"></i>عرض شاشة اليوم</button>
+              <button class="open-daily" onclick="openDailyForId(9)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
             </td>
           </tr>
 
@@ -1714,7 +1147,7 @@
                 <span class="status-dot dot-upcoming"></span>
                 <span class="countdown-text">--</span>
               </div>
-              <button class="open-daily" onclick="openDailyForId(10)"><i class="fas fa-expand-alt"></i>عرض شاشة اليوم</button>
+              <button class="open-daily" onclick="openDailyForId(10)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
             </td>
           </tr>
 
@@ -1722,13 +1155,13 @@
             <td data-label="اليوم">الأربعاء</td>
             <td data-label="التاريخ">14/1/2026</td>
             <td data-label="المادة"><strong>الدراسات الاجتماعية (هذا وطني)</strong></td>
-            <td data-label="وقت الامتحان">8:00 صباحًا - 11:00 صباحًا</td>
+            <td data-label="وقت الامتحان">8:00 صbاحًا - 11:00 صباحًا</td>
             <td data-label="الحالة">
               <div class="countdown upcoming" id="countdown11">
                 <span class="status-dot dot-upcoming"></span>
                 <span class="countdown-text">--</span>
               </div>
-              <button class="open-daily" onclick="openDailyForId(11)"><i class="fas fa-expand-alt"></i>عرض شاشة اليوم</button>
+              <button class="open-daily" onclick="openDailyForId(11)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
             </td>
           </tr>
         </tbody>
@@ -1736,14 +1169,12 @@
     </div>
 
     <footer>
-      <p>سلطنة عُمان - وزارة التربية والتعليم</p>
-      <p>المديرية العامة للتربية والتعليم بمحافظة ظفار</p>
       <p>مدرسة خولة بنت حكيم للتعليم الأساسي - الصفوف (9-12)</p>
-      <p>مديرة المدرسة: <strong>أ. ليلى المسهلي</strong> | سلطنة عُمان - محافظة ظفار - صلالة</p>
-      <p>هاتف المدرسة: <strong>23212367</strong> | جميع الحقوق محفوظة &copy; 2025</p>
+      <p>مديرة المدرسة: <strong>الأستاذة ليلى المسهلي</strong> | محافظة ظفار | هاتف: <strong>23212367</strong></p>
+      <p>جميع الحقوق محفوظة &copy; 2025</p>
       <a href="https://wa.me/96823212367" target="_blank" class="whatsapp-link">
         <i class="fab fa-whatsapp whatsapp-icon"></i>
-        <span>التواصل مع المدرسة </span>
+        <span>التواصل مع المدرسة عبر واتساب</span>
       </a>
     </footer>
   </div>
@@ -1752,106 +1183,118 @@
   <div id="instructionsModal" class="modal" role="dialog" aria-labelledby="instructionsTitle" aria-modal="true">
     <div class="modal-content">
       <span class="close" aria-label="إغلاق النافذة">&times;</span>
-      <h2 id="instructionsTitle" style="text-align:center;color:var(--dark-blue);margin-bottom:25px;font-size:2.2rem;border-bottom:4px solid var(--accent-blue);padding-bottom:15px;">تعليمات الاختبار الرسمية</h2>
+      <h2 id="instructionsTitle" style="text-align:center;color:var(--dark-blue);margin-bottom:20px;">تعليمات الاختبار الرسمية</h2>
       
-      <div style="background:linear-gradient(135deg, rgba(44, 90, 160, 0.12) 0%, rgba(26, 127, 92, 0.12) 100%);padding:20px;border-radius:20px;margin-bottom:25px;border-right:5px solid var(--accent-blue);">
-        <h3 style="color:var(--accent-blue);margin-bottom:15px;font-size:1.5rem;"><i class="fas fa-exclamation-circle"></i> تعليمات هامة لجميع الطالبات</h3>
-        <p style="color:var(--text-color);font-weight:600;font-size:1.1rem;line-height:1.6;">يرجى الاطلاع على التعليمات التالية بعناية والالتزام بها لضمان سير الاختبارات بسلاسة ونجاح جميع الطالبات.</p>
+      <div style="background:rgba(0,86,166,0.06);padding:16px;border-radius:12px;margin-bottom:20px;border-right:4px solid var(--primary-color);">
+        <h3 style="color:var(--primary-color);margin-bottom:10px;"><i class="fas fa-exclamation-circle"></i> معلومات هامة</h3>
+        <p style="color:var(--text-color);font-weight:500;">يرجى الاطلاع على التعليمات التالية بعناية والالتزام بها لضمان سير الاختبارات بسلاسة.</p>
       </div>
       
-      <div style="display:grid;gap:18px;max-height:70vh;overflow-y:auto;padding-right:15px;">
+      <div style="display:grid;gap:14px;max-height:65vh;overflow-y:auto;padding-right:8px;">
         <div class="info-row">
           <i class="fas fa-user-tie"></i>
           <div>
-            <div class="label">الزي الرسمي المدرسي</div>
-            <div class="value">الالتزام الكامل بالزي المدرسي الموحد للطالبات وفق اللوائح المدرسية</div>
+            <div class="label">الزي الرسمي</div>
+            <div class="value">الالتزام بالزي المدرسي الرسمي</div>
           </div>
         </div>
         
         <div class="info-row">
           <i class="fas fa-tools"></i>
           <div>
-            <div class="label">الأدوات اللازمة للامتحان</div>
-            <div class="value">إحضار جميع الأدوات اللازمة لأداء الامتحان: الأقلام (أزرق، أسود، رصاص)، المسطرة، الممحاة، الآلة الحاسبة المسموح بها</div>
+            <div class="label">الأدوات اللازمة</div>
+            <div class="value">إحضار جميع الأدوات اللازمة لأداء الامتحان: الأقلام، المسطرة، الممحاة، الآلة الحاسبة المسموح بها</div>
           </div>
         </div>
         
         <div class="info-row">
           <i class="fas fa-mobile-alt"></i>
           <div>
-            <div class="label">الأجهزة الإلكترونية الممنوعة</div>
-            <div class="value">يمنع منعًا باتًا إدخال الهواتف النقالة، الأجهزة الذكية، الساعات الإلكترونية، السماعات، أو أي أدوات إلكترونية غير مصرح بها</div>
+            <div class="label">الأجهزة الإلكترونية</div>
+            <div class="value">يمنع منعًا باتًا إدخال الهواتف النقالة، الأجهزة الذكية، أدوات التصوير، الساعات الإلكترونية، أو أي أدوات غير مصرح بها</div>
           </div>
         </div>
         
         <div class="info-row">
           <i class="fas fa-ban"></i>
           <div>
-            <div class="label">الأدوات الحادة والممنوعة</div>
-            <div class="value">يحظر إدخال الأسلحة، الأدوات الحادة، المواد الخطرة، أو أي أدوات قد تشكل خطراً على السلامة العامة داخل المركز الامتحاني</div>
+            <div class="label">الأدوات الحادة</div>
+            <div class="value">يحظر إدخال الأسلحة أو الأدوات الحادة أو ما يشابهها إلى داخل المركز أو القاعات الامتحانية</div>
           </div>
         </div>
         
         <div class="info-row">
           <i class="fas fa-id-card"></i>
           <div>
-            <div class="label">بطاقة الهوية الرسمية</div>
-            <div class="value">على كل طالبة إحضار بطاقة الهوية الشخصية أو البطاقة المدرسية كإثبات للهوية. بدون هوية لا يسمح بدخول القاعة</div>
+            <div class="label">بطاقة الهوية</div>
+            <div class="value">على كل طالبة إحضار بطاقة الهوية الشخصية أو جواز السفر أو رخصة القيادة</div>
           </div>
         </div>
         
         <div class="info-row">
           <i class="fas fa-clock"></i>
           <div>
-            <div class="label">مواعيد الحضور والانصراف</div>
-            <div class="value">الحضور قبل نصف ساعة على الأقل من بدء الامتحان، والتواجد في القاعة قبل 10 دقائق من البدء</div>
+            <div class="label">موعد الحضور</div>
+            <div class="value">الحضور قبل نصف ساعة على الأقل من بدء الامتحان، والتواجد في القاعة قبل 10 دقائق</div>
           </div>
         </div>
         
         <div class="info-row">
           <i class="fas fa-door-open"></i>
           <div>
-            <div class="label">قواعد الدخول والخروج</div>
-            <div class="value">لا يسمح بالدخول إلى القاعة بعد مرور 15 دقيقة من بدء الوقت. في حال التأخير، يحرم الطالب من دخول القاعة</div>
+            <div class="label">مغادرة القاعة</div>
+            <div class="value">لا يسمح بمغادرة قاعة الامتحان قبل انقضاء ثلاثة أرباع زمن الاختبار</div>
           </div>
         </div>
         
         <div class="info-row">
           <i class="fas fa-calculator"></i>
           <div>
-            <div class="label">الآلات الحاسبة المسموحة</div>
-            <div class="value">يسمح بالآلات الحاسبة العلمية العادية فقط، التي لا تكون قابلة للبرمجة والتخزين</div>
+            <div class="label">الآلات الحاسبة</div>
+            <div class="value">يسمح بالآلات الحاسبة العلمية فقط التي لا تكون قابلة للبرمجة والتخزين</div>
           </div>
         </div>
         
         <div class="info-row">
           <i class="fas fa-pen"></i>
           <div>
-            <div class="label">أدوات الكتابة والتصحيح</div>
-            <div class="value">استخدام الأقلام الجافة الزرقاء أو السوداء للإجابة. يمنع استخدام أقلام التصحيح (الوايت) على كراسة الإجابة</div>
+            <div class="label">أقلام الكتابة</div>
+            <div class="value">استخدام الأقلام الجافة الزرقاء والسوداء، ويفضل استخدام قلم رصاص في الأسئلة الموضوعية</div>
           </div>
         </div>
         
         <div class="info-row">
           <i class="fas fa-user-clock"></i>
           <div>
-            <div class="label">التعليمات أثناء الامتحان</div>
-            <div class="value">الالتزام بالهدوء التام، رفع اليد لاستدعاء الملاحظ في حالة الحاجة للمساعدة، واتباع تعليمات المراقبات بدقة</div>
+            <div class="label">التأخير عن الامتحان</div>
+            <div class="value">لا يسمح بالدخول إلى القاعة بعد مرور 15 دقيقة من بدء الوقت إلا بإذن من رئيسة المركز</div>
           </div>
         </div>
       </div>
       
-      <div style="margin-top:25px;padding:20px;background:linear-gradient(135deg, rgba(230, 180, 34, 0.18), rgba(44, 90, 160, 0.12));border-radius:20px;border:3px solid rgba(230, 180, 34, 0.35);">
-        <p style="text-align:center;font-weight:900;color:var(--dark-blue);margin:0;font-size:1.2rem;line-height:1.7;">
-          <i class="fas fa-graduation-cap" style="color:var(--gold-color);margin-left:10px;font-size:1.4rem;"></i>
-          بكل فخر واعتزاز، تتمنى أسرة مدرسة خولة بنت حكيم للتعليم الأساسي لطالباتها التوفيق والسداد في امتحاناتهن، سائلين الله أن يبارك في جهودهن ويكللها بالتفوق والتميز
-          <i class="fas fa-graduation-cap" style="color:var(--gold-color);margin-right:10px;font-size:1.4rem;"></i>
+      <div style="margin-top:20px;padding:14px;background:linear-gradient(135deg, rgba(212,175,55,0.12), rgba(42,157,143,0.08));border-radius:12px;border:1px solid rgba(212,175,55,0.25);">
+        <p style="text-align:center;font-weight:800;color:var(--dark-blue);margin:0;">
+          نرجو لجميع الطالبات التوفيق والنجاح في امتحاناتهم، ونسأل الله أن يوفق الجميع لما فيه الخير والفلاح
         </p>
       </div>
     </div>
   </div>
 
-  <!-- ✅ شاشة بيانات الاختبار اليومية - كاملة الشاشة -->
+  <!-- Modal الخيارات والإعدادات -->
+  <div id="optionsModal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <span class="close" aria-label="إغلاق">&times;</span>
+      <h2 style="text-align:center;color:var(--dark-blue);font-weight:900;margin:10px 0 18px;">الخيارات والإعدادات</h2>
+
+      <div style="display:grid;gap:12px;">
+        <button class="nav-btn instructions-btn" onclick="openDailyForBest()" style="width:100%;"><i class="fas fa-calendar-day"></i>بيانات الاختبار اليومية</button>
+        <button class="nav-btn dropdown-btn" onclick="window.print()" style="width:100%;"><i class="fas fa-print"></i>طباعة الجدول</button>
+        <button class="nav-btn" style="width:100%;background:var(--gradient-primary);" onclick="closeModal(optionsModal)"><i class="fas fa-times"></i>إغلاق</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ شاشة بيانات الاختبار اليومية Full Screen (التصميم الجديد مع العد التنازلي المدمج) -->
   <div id="dailyExamModal" class="modal daily-fullscreen" role="dialog" aria-modal="true">
     <div class="modal-content">
       <div class="close-daily-top" onclick="closeModal(dailyExamModal)" aria-label="إغلاق الشاشة">
@@ -1861,10 +1304,9 @@
       <div class="daily-header">
         <div class="daily-header-content">
           <div class="daily-main-title">امتحان دبلوم التعليم العام</div>
-          <div class="daily-sub-title">سلطنة عُمان - وزارة التربية والتعليم</div>
-          <div class="daily-sub-title">المديرية العامة للتربية والتعليم بمحافظة ظفار</div>
+          <div class="daily-sub-title">مدرسة خولة بنت حكيم للتعليم الأساسي للصفوف (9-12)</div>
           <div class="header-divider"></div>
-          <div class="daily-year-info">مدرسة خولة بنت حكيم للتعليم الأساسي - الصفوف (9-12) - العام الدراسي 2025/2026م</div>
+          <div class="daily-year-info"> العام الدراسي 2025/2026م</div>
         </div>
       </div>
 
@@ -1917,7 +1359,7 @@
             <div class="countdown-container">
               <div class="countdown-title">
                 <i class="fas fa-hourglass-half"></i>
-                <span>العد التنازلي للامتحان</span>
+                <span>العد التنازلي</span>
               </div>
               <div class="countdown-display upcoming" id="dailyCountdownDisplay">--</div>
               <div class="countdown-hint" id="dailyCountdownHint">--</div>
@@ -1929,14 +1371,16 @@
   </div>
 
   <script>
-    // العناصر الرئيسية
     const instructionsModal = document.getElementById("instructionsModal");
+    const optionsModal = document.getElementById("optionsModal");
     const dailyExamModal = document.getElementById("dailyExamModal");
+
     const instructionsBtn = document.getElementById("instructionsBtn");
     const optionsBtn = document.getElementById("optionsBtn");
+
     const closeEls = document.getElementsByClassName("close");
 
-    // عناصر شاشة اليوم
+    // عناصر شاشة اليوم الجديدة
     const dailyDayText = document.getElementById("dailyDayText");
     const dailyDayDate = document.getElementById("dailyDayDate");
     const dailyExamSubject = document.getElementById("dailyExamSubject");
@@ -1950,119 +1394,19 @@
 
     // بيانات الامتحانات
     const exams = [
-      { 
-        id: 1, 
-        day: "الأربعاء", 
-        date: "31/12/2025", 
-        subject: "اللغة العربية", 
-        time: "8:00 صباحًا - 11:00 صباحًا", 
-        start: new Date(2025, 11, 31, 8, 0, 0), 
-        end: new Date(2025, 11, 31, 11, 0, 0), 
-        duration: "3 ساعات" 
-      },
-      { 
-        id: 2, 
-        day: "الخميس", 
-        date: "1/1/2026", 
-        subject: "التربية الإسلامية", 
-        time: "8:00 صباحًا - 11:00 صباحًا", 
-        start: new Date(2026, 0, 1, 8, 0, 0), 
-        end: new Date(2026, 0, 1, 11, 0, 0), 
-        duration: "3 ساعات" 
-      },
-      { 
-        id: 3, 
-        day: "الأحد", 
-        date: "4/1/2026", 
-        subject: "الرياضيات الأساسية / الرياضيات المتقدمة", 
-        time: "8:00 صباحًا - 11:00 صباحًا", 
-        start: new Date(2026, 0, 4, 8, 0, 0), 
-        end: new Date(2026, 0, 4, 11, 0, 0), 
-        duration: "3 ساعات" 
-      },
-      { 
-        id: 4, 
-        day: "الاثنين", 
-        date: "5/1/2026", 
-        subject: "التاريخ (العالم من حولي)", 
-        time: "8:00 صباحًا - 11:00 صباحًا", 
-        start: new Date(2026, 0, 5, 8, 0, 0), 
-        end: new Date(2026, 0, 5, 11, 0, 0), 
-        duration: "3 ساعات" 
-      },
-      { 
-        id: 5, 
-        day: "الثلاثاء", 
-        date: "6/1/2026", 
-        subject: "الكيمياء", 
-        time: "8:00 صباحًا - 11:00 صباحًا", 
-        start: new Date(2026, 0, 6, 8, 0, 0), 
-        end: new Date(2026, 0, 6, 11, 0, 0), 
-        duration: "3 ساعات" 
-      },
-      { 
-        id: 6, 
-        day: "الأربعاء", 
-        date: "7/1/2026", 
-        subject: "الجغرافيا والتقنيات الحديثة", 
-        time: "8:00 صباحًا - 11:00 صباحًا", 
-        start: new Date(2026, 0, 7, 8, 0, 0), 
-        end: new Date(2026, 0, 7, 11, 0, 0), 
-        duration: "3 ساعات" 
-      },
-      { 
-        id: 7, 
-        day: "الخميس", 
-        date: "8/1/2026", 
-        subject: "الأحياء", 
-        time: "8:00 صباحًا - 11:00 صباحًا", 
-        start: new Date(2026, 0, 8, 8, 0, 0), 
-        end: new Date(2026, 0, 8, 11, 0, 0), 
-        duration: "3 ساعات" 
-      },
-      { 
-        id: 8, 
-        day: "الأحد", 
-        date: "11/1/2026", 
-        subject: "الفيزياء", 
-        time: "8:00 صباحًا - 11:00 صباحًا", 
-        start: new Date(2026, 0, 11, 8, 0, 0), 
-        end: new Date(2026, 0, 11, 11, 0, 0), 
-        duration: "3 ساعات" 
-      },
-      { 
-        id: 9, 
-        day: "الإثنين", 
-        date: "12/1/2026", 
-        subject: "العلوم والبيئة", 
-        time: "8:00 صباحًا - 11:00 صباحًا", 
-        start: new Date(2026, 0, 12, 8, 0, 0), 
-        end: new Date(2026, 0, 12, 11, 0, 0), 
-        duration: "3 ساعات" 
-      },
-      { 
-        id: 10, 
-        day: "الثلاثاء", 
-        date: "13/1/2026", 
-        subject: "اللغة الإنجليزية", 
-        time: "8:00 صباحًا - 11:00 صباحًا", 
-        start: new Date(2026, 0, 13, 8, 0, 0), 
-        end: new Date(2026, 0, 13, 11, 0, 0), 
-        duration: "3 ساعات" 
-      },
-      { 
-        id: 11, 
-        day: "الأربعاء", 
-        date: "14/1/2026", 
-        subject: "الدراسات الاجتماعية (هذا وطني)", 
-        time: "8:00 صباحًا - 11:00 صباحًا", 
-        start: new Date(2026, 0, 14, 8, 0, 0), 
-        end: new Date(2026, 0, 14, 11, 0, 0), 
-        duration: "3 ساعات" 
-      },
+      { id: 1, day: "الأربعاء", date: "31/12/2025", subject: "اللغة العربية", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2025, 11, 31, 8, 0, 0), end: new Date(2025, 11, 31, 11, 0, 0), duration: "3 ساعات" },
+      { id: 2, day: "الخميس", date: "1/1/2026", subject: "التربية الإسلامية", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 1, 8, 0, 0), end: new Date(2026, 0, 1, 11, 0, 0), duration: "3 ساعات" },
+      { id: 3, day: "الأحد", date: "4/1/2026", subject: "الرياضيات الأساسية / الرياضيات المتقدمة", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 4, 8, 0, 0), end: new Date(2026, 0, 4, 11, 0, 0), duration: "3 ساعات" },
+      { id: 4, day: "الاثنين", date: "5/1/2026", subject: "التاريخ (العالم من حولي)", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 5, 8, 0, 0), end: new Date(2026, 0, 5, 11, 0, 0), duration: "3 ساعات" },
+      { id: 5, day: "الثلاثاء", date: "6/1/2026", subject: "الكيمياء", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 6, 8, 0, 0), end: new Date(2026, 0, 6, 11, 0, 0), duration: "3 ساعات" },
+      { id: 6, day: "الأربعاء", date: "7/1/2026", subject: "الجغرافيا والتقنيات الحديثة", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 7, 8, 0, 0), end: new Date(2026, 0, 7, 11, 0, 0), duration: "3 ساعات" },
+      { id: 7, day: "الخميس", date: "8/1/2026", subject: "الأحياء", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 8, 8, 0, 0), end: new Date(2026, 0, 8, 11, 0, 0), duration: "3 ساعات" },
+      { id: 8, day: "الأحد", date: "11/1/2026", subject: "الفيزياء", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 11, 8, 0, 0), end: new Date(2026, 0, 11, 11, 0, 0), duration: "3 ساعات" },
+      { id: 9, day: "الإثنين", date: "12/1/2026", subject: "العلوم والبيئة", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 12, 8, 0, 0), end: new Date(2026, 0, 12, 11, 0, 0), duration: "3 ساعات" },
+      { id: 10, day: "الثلاثاء", date: "13/1/2026", subject: "اللغة الإنجليزية", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 13, 8, 0, 0), end: new Date(2026, 0, 13, 11, 0, 0), duration: "3 ساعات" },
+      { id: 11, day: "الأربعاء", date: "14/1/2026", subject: "الدراسات الاجتماعية (هذا وطني)", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 14, 8, 0, 0), end: new Date(2026, 0, 14, 11, 0, 0), duration: "3 ساعات" },
     ];
 
-    // وظائف فتح وإغلاق النوافذ
     function openModal(modal) {
       modal.style.display = "block";
       document.body.style.overflow = "hidden";
@@ -2073,37 +1417,36 @@
       modal.style.display = "none";
       document.body.style.overflow = "auto";
       document.documentElement.style.overflow = "auto";
-      
       if (modal === dailyExamModal && window.__dailyInt) {
         clearInterval(window.__dailyInt);
-        window.__dailyInt = null;
       }
     }
 
-    // إضافة مستمعي الأحداث
     instructionsBtn.onclick = () => openModal(instructionsModal);
-    optionsBtn.onclick = () => openDailyForBest();
+    optionsBtn.onclick = () => openModal(optionsModal);
 
     for (let i = 0; i < closeEls.length; i++) {
       closeEls[i].onclick = function() {
         if (this.closest('#instructionsModal')) closeModal(instructionsModal);
+        if (this.closest('#optionsModal')) closeModal(optionsModal);
         if (this.closest('#dailyExamModal')) closeModal(dailyExamModal);
       };
     }
 
     window.onclick = (e) => {
       if (e.target === instructionsModal) closeModal(instructionsModal);
+      if (e.target === optionsModal) closeModal(optionsModal);
       if (e.target === dailyExamModal) closeModal(dailyExamModal);
     };
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         closeModal(instructionsModal);
+        closeModal(optionsModal);
         closeModal(dailyExamModal);
       }
     });
 
-    // تحديث الوقت والتاريخ
     function updateDateTime() {
       const now = new Date();
       const timeEl = document.querySelector("#currentTime span");
@@ -2121,7 +1464,6 @@
       dateEl.textContent = `${days[now.getDay()]}، ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
     }
 
-    // تنسيق الفارق الزمني
     function formatDiff(ms) {
       const total = Math.max(0, ms);
       const days = Math.floor(total / (1000 * 60 * 60 * 24));
@@ -2138,7 +1480,27 @@
       return `${minutes} د ${seconds} ث`;
     }
 
-    // تحديث العداد التنازلي في الجدول
+    function setRowBadgeAndClass(exam, state) {
+      const row = document.getElementById(`exam${exam.id}`);
+      if (!row) return;
+
+      row.classList.remove("exam-upcoming","exam-active","exam-finished");
+      row.classList.add(`exam-${state}`);
+
+      let badge = row.querySelector(".badge");
+      if (!badge) {
+        badge = document.createElement("div");
+        badge.className = "badge";
+        row.appendChild(badge);
+      }
+      badge.classList.remove("upcoming","active","finished");
+      badge.classList.add(state);
+
+      if (state === "upcoming") badge.textContent = "قادم";
+      if (state === "active") badge.textContent = "الآن";
+      if (state === "finished") badge.textContent = "انتهى";
+    }
+
     function updateCountdowns() {
       const now = new Date();
 
@@ -2159,49 +1521,48 @@
           text.textContent = `يبدأ بعد: ${formatDiff(diff)}`;
           el.classList.add("upcoming");
           dot.classList.add("dot-upcoming");
+          setRowBadgeAndClass(exam, "upcoming");
         } else if (now >= exam.start && now <= exam.end) {
           const diff = exam.end - now;
           text.textContent = `متبقي: ${formatDiff(diff)}`;
           el.classList.add("active");
           dot.classList.add("dot-active");
           row.classList.add("exam-active-row");
+          setRowBadgeAndClass(exam, "active");
         } else {
           text.textContent = "انتهى";
           el.classList.add("finished");
           dot.classList.add("dot-finished");
+          setRowBadgeAndClass(exam, "finished");
         }
       });
     }
 
-    // فتح شاشة اليوم حسب المعرف
+    // ✅ شاشة اليوم: من زر كل بطاقة
     function openDailyForId(id) {
       const exam = exams.find(e => e.id === id);
       if (!exam) return;
       openDaily(exam);
     }
 
-    // فتح شاشة اليوم (أفضل اختيار)
+    // ✅ شاشة اليوم: أفضل اختيار (امتحان اليوم أو القادم)
     function openDailyForBest() {
       const now = new Date();
       const todayKey = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
-      
       const today = exams.find(ex => {
         const examKey = `${ex.start.getFullYear()}-${ex.start.getMonth()}-${ex.start.getDate()}`;
         return examKey === todayKey;
       });
-      
       const next = exams.find(ex => now < ex.end);
       openDaily(today || next || exams[0]);
     }
 
-    // حساب حالة الامتحان
     function computeState(exam, now) {
       if (now < exam.start) return "upcoming";
       if (now >= exam.start && now <= exam.end) return "active";
       return "finished";
     }
 
-    // عرض بيانات الامتحان في شاشة اليوم
     function renderDaily(exam) {
       const now = new Date();
       const state = computeState(exam, now);
@@ -2234,7 +1595,6 @@
       }
     }
 
-    // تحديث العد التنازلي في شاشة اليوم
     function tickDaily(exam) {
       const now = new Date();
       const state = computeState(exam, now);
@@ -2247,43 +1607,39 @@
         dailyCountdownDisplay.textContent = "انتهى";
       }
 
-      // تحديث الحالة إذا تغيرت
+      // تحديث الحالة بصرياً إذا تغيرت
       const pillState = dailyExamStatus.classList.contains("active") ? "active" :
                        dailyExamStatus.classList.contains("upcoming") ? "upcoming" : "finished";
       if (pillState !== state) renderDaily(exam);
     }
 
-    // فتح شاشة اليوم
     function openDaily(exam) {
       openModal(dailyExamModal);
       renderDaily(exam);
       tickDaily(exam);
 
-      // تنظيف أي مؤقت سابق
       if (window.__dailyInt) clearInterval(window.__dailyInt);
-      
-      // إنشاء مؤقت جديد
       window.__dailyInt = setInterval(() => tickDaily(exam), 1000);
     }
 
-    // التهيئة
     function init() {
       updateDateTime();
       updateCountdowns();
       setInterval(updateDateTime, 1000);
       setInterval(updateCountdowns, 1000);
 
-      // فتح شاشة اليوم تلقائياً إذا كان هناك امتحان نشط
+      // افتراضي: جهّز شارات الهاتف للبطاقات
+      exams.forEach(ex => setRowBadgeAndClass(ex, "upcoming"));
+      
+      // افتح شاشة اليوم تلقائياً إذا كان هناك امتحان نشط
       const now = new Date();
       const activeExam = exams.find(ex => now >= ex.start && now <= ex.end);
       if (activeExam) {
-        setTimeout(() => openDaily(activeExam), 1500);
+        setTimeout(() => openDaily(activeExam), 1000);
       }
     }
 
-    // تشغيل التهيئة عند تحميل الصفحة
     document.addEventListener("DOMContentLoaded", init);
   </script>
 </body>
 </html>
-
