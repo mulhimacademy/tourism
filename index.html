@@ -1,1822 +1,2266 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>نظام إدارة جدول امتحانات دبلوم التعليم العام | مدرسة خولة بنت حكيم للتعليم الأساسي</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسار السفر والسياحة - نظام الترشيح الذكي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-dark: #1a365d;
+            --primary-blue: #2d5aa0;
+            --accent-gold: #d4af37;
+            --accent-teal: #38b2ac;
+            --light-bg: #f8fafc;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gradient-primary: linear-gradient(135deg, #1a365d 0%, #2d5aa0 100%);
+            --gradient-accent: linear-gradient(135deg, #d4af37 0%, #fbbf24 100%);
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="https://d.top4top.io/p_36520q11g1.png">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Cairo', sans-serif;
+        }
 
-  <style>
-    :root {
-      --primary-color: #0a5c36;
-      --secondary-color: #2e8b57;
-      --accent-color: #e63946;
-      --gold-color: #d4af37;
-      --dark-green: #0d3b1e;
-      --text-color: #2d3748;
-      --text-light: #4a5568;
-      --white: #ffffff;
-      --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --border-radius: 12px;
-      --border-radius-lg: 20px;
-      --gradient-primary: linear-gradient(135deg, rgba(10, 92, 54, 0.95) 0%, rgba(13, 59, 30, 0.95) 100%);
-      --gradient-secondary: linear-gradient(135deg, #2e8b57 0%, #1d6b3e 100%);
-      --gradient-accent: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
-      --gradient-gold: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
-      --gradient-light: linear-gradient(135deg, #f0f8f4 0%, #e8f5e9 100%);
-      --glass-bg: rgba(255, 255, 255, 0.15);
-      --glass-border: rgba(255, 255, 255, 0.25);
-    }
+        body {
+            background: var(--light-bg);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(56, 178, 172, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%);
+        }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    html { scroll-behavior: smooth; overflow-x: hidden; }
-    body {
-      font-family: 'Tajawal', 'Noto Naskh Arabic', sans-serif;
-      background: linear-gradient(135deg, #f0f8f4 0%, #e8f5e9 100%);
-      color: var(--text-color);
-      line-height: 1.7;
-      overflow-x: hidden;
-      min-height: 100vh;
-      width: 100%;
-      max-width: 100%;
-    }
+        /* تصميم الهيدر المميز */
+        .main-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
 
-    .container { max-width: 1400px; margin: 0 auto; padding: 0 18px; width: 100%; }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* إضافة الشعار المضيء */
-    .logo-container {
-      text-align: center;
-      margin-bottom: 20px;
-      animation: floatLogo 6s ease-in-out infinite;
-    }
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
 
-    .logo-img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid var(--gold-color);
-      box-shadow: 
-        0 0 30px rgba(212, 175, 55, 0.6),
-        0 0 60px rgba(10, 92, 54, 0.4),
-        inset 0 0 20px rgba(255, 255, 255, 0.3);
-      transition: var(--transition);
-      position: relative;
-      z-index: 10;
-    }
+        .logo-img {
+            height: 80px;
+            width: auto;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+            animation: float 3s ease-in-out infinite;
+        }
 
-    .logo-img:hover {
-      transform: scale(1.05);
-      box-shadow: 
-        0 0 40px rgba(212, 175, 55, 0.8),
-        0 0 80px rgba(10, 92, 54, 0.6),
-        inset 0 0 30px rgba(255, 255, 255, 0.5);
-    }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
 
-    .logo-glow {
-      position: absolute;
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, rgba(10, 92, 54, 0.1) 70%);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 1;
-      animation: pulseGlow 4s ease-in-out infinite;
-    }
+        .logo-text h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    @keyframes floatLogo {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
 
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
-      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-    }
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
 
-    header {
-      background: var(--gradient-primary), url('https://d.top4top.io/p_36520q11g1.png') center/cover no-repeat;
-      color: var(--white);
-      padding: 30px 0 28px;
-      text-align: center;
-      border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
-      margin-bottom: 34px;
-      position: relative;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-      overflow: hidden;
-    }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-    .header-content { padding: 0 12px; }
-    
-    h1 {
-      font-size: clamp(1.8rem, 4.8vw, 3rem);
-      font-weight: 800;
-      line-height: 1.25;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, #fff 0%, #e6ffe6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
 
-    .header-subtitle {
-      font-size: clamp(1.2rem, 3.2vw, 2rem);
-      color: var(--gold-color);
-      font-weight: 800;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      margin: 10px 0 14px;
-    }
+        .tab-btn.active {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+        }
 
-    .header-meta {
-      display: inline-block;
-      font-size: clamp(1rem, 2.2vw, 1.25rem);
-      font-weight: 700;
-      padding: 12px 22px;
-      border-radius: 999px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-      max-width: 95%;
-    }
+        /* تصميم محتوى التبويبات */
+        .tab-content {
+            display: none;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            animation: fadeIn 0.5s ease;
+        }
 
-    .school-info {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin: 14px auto 0;
-      max-width: 920px;
-      padding: 14px 18px;
-      border-radius: var(--border-radius);
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 10px 26px rgba(0,0,0,0.16);
-    }
-    
-    .info-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-    
-    .info-item i { color: var(--gold-color); font-size: 1.2rem; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .header-time-date {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin: 18px auto 0;
-      max-width: 920px;
-      padding: 14px 18px;
-      border-radius: var(--border-radius);
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 10px 26px rgba(0,0,0,0.16);
-    }
-    
-    .header-time, .header-date { display: flex; align-items: center; gap: 10px; font-weight: 800; }
-    .header-time i, .header-date i { color: var(--gold-color); font-size: 1.35rem; }
+        .tab-content.active {
+            display: block;
+        }
 
-    .main-nav {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 18px;
-      flex-wrap: wrap;
-      padding: 0 10px;
-    }
-    .nav-btn {
-      color: var(--white);
-      border: 1px solid rgba(255,255,255,0.25);
-      padding: 14px 18px;
-      border-radius: 14px;
-      font-size: 1.05rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: var(--transition);
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      min-height: 52px;
-      width: min(330px, 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .nav-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: 0.5s;
-    }
-    
-    .nav-btn:hover::before {
-      left: 100%;
-    }
-    
-    .nav-btn:hover { 
-      transform: translateY(-3px); 
-      box-shadow: 0 14px 26px rgba(0,0,0,0.22);
-    }
-    
-    .instructions-btn { 
-      background: var(--gradient-secondary);
-    }
-    
-    .dropdown-btn { 
-      background: var(--gradient-gold);
-    }
+        /* تصميم بطاقة النموذج */
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
 
-    .exam-table-container {
-      background: var(--white);
-      border-radius: var(--border-radius-lg);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      border: 1px solid rgba(0,0,0,0.06);
-      width: 100%;
-      max-width: 100%;
-      margin-bottom: 50px;
-    }
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
 
-    .exam-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 800px; }
-    .exam-table th {
-      background: var(--gradient-primary);
-      color: var(--white);
-      padding: 16px 12px;
-      text-align: center;
-      font-weight: 900;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      white-space: nowrap;
-    }
-    .exam-table td { padding: 14px 12px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.08); }
+        .form-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
 
-    .countdown {
-      font-weight: 900;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-size: 1rem;
-      padding: 10px 14px;
-      border-radius: 999px;
-      min-width: 230px;
-      border: 2px solid rgba(0,0,0,0.06);
-      transition: var(--transition);
-    }
-    
-    .countdown:hover {
-      transform: scale(1.02);
-    }
-    
-    .countdown.upcoming { 
-      background: rgba(46, 139, 87, 0.14); 
-      color: var(--secondary-color); 
-      border-color: rgba(46, 139, 87, 0.25); 
-    }
-    
-    .countdown.active { 
-      background: rgba(230, 57, 70, 0.14); 
-      color: var(--accent-color); 
-      border-color: rgba(230, 57, 70, 0.25); 
-      animation: pulse 1.8s infinite; 
-    }
-    
-    .countdown.finished { 
-      background: rgba(100,116,139,0.12); 
-      color: #64748b; 
-      border-color: rgba(100,116,139,0.18); 
-    }
+        .form-header h2 {
+            color: var(--primary-dark);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
 
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      display: inline-block;
-      box-shadow: 0 0 0 4px rgba(0,0,0,0.04);
-    }
-    
-    .dot-upcoming { background: var(--secondary-color); }
-    .dot-active { background: var(--accent-color); }
-    .dot-finished { background: #94a3b8; }
+        .form-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
 
-    .holiday { background: rgba(230, 57, 70, 0.06); color: var(--accent-color); }
-    .holiday td { font-weight: 900; }
+        /* تصميم خطوات التسجيل */
+        .form-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            position: relative;
+        }
 
-    .exam-active-row { background: rgba(230, 57, 70, 0.06) !important; }
+        .form-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: #e5e7eb;
+            z-index: 1;
+        }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(230,57,70,0.25); }
-      70% { box-shadow: 0 0 0 10px rgba(230,57,70,0); }
-      100% { box-shadow: 0 0 0 0 rgba(230,57,70,0); }
-    }
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
 
-    footer {
-      text-align: center;
-      padding: 36px 14px;
-      background: var(--gradient-primary), url('https://d.top4top.io/p_36520q11g1.png') center/cover no-repeat;
-      color: var(--white);
-      border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
-      box-shadow: 0 -10px 30px rgba(0,0,0,0.12);
-    }
-    
-    footer strong { color: var(--gold-color); }
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            color: #9ca3af;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
 
-    .whatsapp-link {
-      margin-top: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      color: var(--gold-color);
-      text-decoration: none;
-      font-weight: 900;
-      padding: 12px 18px;
-      border-radius: 999px;
-      border: 2px solid rgba(255,255,255,0.25);
-      background: rgba(255,255,255,0.14);
-      width: min(360px, 100%);
-      transition: var(--transition);
-    }
-    
-    .whatsapp-link:hover {
-      background: rgba(255,255,255,0.25);
-      transform: translateY(-2px);
-    }
-    
-    .whatsapp-icon { color: #25D366; font-size: 1.5rem; }
+        .step.active .step-icon {
+            background: var(--accent-teal);
+            border-color: var(--accent-teal);
+            color: white;
+            transform: scale(1.1);
+        }
 
-    /* ✅ الهاتف: بطاقات إبداعية وواضحة + تمييز كل يوم عن الثاني + "انتهى" واضح */
-    @media (max-width: 768px) {
-      .logo-img {
-        width: 100px;
-        height: 100px;
-      }
-      
-      .logo-glow {
-        width: 120px;
-        height: 120px;
-      }
-      
-      .exam-table-container { padding: 12px; }
-      .exam-table { min-width: 0 !important; width: 100% !important; display: block; }
-      .exam-table thead { display: none; }
-      .exam-table tbody { display: block; width: 100%; }
+        .step.completed .step-icon {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
 
-      .exam-table tr {
-        display: block;
-        position: relative;
-        background: #fff;
-        border-radius: 18px;
-        overflow: hidden;
-        margin: 0 0 14px 0;
-        border: 1px solid rgba(0,0,0,0.06);
-        box-shadow: 0 14px 28px rgba(0,0,0,0.10);
-        transform: translateZ(0);
-      }
+        .step-label {
+            font-size: 0.9rem;
+            color: #6b7280;
+            text-align: center;
+        }
 
-      /* شريط علوي يميز اليوم */
-      .exam-table tr::before {
-        content: "";
-        position: absolute;
-        inset: 0 0 auto 0;
-        height: 7px;
-        background: var(--gradient-primary);
-      }
+        .step.active .step-label {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
 
-      /* شارة حالة كبيرة */
-      .badge {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        padding: 6px 12px;
-        border-radius: 999px;
-        font-weight: 900;
-        font-size: 0.95rem;
-        border: 1px solid rgba(255,255,255,0.25);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        box-shadow: 0 10px 18px rgba(0,0,0,0.12);
-      }
-      
-      .badge.upcoming { background: rgba(46,139,87,0.16); color: var(--secondary-color); }
-      .badge.active { background: rgba(230,57,70,0.16); color: var(--accent-color); }
-      .badge.finished { background: rgba(100,116,139,0.14); color: #64748b; }
+        /* تصميم أقسام النموذج */
+        .form-section {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: 15px;
+            border-right: 4px solid var(--accent-teal);
+            transition: transform 0.3s ease;
+        }
 
-      .exam-table tr.holiday::before { background: var(--gradient-accent); }
-      .exam-table tr.holiday .badge { display: none; }
+        .form-section:hover {
+            transform: translateX(-5px);
+        }
 
-      .exam-table tr.exam-finished::before { background: linear-gradient(135deg, #64748b 0%, #94a3b8 100%); }
-      .exam-table tr.exam-upcoming::before { background: var(--gradient-secondary); }
-      .exam-table tr.exam-active::before { background: var(--gradient-accent); }
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
 
-      .exam-table td {
-        display: grid;
-        grid-template-columns: 110px 1fr;
-        gap: 10px;
-        text-align: right !important;
-        width: 100%;
-        padding: 14px 14px;
-        border-bottom: 1px dashed rgba(0,0,0,0.10);
-        align-items: start;
-      }
-      
-      .exam-table td:last-child { border-bottom: none; }
+        .section-title i {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
 
-      .exam-table td::before {
-        content: attr(data-label);
-        font-weight: 900;
-        color: var(--dark-green);
-        font-size: 1rem;
-        opacity: 0.9;
-      }
+        /* تصميم الحقول */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
 
-      .exam-table td > * { text-align: right; }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
 
-      /* وضع العداد في سطر كامل */
-      .exam-table td[data-label="الحالة"] {
-        grid-template-columns: 1fr;
-      }
-      
-      .exam-table td[data-label="الحالة"]::before { display: none; }
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-      .countdown {
-        width: 100% !important;
-        min-width: 0 !important;
-        justify-content: flex-start !important;
-        padding: 12px 14px;
-        border-radius: 14px;
-        display: flex;
-        gap: 10px;
-      }
+        .form-label i {
+            color: var(--accent-teal);
+        }
 
-      /* زر/لمسة لفتح شاشة اليوم */
-      .open-daily {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        width: 100%;
-        margin-top: 8px;
-        padding: 12px 14px;
-        border-radius: 14px;
-        background: var(--gradient-gold);
-        border: none;
-        color: white;
-        font-weight: 900;
-        cursor: pointer;
-        box-shadow: 0 10px 22px rgba(0,0,0,0.14);
-        transition: var(--transition);
-      }
-      
-      .open-daily:hover {
-        transform: translateY(-2px);
-      }
-      
-      .open-daily:active { transform: scale(0.98); }
-      
-      .school-info {
-        flex-direction: column;
-        gap: 12px;
-        padding: 12px;
-      }
-    }
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
 
-    /* Modals */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      inset: 0;
-      background: rgba(0,0,0,0.78);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 12px;
-    }
-    
-    .modal-content {
-      background: white;
-      width: min(900px, 100%);
-      margin: 0 auto;
-      border-radius: 20px;
-      padding: 22px;
-      max-height: 92vh;
-      overflow: auto;
-      position: relative;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-    }
-    
-    .close {
-      position: sticky;
-      top: 0;
-      float: left;
-      width: 42px;
-      height: 42px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      cursor: pointer;
-      background: rgba(0,0,0,0.06);
-      transition: var(--transition);
-    }
-    
-    .close:hover { 
-      background: var(--accent-color); 
-      color: white; 
-      transform: rotate(90deg);
-    }
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.1);
+        }
 
-    /* ✅ شاشة بيانات الاختبار اليومية - التصميم الجديد مع العد التنازلي المدمج */
-    .daily-fullscreen .modal-content {
-      width: 100%;
-      height: 100%;
-      max-height: 100vh;
-      border-radius: 0;
-      padding: 0;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      background: linear-gradient(135deg, #f0f8f4 0%, #e8f5e9 100%);
-    }
-    
-    .daily-header {
-      background: var(--gradient-primary), url('https://d.top4top.io/p_36520q11g1.png') center/cover no-repeat;
-      color: white;
-      padding: 25px 20px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      border-bottom: 3px solid var(--gold-color);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-      min-height: 150px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .daily-header::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(13, 59, 30, 0.85) 0%, rgba(10, 92, 54, 0.85) 100%);
-    }
-    
-    .daily-header-content {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 1000px;
-    }
-    
-    /* ✅ تكبير العنوان ليكون بارزًا على الشاشة */
-    .daily-main-title {
-      font-size: clamp(2rem, 5vw, 3rem) !important;
-      font-weight: 900;
-      margin-bottom: 8px;
-      text-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-      color: white;
-      line-height: 1.2;
-      letter-spacing: -0.5px;
-      max-width: 95%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .daily-sub-title {
-      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--gold-color);
-      opacity: 0.95;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-    
-    .daily-year-info {
-      font-size: clamp(0.9rem, 1.8vw, 1.1rem);
-      font-weight: 600;
-      background: rgba(255, 255, 255, 0.2);
-      display: inline-block;
-      padding: 8px 18px;
-      border-radius: 50px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      margin-top: 8px;
-    }
-    
-    .header-divider {
-      width: 120px;
-      height: 4px;
-      background: var(--gold-color);
-      margin: 15px auto;
-      border-radius: 2px;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .header-divider::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 40px;
-      height: 100%;
-      background: white;
-      animation: shine 2s infinite;
-    }
-    
-    @keyframes shine {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(300%); }
-    }
-    
-    .daily-body {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    
-    /* ✅ جعل العد التنازلي بجانب البيانات في نفس النسق */
-    .exam-status-container {
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      gap: 15px;
-      margin-bottom: 25px;
-      flex-wrap: wrap;
-      width: 100%;
-      max-width: 900px;
-    }
-    
-    .exam-day-display {
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: var(--dark-green);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 15px 20px;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      border: 2px solid rgba(10, 92, 54, 0.1);
-      flex: 1;
-      min-width: 250px;
-      justify-content: center;
-      transition: var(--transition);
-    }
-    
-    .exam-day-display:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-    }
-    
-    .exam-day-display i {
-      color: var(--primary-color);
-      font-size: 1.5rem;
-    }
-    
-    .exam-status-badge {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 15px 20px;
-      border-radius: 16px;
-      font-weight: 900;
-      font-size: 1.1rem;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-      flex: 1;
-      min-width: 250px;
-      justify-content: center;
-      transition: var(--transition);
-    }
-    
-    .exam-status-badge:hover {
-      transform: translateY(-3px);
-    }
-    
-    .exam-status-badge.upcoming {
-      background: var(--gradient-secondary);
-      color: white;
-    }
-    
-    .exam-status-badge.active {
-      background: var(--gradient-accent);
-      color: white;
-      animation: pulse 2s infinite;
-    }
-    
-    .exam-status-badge.finished {
-      background: linear-gradient(135deg, #64748b 0%, #94a3b8 100%);
-      color: white;
-    }
-    
-    /* ✅ إعادة تصميم حاوية البيانات الرئيسية لتشمل العد التنازلي */
-    .exam-data-container {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      margin: 0 auto;
-      width: 100%;
-      max-width: 900px;
-      transition: var(--transition);
-    }
-    
-    .exam-data-container:hover {
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    }
-    
-    .exam-subject {
-      font-size: 2.2rem !important;
-      font-weight: 900;
-      color: var(--dark-green);
-      text-align: center;
-      margin-bottom: 30px;
-      padding-bottom: 20px;
-      border-bottom: 3px dashed rgba(10, 92, 54, 0.2);
-      line-height: 1.4;
-    }
-    
-    /* ✅ إعادة تصميم شبكة التفاصيل لتشمل العد التنازلي */
-    .exam-details-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-      margin-bottom: 25px;
-    }
-    
-    .exam-detail-item {
-      background: linear-gradient(135deg, rgba(10, 92, 54, 0.05) 0%, rgba(46, 139, 87, 0.05) 100%);
-      border-radius: 16px;
-      padding: 25px 20px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    
-    .exam-detail-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-    
-    .exam-detail-item::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 6px;
-      height: 100%;
-      background: var(--primary-color);
-    }
-    
-    .detail-label {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text-light);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .detail-label i {
-      color: var(--primary-color);
-      font-size: 1.2rem;
-    }
-    
-    .detail-value {
-      font-size: 1.6rem !important;
-      font-weight: 900;
-      color: var(--dark-green);
-      line-height: 1.3;
-      margin-bottom: 15px;
-    }
-    
-    /* ✅ العد التنازلي كجزء من بيانات الامتحان */
-    .countdown-container {
-      grid-column: 1 / -1;
-      margin-top: 10px;
-    }
-    
-    .countdown-title {
-      font-size: 1.4rem;
-      font-weight: 900;
-      color: var(--dark-green);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid rgba(10, 92, 54, 0.1);
-    }
-    
-    .countdown-title i {
-      color: var(--accent-color);
-      font-size: 1.4rem;
-    }
-    
-    .countdown-display {
-      font-family: 'Tajawal', monospace;
-      font-size: clamp(2rem, 4vw, 2.8rem) !important;
-      font-weight: 900;
-      padding: 25px 20px;
-      border-radius: 16px;
-      margin: 15px 0;
-      background: linear-gradient(135deg, #f0f8f4 0%, #e8f5e9 100%);
-      border: 3px solid rgba(10, 92, 54, 0.15);
-      color: var(--dark-green);
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      direction: ltr;
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      min-height: 120px;
-      text-align: center;
-      transition: var(--transition);
-    }
-    
-    .countdown-display:hover {
-      transform: scale(1.02);
-    }
-    
-    .countdown-display.upcoming {
-      border-color: rgba(46, 139, 87, 0.4);
-      color: var(--secondary-color);
-      background: linear-gradient(135deg, rgba(46, 139, 87, 0.1) 0%, rgba(46, 139, 87, 0.05) 100%);
-    }
-    
-    .countdown-display.active {
-      border-color: rgba(230, 57, 70, 0.4);
-      color: var(--accent-color);
-      background: linear-gradient(135deg, rgba(230, 57, 70, 0.1) 0%, rgba(230, 57, 70, 0.05) 100%);
-      animation: pulse-border 1.5s infinite;
-    }
-    
-    .countdown-display.finished {
-      border-color: rgba(100, 116, 139, 0.4);
-      color: #64748b;
-      background: linear-gradient(135deg, rgba(100, 116, 139, 0.1) 0%, rgba(100, 116, 139, 0.05) 100%);
-    }
-    
-    .countdown-hint {
-      font-size: 1.1rem;
-      color: var(--text-light);
-      text-align: center;
-      margin-top: 10px;
-      font-weight: 600;
-      padding: 10px 15px;
-      background: rgba(10, 92, 54, 0.05);
-      border-radius: 10px;
-      border: 1px solid rgba(10, 92, 54, 0.1);
-    }
-    
-    @keyframes pulse-border {
-      0% { border-color: rgba(230, 57, 70, 0.4); }
-      50% { border-color: rgba(230, 57, 70, 0.8); }
-      100% { border-color: rgba(230, 57, 70, 0.4); }
-    }
-    
-    .close-daily-top {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      z-index: 100;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.2);
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: var(--transition);
-    }
-    
-    .close-daily-top:hover {
-      background: rgba(230, 57, 70, 0.8);
-      transform: rotate(90deg);
-    }
-    
-    .info-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 14px;
-      background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(240, 248, 255, 0.8) 100%);
-      border-radius: 14px;
-      border: 1px solid rgba(10, 92, 54, 0.1);
-      margin-bottom: 12px;
-      transition: var(--transition);
-    }
-    
-    .info-row:hover {
-      transform: translateX(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .info-row i {
-      color: var(--primary-color);
-      font-size: 1.3rem;
-      margin-top: 4px;
-      flex-shrink: 0;
-    }
-    
-    .info-row .label {
-      font-weight: 800;
-      color: var(--dark-green);
-      margin-bottom: 4px;
-      font-size: 1.05rem;
-    }
-    
-    .info-row .value {
-      color: var(--text-color);
-      font-weight: 500;
-      line-height: 1.6;
-    }
-    
-    /* تحسينات للهواتف */
-    @media (max-width: 768px) {
-      .daily-header {
-        padding: 20px 15px;
-        min-height: 140px;
-      }
-      
-      .daily-main-title {
-        font-size: 1.8rem !important;
-      }
-      
-      .daily-sub-title {
-        font-size: 1.2rem;
-      }
-      
-      .daily-year-info {
-        font-size: 0.9rem;
-        padding: 6px 14px;
-      }
-      
-      .header-divider {
-        width: 100px;
-        height: 3px;
-        margin: 12px auto;
-      }
-      
-      .exam-status-container {
-        flex-direction: column;
-        gap: 12px;
-        margin-bottom: 20px;
-      }
-      
-      .exam-day-display {
-        font-size: 1.6rem;
-        padding: 12px 15px;
-        width: 100%;
-        min-width: unset;
-      }
-      
-      .exam-status-badge {
-        padding: 12px 15px;
-        width: 100%;
-        min-width: unset;
-        font-size: 1.1rem;
-      }
-      
-      .exam-data-container {
-        padding: 20px 15px;
-        margin-bottom: 15px;
-        border-radius: 16px;
-      }
-      
-      .exam-subject {
-        font-size: 1.8rem !important;
-        margin-bottom: 20px;
-      }
-      
-      .exam-details-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-      }
-      
-      .exam-detail-item {
-        padding: 18px 15px;
-      }
-      
-      .detail-value {
-        font-size: 1.4rem !important;
-      }
-      
-      .countdown-title {
-        font-size: 1.3rem;
-      }
-      
-      .countdown-display {
-        font-size: 1.8rem !important;
-        padding: 20px 15px;
-        min-height: 90px;
-      }
-      
-      .close-daily-top {
-        top: 10px;
-        left: 10px;
-        width: 40px;
-        height: 40px;
-        font-size: 1.3rem;
-      }
-      
-      .countdown-hint {
-        font-size: 1rem;
-        padding: 8px 12px;
-      }
-    }
-    
-    /* تصغير حجم الهيدر لجعل كل شيء ظاهر */
-    @media (max-height: 700px) {
-      .daily-header {
-        min-height: 130px;
-        padding: 15px 20px;
-      }
-      
-      .daily-main-title {
-        font-size: 1.6rem !important;
-      }
-      
-      .daily-sub-title {
-        font-size: 1.1rem;
-      }
-      
-      .exam-subject {
-        font-size: 1.6rem !important;
-      }
-      
-      .detail-value {
-        font-size: 1.3rem !important;
-      }
-      
-      .countdown-display {
-        font-size: 1.6rem !important;
-        padding: 18px 15px;
-        min-height: 80px;
-      }
-    }
-  </style>
+        /* تصميم أسئلة الميول */
+        .question-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent-teal);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            background: #f3f4f6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .option-label:hover {
+            background: #e5e7eb;
+        }
+
+        .option-label.selected {
+            background: var(--accent-teal);
+            color: white;
+            border-color: var(--accent-teal);
+        }
+
+        .option-input {
+            margin-left: 0.75rem;
+        }
+
+        /* تصميم رفع الملفات */
+        .upload-container {
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            background: #fafafa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-container:hover, .upload-container.dragover {
+            border-color: var(--accent-teal);
+            background: rgba(56, 178, 172, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--accent-teal);
+            margin-bottom: 1rem;
+        }
+
+        /* تصميم الأزرار */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 54, 93, 0.2);
+        }
+
+        .btn-accent {
+            background: var(--gradient-accent);
+            color: var(--primary-dark);
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* تصميم لوحة التحكم */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .stat-content h3 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-content p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* تصميم جدول الطلبات */
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+        }
+
+        .table-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: #f9fafb;
+            padding: 1rem 1.5rem;
+            text-align: right;
+            color: var(--primary-dark);
+            font-weight: 600;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .data-table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .data-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-accepted {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-waiting {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-pending {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        /* تصميم البحث والفلترة */
+        .filters-bar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-teal);
+        }
+
+        /* تصميم إشعارات النتائج */
+        .result-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .result-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .result-modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .nav-tabs {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .form-steps::before {
+                left: 15%;
+                right: 15%;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+        }
+
+        /* تصميم التقدم */
+        .progress-container {
+            background: #f3f4f6;
+            border-radius: 10px;
+            height: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient-accent);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        /* تصميم فهرس الألوان */
+        .color-palette {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .color-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+        }
+
+        .color-dark { background: var(--primary-dark); }
+        .color-blue { background: var(--primary-blue); }
+        .color-gold { background: var(--accent-gold); }
+        .color-teal { background: var(--accent-teal); }
+
+        /* تصميم الرسوم البيانية */
+        .chart-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        /* تصميم التنبيهات */
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-right: 4px solid #10b981;
+        }
+
+        .alert-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border-right: 4px solid #f59e0b;
+        }
+
+        .alert-info {
+            background: #e0f2fe;
+            color: #0369a1;
+            border-right: 4px solid #0ea5e9;
+        }
+
+        /* تصميم البطاقات المتألقة */
+        .glowing-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glowing-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
+        }
+
+        /* تحسينات إضافية */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 0.5rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* تصميم النقرات */
+        .clickable {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .clickable:active {
+            transform: scale(0.95);
+        }
+
+        /* تحسينات النص */
+        .highlight {
+            background: linear-gradient(120deg, var(--accent-gold) 0%, var(--accent-gold) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.4em;
+            background-position: 0 88%;
+            padding: 0 0.2rem;
+        }
+
+        /* تصميم الفوتر */
+        .main-footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-gold);
+        }
+
+        .copyright {
+            margin-top: 1.5rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
-
 <body>
-  <div class="container">
-    <header>
-      <!-- إضافة الشعار المضيء -->
-      <div class="logo-container">
-        <div class="logo-glow"></div>
-        <img src="https://d.top4top.io/p_36520q11g1.png" alt="شعار المدرسة" class="logo-img">
-      </div>
-      
-      <div class="header-content">
-        <h1>نظام إدارة جدول امتحانات دبلوم التعليم العام</h1>
-        <div class="header-subtitle">مدرسة خولة بنت حكيم للتعليم الاساسي للصفوف (9-12)</div>
-        <div class="header-meta"> الفصل الدراسي الأول - الدور الأول 2025/2026</div>
-
-        <div class="school-info">
-          <div class="info-item">
-            <i class="fas fa-user-tie"></i>
-            <span>مديرة المدرسة: أ. ليلى المسهلي</span>
-          </div>
-          <div class="info-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>سلطنة عمان - محافظة ظفار- صلالة</span>
-          </div>
-          <div class="info-item">
-            <i class="fas fa-phone"></i>
-            <span>هاتف المدرسة: 23212367</span>
-          </div>
+    <!-- الهيدر الرئيسي -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="https://f.top4top.io/p_3674xpg8w1.png" alt="شعار المدرسة" class="logo-img" id="dynamicLogo">
+                <div class="logo-text">
+                    <h1>مسار السفر والسياحة</h1>
+                    <p>نظام الترشيح الذكي المتقدم</p>
+                </div>
+            </div>
+            
+            <div class="nav-tabs" id="mainTabs">
+                <button class="tab-btn active" data-tab="registration">
+                    <i class="fas fa-user-plus"></i> تسجيل جديد
+                </button>
+                <button class="tab-btn" data-tab="status">
+                    <i class="fas fa-search"></i> متابعة الطلب
+                </button>
+                <button class="tab-btn" data-tab="dashboard">
+                    <i class="fas fa-chart-line"></i> لوحة التحكم
+                </button>
+                <button class="tab-btn" data-tab="instructions">
+                    <i class="fas fa-info-circle"></i> التعليمات
+                </button>
+            </div>
         </div>
-
-        <div class="header-time-date">
-          <div class="header-time" id="currentTime"><i class="fas fa-clock"></i><span>--</span></div>
-          <div class="header-date" id="currentDate"><i class="fas fa-calendar-alt"></i><span>--</span></div>
-        </div>
-
-        <div class="main-nav">
-          <button class="nav-btn instructions-btn" id="instructionsBtn"><i class="fas fa-info-circle"></i>تعليمات الاختبار</button>
-          <button class="nav-btn dropdown-btn" id="optionsBtn"><i class="fas fa-cogs"></i>بيانات الاختبار اليومية</button>
-        </div>
-      </div>
     </header>
 
-    <div class="exam-table-container">
-      <table class="exam-table">
-        <thead>
-          <tr>
-            <th>اليوم</th>
-            <th>التاريخ</th>
-            <th>المادة</th>
-            <th>وقت الامتحان</th>
-            <th>الحالة</th>
-          </tr>
-        </thead>
+    <!-- محتوى تبويب التسجيل -->
+    <section class="tab-content active" id="registrationTab">
+        <div class="form-card glowing-card">
+            <div class="form-header">
+                <h2><span class="highlight">نموذج التسجيل</span> في برنامج السفر والسياحة</h2>
+                <p>سجلي الآن وكوني جزءًا من رحلة التعليم التطبيقي المميزة</p>
+            </div>
 
-        <tbody>
-          <tr id="exam1">
-            <td data-label="اليوم">الأربعاء</td>
-            <td data-label="التاريخ">31/12/2025</td>
-            <td data-label="المادة"><strong>اللغة العربية</strong></td>
-            <td data-label="وقت الامتحان">8:00 صباحًا - 11:00 صباحًا</td>
-            <td data-label="الحالة">
-              <div class="countdown upcoming" id="countdown1">
-                <span class="status-dot dot-upcoming"></span>
-                <span class="countdown-text">--</span>
-              </div>
-              <button class="open-daily" onclick="openDailyForId(1)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
-            </td>
-          </tr>
+            <!-- خطوات التسجيل -->
+            <div class="form-steps">
+                <div class="step active" id="step1">
+                    <div class="step-icon">1</div>
+                    <span class="step-label">البيانات الأساسية</span>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-icon">2</div>
+                    <span class="step-label">أسئلة الميول</span>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-icon">3</div>
+                    <span class="step-label">المستوى الأكاديمي</span>
+                </div>
+                <div class="step" id="step4">
+                    <div class="step-icon">4</div>
+                    <span class="step-label">التعهد والموافقة</span>
+                </div>
+            </div>
 
-          <tr id="exam2">
-            <td data-label="اليوم">الخميس</td>
-            <td data-label="التاريخ">1/1/2026</td>
-            <td data-label="المادة"><strong>التربية الإسلامية</strong></td>
-           <td data-label="وقت الامتحان">8:00 صباحًا - 11:00 صباحًا</td>
-            <td data-label="الحالة">
-              <div class="countdown upcoming" id="countdown2">
-                <span class="status-dot dot-upcoming"></span>
-                <span class="countdown-text">--</span>
-              </div>
-              <button class="open-daily" onclick="openDailyForId(2)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
-            </td>
-          </tr>
+            <!-- نموذج التسجيل -->
+            <form id="registrationForm">
+                <!-- الخطوة 1: البيانات الأساسية -->
+                <div class="form-section" id="section1">
+                    <h3 class="section-title">
+                        <i class="fas fa-user-graduate"></i>
+                        البيانات الشخصية للطالبة
+                    </h3>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="fullName">
+                                <i class="fas fa-signature"></i>
+                                الاسم الكامل للطالبة
+                            </label>
+                            <input type="text" class="form-input" id="fullName" required 
+                                   placeholder="الرجاء إدخال الاسم رباعي">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="grade">
+                                <i class="fas fa-graduation-cap"></i>
+                                الصف الدراسي
+                            </label>
+                            <select class="form-select" id="grade" required>
+                                <option value="">اختر الصف الدراسي</option>
+                                <option value="أول ثانوي">أول ثانوي</option>
+                                <option value="ثاني ثانوي">ثاني ثانوي</option>
+                                <option value="ثالث ثانوي">ثالث ثانوي</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="nationalId">
+                                <i class="fas fa-id-card"></i>
+                                الرقم المدني
+                            </label>
+                            <input type="text" class="form-input" id="nationalId" required 
+                                   placeholder="10 أرقام بدون شرطات">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="studentPhone">
+                                <i class="fas fa-phone"></i>
+                                رقم هاتف الطالبة
+                            </label>
+                            <input type="tel" class="form-input" id="studentPhone" required 
+                                   placeholder="05xxxxxxxx">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="parentName">
+                                <i class="fas fa-user-tie"></i>
+                                اسم ولي الأمر
+                            </label>
+                            <input type="text" class="form-input" id="parentName" required 
+                                   placeholder="اسم ولي الأمر كاملاً">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="parentPhone">
+                                <i class="fas fa-phone-alt"></i>
+                                رقم هاتف ولي الأمر
+                            </label>
+                            <input type="tel" class="form-input" id="parentPhone" required 
+                                   placeholder="05xxxxxxxx">
+                        </div>
+                    </div>
+                </div>
 
-          <tr class="holiday">
-            <td>الجمعة</td>
-            <td>2/1/2026</td>
-            <td colspan="3"><strong><i class="fas fa-umbrella-beach"></i> إجازة نهاية الأسبوع</strong></td>
-          </tr>
+                <!-- الخطوة 2: أسئلة الميول -->
+                <div class="form-section" id="section2" style="display: none;">
+                    <h3 class="section-title">
+                        <i class="fas fa-star"></i>
+                        أسئلة الميول الشخصية
+                    </h3>
+                    <p style="color: #666; margin-bottom: 1.5rem; font-style: italic;">
+                        <i class="fas fa-lightbulb"></i>
+                        أجيبي بكل صدق، لا توجد إجابة صحيحة أو خاطئة. كل إجابة تُحسب بنقاط تساعد في التقييم الشامل.
+                    </p>
+                    
+                    <div id="questionsContainer">
+                        <!-- سيتم إنشاء الأسئلة ديناميكيًا -->
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar" id="tendencyProgress"></div>
+                    </div>
+                    <p style="text-align: center; color: #6b7280; font-size: 0.9rem;">
+                        تقدم الإجابة على الأسئلة: <span id="progressText">0/5</span>
+                    </p>
+                </div>
 
-          <tr class="holiday">
-            <td>السبت</td>
-            <td>3/1/2026</td>
-            <td colspan="3"><strong><i class="fas fa-umbrella-beach"></i> إجازة نهاية الأسبوع</strong></td>
-          </tr>
+                <!-- الخطوة 3: المستوى الأكاديمي -->
+                <div class="form-section" id="section3" style="display: none;">
+                    <h3 class="section-title">
+                        <i class="fas fa-language"></i>
+                        المستوى الأكاديمي والمهارات
+                    </h3>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="englishScore">
+                                <i class="fas fa-award"></i>
+                                درجة اللغة الإنجليزية (من 100)
+                                <span class="tooltip">
+                                    <i class="fas fa-question-circle" style="color: var(--accent-teal);"></i>
+                                    <span class="tooltip-text">درجتك في مادة اللغة الإنجليزية في الفصل الأول</span>
+                                </span>
+                            </label>
+                            <input type="number" class="form-input" id="englishScore" min="0" max="100" required 
+                                   placeholder="أدخلي الدرجة من 100">
+                            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--accent-teal);">
+                                <i class="fas fa-calculator"></i>
+                                النقاط المكافئة: <span id="englishPoints">0</span> من 5
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-certificate"></i>
+                                رفع شهادة الفصل الأول
+                            </label>
+                            <div class="upload-container" id="certificateUpload">
+                                <div class="upload-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <p style="font-weight: 600; margin-bottom: 0.5rem;">انقري لرفع شهادة الفصل الأول</p>
+                                <p style="color: #6b7280; font-size: 0.9rem;">
+                                    صورة واضحة للشهادة تظهر المعدل والتقدير
+                                </p>
+                                <input type="file" id="certificateFile" accept="image/*,.pdf" style="display: none;">
+                                <p id="fileName" style="margin-top: 1rem; color: var(--accent-teal); font-weight: 600;"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info" style="margin-top: 1.5rem;">
+                        <i class="fas fa-info-circle"></i>
+                        <div>
+                            <strong>ملاحظة هامة:</strong> سيتم إعطاء أولوية إضافية للطالبات الحاصلات على مستوى ممتاز في اللغة الإنجليزية (90-100).
+                        </div>
+                    </div>
+                </div>
 
-          <tr id="exam3">
-            <td data-label="اليوم">الأحد</td>
-            <td data-label="التاريخ">4/1/2026</td>
-            <td data-label="المادة"><strong>الرياضيات الأساسية / الرياضيات المتقدمة</strong></td>
-            <td data-label="وقت الامتحان">8:00 صباحًا - 11:00 صباحًا</td>
-            <td data-label="الحالة">
-              <div class="countdown upcoming" id="countdown3">
-                <span class="status-dot dot-upcoming"></span>
-                <span class="countdown-text">--</span>
-              </div>
-              <button class="open-daily" onclick="openDailyForId(3)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
-            </td>
-          </tr>
+                <!-- الخطوة 4: التعهد والموافقة -->
+                <div class="form-section" id="section4" style="display: none;">
+                    <h3 class="section-title">
+                        <i class="fas fa-file-signature"></i>
+                        التعهد والموافقة النهائية
+                    </h3>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group" style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
+                            <input type="checkbox" id="studentPledge" style="margin-top: 0.3rem;" required>
+                            <label for="studentPledge" style="flex: 1;">
+                                <strong>تعهد الطالبة:</strong>
+                                أتعهد بالالتزام الكامل ببرنامج مسار السفر والسياحة، وحضور جميع المحاضرات والأنشطة والرحلات المخطط لها، والالتزام بالتعليمات واللوائح المنظمة للبرنامج.
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group" style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
+                            <input type="checkbox" id="parentApproval" style="margin-top: 0.3rem;" required>
+                            <label for="parentApproval" style="flex: 1;">
+                                <strong>موافقة ولي الأمر:</strong>
+                                أنا ولي الأمر أوافق على مشاركة ابنتي/ابني في برنامج مسار السفر والسياحة، وأتعهد بمتابعتها والتزامها بالبرنامج، وأوافق على جميع الشروط واللوائح المنظمة.
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="parentSignature">
+                            <i class="fas fa-signature"></i>
+                            توقيع ولي الأمر (الاسم الكامل)
+                        </label>
+                        <input type="text" class="form-input" id="parentSignature" required 
+                               placeholder="اكتبي الاسم الكامل كتوقيع">
+                    </div>
+                    
+                    <div class="alert alert-success" style="margin-top: 1.5rem;">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>تهانينا!</strong> أنتِ على وشك إكمال عملية التسجيل. بعد الإرسال، سيتم تقييم طلبك وإعلامك بالنتيجة خلال 48 ساعة.
+                        </div>
+                    </div>
+                </div>
 
-          <tr id="exam4">
-            <td data-label="اليوم">الاثنين</td>
-            <td data-label="التاريخ">5/1/2026</td>
-            <td data-label="المادة"><strong>التاريخ (العالم من حولي)</strong></td>
-            <td data-label="وقت الامتحان">8:00 صباحًا - 11:00 صباحًا</td>
-            <td data-label="الحالة">
-              <div class="countdown upcoming" id="countdown4">
-                <span class="status-dot dot-upcoming"></span>
-                <span class="countdown-text">--</span>
-              </div>
-              <button class="open-daily" onclick="openDailyForId(4)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
-            </td>
-          </tr>
+                <!-- أزرار التنقل -->
+                <div style="display: flex; justify-content: space-between; margin-top: 2.5rem;">
+                    <button type="button" class="btn btn-primary" id="prevBtn" style="display: none;">
+                        <i class="fas fa-arrow-right"></i> السابق
+                    </button>
+                    <button type="button" class="btn btn-accent" id="nextBtn">
+                        التالي <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">
+                        <i class="fas fa-paper-plane"></i> إرسال الطلب
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
 
-          <tr id="exam5">
-            <td data-label="اليوم">الثلاثاء</td>
-            <td data-label="التاريخ">6/1/2026</td>
-            <td data-label="المادة"><strong>الكيمياء</strong></td>
-            <td data-label="وقت الامتحان">8:00 صباحًا - 11:00 صباحًا</td>
-            <td data-label="الحالة">
-              <div class="countdown upcoming" id="countdown5">
-                <span class="status-dot dot-upcoming"></span>
-                <span class="countdown-text">--</span>
-              </div>
-              <button class="open-daily" onclick="openDailyForId(5)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
-            </td>
-          </tr>
+    <!-- محتوى تبويب متابعة الطلب -->
+    <section class="tab-content" id="statusTab">
+        <div class="form-card">
+            <div class="form-header">
+                <h2><span class="highlight">متابعة حالة الطلب</span></h2>
+                <p>ادخلي الرقم المدني لمتابعة حالة طلبك والتحقق من القبول</p>
+            </div>
+            
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div class="form-group">
+                    <label class="form-label" for="trackNationalId">
+                        <i class="fas fa-id-card"></i>
+                        الرقم المدني للطالبة
+                    </label>
+                    <div class="search-box">
+                        <input type="text" class="form-input" id="trackNationalId" 
+                               placeholder="أدخلي الرقم المدني للبحث">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                
+                <button class="btn btn-accent btn-block" id="trackBtn">
+                    <i class="fas fa-search"></i> بحث وتتبع الطلب
+                </button>
+                
+                <div id="trackResult" style="display: none; margin-top: 2rem;">
+                    <!-- سيتم عرض نتيجة التتبع هنا -->
+                </div>
+            </div>
+        </div>
+    </section>
 
-          <tr id="exam6">
-            <td data-label="اليوم">الأربعاء</td>
-            <td data-label="التاريخ">7/1/2026</td>
-            <td data-label="المادة"><strong>الجغرافيا والتقنيات الحديثة</strong></td>
-            <td data-label="وقت الامتحان">8:00 صباحًا - 11:00 صباحًا</td>
-            <td data-label="الحالة">
-              <div class="countdown upcoming" id="countdown6">
-                <span class="status-dot dot-upcoming"></span>
-                <span class="countdown-text">--</span>
-              </div>
-              <button class="open-daily" onclick="openDailyForId(6)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
-            </td>
-          </tr>
+    <!-- محتوى تبويب لوحة التحكم -->
+    <section class="tab-content" id="dashboardTab">
+        <div class="dashboard-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="totalApplications">0</h3>
+                    <p>إجمالي الطلبات</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--gradient-accent);">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="acceptedStudents">0</h3>
+                    <p>طالبات مقبولات</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, var(--accent-teal), #4fd1c7);">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="waitingStudents">0</h3>
+                    <p>في قائمة الانتظار</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="avgScore">0</h3>
+                    <p>متوسط النقاط</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="filters-bar">
+            <div class="search-box">
+                <input type="text" class="form-input" id="searchApplications" 
+                       placeholder="ابحثي بالاسم أو الرقم المدني...">
+                <i class="fas fa-search"></i>
+            </div>
+            
+            <select class="form-select" id="filterStatus" style="width: 200px;">
+                <option value="">جميع الحالات</option>
+                <option value="مقبول">مقبول</option>
+                <option value="قائمة انتظار">قائمة انتظار</option>
+                <option value="معلق">معلق</option>
+            </select>
+            
+            <select class="form-select" id="filterGrade" style="width: 180px;">
+                <option value="">جميع الصفوف</option>
+                <option value="أول ثانوي">أول ثانوي</option>
+                <option value="ثاني ثانوي">ثاني ثانوي</option>
+                <option value="ثالث ثانوي">ثالث ثانوي</option>
+            </select>
+            
+            <button class="btn btn-primary" id="exportBtn">
+                <i class="fas fa-file-export"></i> تصدير البيانات
+            </button>
+        </div>
+        
+        <div class="table-container">
+            <div class="table-header">
+                <h3 style="margin: 0; color: white;">الطلبات المقدمة</h3>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <span style="font-size: 0.9rem;">آخر تحديث: <span id="lastUpdate">الآن</span></span>
+                    <button class="btn btn-accent" id="refreshBtn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                        <i class="fas fa-sync-alt"></i> تحديث
+                    </button>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="data-table" id="applicationsTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>الاسم</th>
+                            <th>الصف</th>
+                            <th>الرقم المدني</th>
+                            <th>نقاط الميول</th>
+                            <th>نقاط الإنجليزية</th>
+                            <th>المجموع</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicationsTableBody">
+                        <!-- سيتم تعبئة البيانات ديناميكيًا -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <canvas id="applicationsChart"></canvas>
+        </div>
+    </section>
 
-          <tr id="exam7">
-            <td data-label="اليوم">الخميس</td>
-            <td data-label="التاريخ">8/1/2026</td>
-            <td data-label="المادة"><strong>الأحياء</strong></td>
-            <td data-label="وقت الامتحان">8:00 صباحًا - 11:00 صباحًا</td>
-            <td data-label="الحالة">
-              <div class="countdown upcoming" id="countdown7">
-                <span class="status-dot dot-upcoming"></span>
-                <span class="countdown-text">--</span>
-              </div>
-              <button class="open-daily" onclick="openDailyForId(7)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
-            </td>
-          </tr>
+    <!-- محتوى تبويب التعليمات -->
+    <section class="tab-content" id="instructionsTab">
+        <div class="form-card">
+            <div class="form-header">
+                <h2><span class="highlight">تعليمات وشروط</span> البرنامج</h2>
+                <p>دليل شامل للطالبات وأولياء الأمور حول برنامج السفر والسياحة</p>
+            </div>
+            
+            <div class="form-grid">
+                <div class="question-card">
+                    <h3 class="section-title" style="border: none; padding: 0; margin-bottom: 1rem;">
+                        <i class="fas fa-question-circle" style="color: var(--accent-gold);"></i>
+                        شروط القبول في البرنامج
+                    </h3>
+                    <ul style="list-style-type: none; padding-right: 1rem;">
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                            <i class="fas fa-check-circle" style="color: var(--success); margin-top: 0.2rem;"></i>
+                            <span>الحد الأدنى لمعدل اللغة الإنجليزية 50%</span>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                            <i class="fas fa-check-circle" style="color: var(--success); margin-top: 0.2rem;"></i>
+                            <span>التزام كامل بحضور الأنشطة والرحلات</span>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                            <i class="fas fa-check-circle" style="color: var(--success); margin-top: 0.2rem;"></i>
+                            <span>موافقة ولي الأمر خطياً على المشاركة</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                            <i class="fas fa-check-circle" style="color: var(--success); margin-top: 0.2rem;"></i>
+                            <span>الاكتفاء بأول 50 طالبة يتم ترشيحهن</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="question-card">
+                    <h3 class="section-title" style="border: none; padding: 0; margin-bottom: 1rem;">
+                        <i class="fas fa-calculator" style="color: var(--accent-teal);"></i>
+                        نظام النقاط والترشيح
+                    </h3>
+                    <ul style="list-style-type: none; padding-right: 1rem;">
+                        <li style="margin-bottom: 0.75rem;">
+                            <strong>أسئلة الميول:</strong> 5 أسئلة × 2 لكل إجابة = 10 نقاط كحد أقصى
+                        </li>
+                        <li style="margin-bottom: 0.75rem;">
+                            <strong>اللغة الإنجليزية:</strong> 90-100 = 5 نقاط، 80-89 = 4 نقاط، 70-79 = 3 نقاط، 60-69 = 2 نقاط، 50-59 = 1 نقطة
+                        </li>
+                        <li style="margin-bottom: 0.75rem;">
+                            <strong>الأولوية:</strong> إعطاء أولوية للطالبات الممتازات في الإنجليزية (90-100)
+                        </li>
+                        <li>
+                            <strong>الترتيب:</strong> يتم ترتيب الطلبات حسب النقاط الكلية ثم التاريخ
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="question-card">
+                    <h3 class="section-title" style="border: none; padding: 0; margin-bottom: 1rem;">
+                        <i class="fas fa-calendar-alt" style="color: var(--primary-blue);"></i>
+                        الجدول الزمني للبرنامج
+                    </h3>
+                    <ul style="list-style-type: none; padding-right: 1rem;">
+                        <li style="margin-bottom: 0.75rem; display: flex; justify-content: space-between;">
+                            <span>فتح التسجيل:</span>
+                            <strong>من اليوم حتى 15/6</strong>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; justify-content: space-between;">
+                            <span>إعلان النتائج:</span>
+                            <strong>20/6</strong>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; justify-content: space-between;">
+                            <span>بداية البرنامج:</span>
+                            <strong>1/9</strong>
+                        </li>
+                        <li style="display: flex; justify-content: space-between;">
+                            <span>الرحلات الميدانية:</span>
+                            <strong>خلال الفصل الدراسي</strong>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="question-card">
+                    <h3 class="section-title" style="border: none; padding: 0; margin-bottom: 1rem;">
+                        <i class="fas fa-headset" style="color: var(--accent-teal);"></i>
+                        الدعم والاستفسارات
+                    </h3>
+                    <ul style="list-style-type: none; padding-right: 1rem;">
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                            <i class="fas fa-phone" style="color: var(--accent-teal); margin-top: 0.2rem;"></i>
+                            <span>الدعم الفني: <strong>0112345678</strong></span>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                            <i class="fas fa-envelope" style="color: var(--accent-teal); margin-top: 0.2rem;"></i>
+                            <span>البريد الإلكتروني: <strong>tourism@school.edu.sa</strong></span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                            <i class="fas fa-clock" style="color: var(--accent-teal); margin-top: 0.2rem;"></i>
+                            <span>ساعات العمل: <strong>8 ص - 2 م (أيام الدراسة)</strong></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-          <tr class="holiday">
-            <td>الجمعة</td>
-            <td>9/1/2026</td>
-            <td colspan="3"><strong><i class="fas fa-umbrella-beach"></i> إجازة نهاية الأسبوع</strong></td>
-          </tr>
-
-          <tr class="holiday">
-            <td>السبت</td>
-            <td>10/1/2026</td>
-            <td colspan="3"><strong><i class="fas fa-umbrella-beach"></i> إجازة نهاية الأسبوع</strong></td>
-          </tr>
-
-          <tr id="exam8">
-            <td data-label="اليوم">الأحد</td>
-            <td data-label="التاريخ">11/1/2026</td>
-            <td data-label="المادة"><strong>الفيزياء</strong></td>
-            <td data-label="وقت الامتحان">8:00 صباحًا - 11:00 صباحًا</td>
-            <td data-label="الحالة">
-              <div class="countdown upcoming" id="countdown8">
-                <span class="status-dot dot-upcoming"></span>
-                <span class="countdown-text">--</span>
-              </div>
-              <button class="open-daily" onclick="openDailyForId(8)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
-            </td>
-          </tr>
-
-          <tr id="exam9">
-            <td data-label="اليوم">الإثنين</td>
-            <td data-label="التاريخ">12/1/2026</td>
-            <td data-label="المادة"><strong>العلوم والبيئة</strong></td>
-            <td data-label="وقت الامتحان">8:00 صباحًا - 11:00 صباحًا</td>
-            <td data-label="الحالة">
-              <div class="countdown upcoming" id="countdown9">
-                <span class="status-dot dot-upcoming"></span>
-                <span class="countdown-text">--</span>
-              </div>
-              <button class="open-daily" onclick="openDailyForId(9)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
-            </td>
-          </tr>
-
-          <tr id="exam10">
-            <td data-label="اليوم">الثلاثاء</td>
-            <td data-label="التاريخ">13/1/2026</td>
-            <td data-label="المادة"><strong>اللغة الإنجليزية</strong></td>
-            <td data-label="وقت الامتحان">8:00 صباحًا - 11:00 صباحًا</td>
-            <td data-label="الحالة">
-              <div class="countdown upcoming" id="countdown10">
-                <span class="status-dot dot-upcoming"></span>
-                <span class="countdown-text">--</span>
-              </div>
-              <button class="open-daily" onclick="openDailyForId(10)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
-            </td>
-          </tr>
-
-          <tr id="exam11">
-            <td data-label="اليوم">الأربعاء</td>
-            <td data-label="التاريخ">14/1/2026</td>
-            <td data-label="المادة"><strong>الدراسات الاجتماعية (هذا وطني)</strong></td>
-            <td data-label="وقت الامتحان">8:00 صباحًا - 11:00 صباحًا</td>
-            <td data-label="الحالة">
-              <div class="countdown upcoming" id="countdown11">
-                <span class="status-dot dot-upcoming"></span>
-                <span class="countdown-text">--</span>
-              </div>
-              <button class="open-daily" onclick="openDailyForId(11)"><i class="fas fa-expand"></i>عرض شاشة اليوم</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- نافذة النتائج -->
+    <div class="result-modal" id="resultModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-trophy" id="resultIcon"></i>
+            </div>
+            <h2 id="resultTitle" style="color: var(--primary-dark); margin-bottom: 1rem;"></h2>
+            <p id="resultMessage" style="color: #666; line-height: 1.6; margin-bottom: 1.5rem;"></p>
+            
+            <div style="background: #f9fafb; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                <h3 style="color: var(--primary-dark); margin-bottom: 1rem; font-size: 1.1rem;">ملخص النتائج:</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <p style="color: #6b7280; font-size: 0.9rem;">نقاط الميول</p>
+                        <p style="font-weight: bold; color: var(--accent-teal);" id="modalTendency">0/10</p>
+                    </div>
+                    <div>
+                        <p style="color: #6b7280; font-size: 0.9rem;">نقاط الإنجليزية</p>
+                        <p style="font-weight: bold; color: var(--accent-teal);" id="modalEnglish">0/5</p>
+                    </div>
+                    <div>
+                        <p style="color: #6b7280; font-size: 0.9rem;">المجموع الكلي</p>
+                        <p style="font-weight: bold; color: var(--accent-gold);" id="modalTotal">0/15</p>
+                    </div>
+                    <div>
+                        <p style="color: #6b7280; font-size: 0.9rem;">المركز</p>
+                        <p style="font-weight: bold; color: var(--accent-gold);" id="modalPosition">-</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn btn-primary" id="closeModalBtn">
+                    <i class="fas fa-check"></i> حسناً
+                </button>
+                <button class="btn btn-accent" id="printResultBtn">
+                    <i class="fas fa-print"></i> طباعة
+                </button>
+            </div>
+        </div>
     </div>
 
-    <footer>
-      <p>مدرسة خولة بنت حكيم للتعليم الأساسي - الصفوف (9-12)</p>
-      <p>مديرة المدرسة: <strong>أ. ليلى المسهلي</strong> <p>
-      <p>  هاتف المدرسة: <strong>23212367</strong></p>
-      <p>جميع الحقوق محفوظة &copy; 2025</p>
-      <a href="https://wa.me/96823212367" target="_blank" class="whatsapp-link">
-        <i class="fab fa-whatsapp whatsapp-icon"></i>
-        <span>التواصل مع المدرسة </span>
-      </a>
+    <!-- الفوتر -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="logo-section" style="justify-content: center; margin-bottom: 1.5rem;">
+                <img src="https://f.top4top.io/p_3674xpg8w1.png" alt="شعار المدرسة" style="height: 60px; filter: brightness(0) invert(1);">
+                <div class="logo-text">
+                    <h3 style="background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.5rem;">مسار السفر والسياحة</h3>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#" class="footer-link" data-tab="registration">التسجيل</a>
+                <a href="#" class="footer-link" data-tab="status">متابعة الطلب</a>
+                <a href="#" class="footer-link" data-tab="dashboard">لوحة التحكم</a>
+                <a href="#" class="footer-link" data-tab="instructions">الشروط</a>
+                <a href="#" class="footer-link">اتصل بنا</a>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 جميع الحقوق محفوظة - نظام الترشيح الذكي لمسار السفر والسياحة</p>
+                <p style="margin-top: 0.5rem;">تم التطوير باستخدام Google Sheets API - رقم الجدول: 1dzHTUFm7pg2x6GXeLmKjb2PNQLo3-D9kSnk_LJk05w8</p>
+            </div>
+        </div>
     </footer>
-  </div>
 
-  <!-- Modal تعليمات الاختبار -->
-  <div id="instructionsModal" class="modal" role="dialog" aria-labelledby="instructionsTitle" aria-modal="true">
-    <div class="modal-content">
-      <span class="close" aria-label="إغلاق النافذة">&times;</span>
-      <h2 id="instructionsTitle" style="text-align:center;color:var(--dark-green);margin-bottom:20px;">تعليمات الاختبار الرسمية</h2>
-      
-      <div style="background:rgba(10,92,54,0.06);padding:16px;border-radius:12px;margin-bottom:20px;border-right:4px solid var(--primary-color);">
-        <h3 style="color:var(--primary-color);margin-bottom:10px;"><i class="fas fa-exclamation-circle"></i> معلومات هامة</h3>
-        <p style="color:var(--text-color);font-weight:500;">يرجى الاطلاع على التعليمات التالية بعناية والالتزام بها لضمان سير الاختبارات بسلاسة.</p>
-      </div>
-      
-      <div style="display:grid;gap:14px;max-height:65vh;overflow-y:auto;padding-right:8px;">
-        <div class="info-row">
-          <i class="fas fa-user-tie"></i>
-          <div>
-            <div class="label">الزي الرسمي</div>
-            <div class="value">الالتزام بالزي المدرسي الرسمي</div>
-          </div>
-        </div>
-        
-        <div class="info-row">
-          <i class="fas fa-tools"></i>
-          <div>
-            <div class="label">الأدوات اللازمة</div>
-            <div class="value">إحضار جميع الأدوات اللازمة لأداء الامتحان: الأقلام، المسطرة، الممحاة، الآلة الحاسبة المسموح بها</div>
-          </div>
-        </div>
-        
-        <div class="info-row">
-          <i class="fas fa-mobile-alt"></i>
-          <div>
-            <div class="label">الأجهزة الإلكترونية</div>
-            <div class="value">يمنع منعًا باتًا إدخال الهواتف النقالة، الأجهزة الذكية، أدوات التصوير، الساعات الإلكترونية، أو أي أدوات غير مصرح بها</div>
-          </div>
-        </div>
-        
-        <div class="info-row">
-          <i class="fas fa-ban"></i>
-          <div>
-            <div class="label">الأدوات الحادة</div>
-            <div class="value">يحظر إدخال الأسلحة أو الأدوات الحادة أو ما يشابهها إلى داخل المركز أو القاعات الامتحانية</div>
-          </div>
-        </div>
-        
-        <div class="info-row">
-          <i class="fas fa-id-card"></i>
-          <div>
-            <div class="label">بطاقة الهوية</div>
-            <div class="value">على كل طالبة إحضار بطاقة الهوية الشخصية أو جواز السفر أو رخصة القيادة</div>
-          </div>
-        </div>
-        
-        <div class="info-row">
-          <i class="fas fa-clock"></i>
-          <div>
-            <div class="label">موعد الحضور</div>
-            <div class="value">الحضور قبل نصف ساعة على الأقل من بدء الامتحان، والتواجد في القاعة قبل 10 دقائق</div>
-          </div>
-        </div>
-        
-        <div class="info-row">
-          <i class="fas fa-door-open"></i>
-          <div>
-            <div class="label">مغادرة القاعة</div>
-            <div class="value">لا يسمح بمغادرة قاعة الامتحان قبل انقضاء ثلاثة أرباع زمن الاختبار</div>
-          </div>
-        </div>
-        
-        <div class="info-row">
-          <i class="fas fa-calculator"></i>
-          <div>
-            <div class="label">الآلات الحاسبة</div>
-            <div class="value">يسمح بالآلات الحاسبة العلمية فقط التي لا تكون قابلة للبرمجة والتخزين</div>
-          </div>
-        </div>
-        
-        <div class="info-row">
-          <i class="fas fa-pen"></i>
-          <div>
-            <div class="label">أقلام الكتابة</div>
-            <div class="value">استخدام الأقلام الجافة الزرقاء والسوداء، ويفضل استخدام قلم رصاص في الأسئلة الموضوعية</div>
-          </div>
-        </div>
-        
-        <div class="info-row">
-          <i class="fas fa-user-clock"></i>
-          <div>
-            <div class="label">التأخير عن الامتحان</div>
-            <div class="value">لا يسمح بالدخول إلى القاعة بعد مرور 15 دقيقة من بدء الوقت إلا بإذن من رئيسة المركز</div>
-          </div>
-        </div>
-      </div>
-      
-      <div style="margin-top:20px;padding:14px;background:linear-gradient(135deg, rgba(212,175,55,0.12), rgba(46,139,87,0.08));border-radius:12px;border:1px solid rgba(212,175,55,0.25);">
-        <p style="text-align:center;font-weight:800;color:var(--dark-green);margin:0;">
-          نرجو لجميع الطالبات التوفيق والنجاح في امتحاناتهم، ونسأل الله أن يوفق الجميع لما فيه الخير والفلاح
-        </p>
-      </div>
-    </div>
-  </div>
+    <!-- الأكواد البرمجية -->
+    <script>
+        // البيانات الأولية
+        const questions = [
+            {
+                id: 1,
+                text: "هل تستمتعين بالتحدث مع أشخاص جدد والعمل معهم في فرق صغيرة أو كبيرة؟",
+                options: [
+                    { value: 2, label: "نعم (2 نقطة)" },
+                    { value: 1, label: "أحيانًا (1 نقطة)" },
+                    { value: 0, label: "لا (0 نقطة)" }
+                ]
+            },
+            {
+                id: 2,
+                text: "هل لديك رغبة في التعرف على ثقافات جديدة وزيارة أماكن سياحية مختلفة؟",
+                options: [
+                    { value: 2, label: "نعم (2 نقطة)" },
+                    { value: 1, label: "أحيانًا (1 نقطة)" },
+                    { value: 0, label: "لا (0 نقطة)" }
+                ]
+            },
+            {
+                id: 3,
+                text: "هل تحبين ترتيب وتنظيم الأنشطة، أو تخطيط الرحلات والفعاليات؟",
+                options: [
+                    { value: 2, label: "نعم (2 نقطة)" },
+                    { value: 1, label: "أحيانًا (1 نقطة)" },
+                    { value: 0, label: "لا (0 نقطة)" }
+                ]
+            },
+            {
+                id: 4,
+                text: "هل تستطيعين التعامل مع مواقف غير متوقعة أثناء تنظيم الرحلات أو استقبال الزوار؟",
+                options: [
+                    { value: 2, label: "نعم (2 نقطة)" },
+                    { value: 1, label: "أحيانًا (1 نقطة)" },
+                    { value: 0, label: "لا (0 نقطة)" }
+                ]
+            },
+            {
+                id: 5,
+                text: "هل تفضلين التعلم العملي والتطبيقي في الأنشطة والرحلات على التعلم النظري فقط؟",
+                options: [
+                    { value: 2, label: "نعم (2 نقطة)" },
+                    { value: 1, label: "أحيانًا (1 نقطة)" },
+                    { value: 0, label: "لا (0 نقطة)" }
+                ]
+            }
+        ];
 
-  <!-- Modal الخيارات والإعدادات -->
-  <div id="optionsModal" class="modal" role="dialog" aria-modal="true">
-    <div class="modal-content">
-      <span class="close" aria-label="إغلاق">&times;</span>
-      <h2 style="text-align:center;color:var(--dark-green);font-weight:900;margin:10px 0 18px;">الخيارات والإعدادات</h2>
+        // المتغيرات العامة
+        let currentStep = 1;
+        let answers = {};
+        let applications = [];
+        let chart = null;
 
-      <div style="display:grid;gap:12px;">
-        <button class="nav-btn instructions-btn" onclick="openDailyForBest()" style="width:100%;"><i class="fas fa-calendar-day"></i>بيانات الاختبار اليومية</button>
-        <button class="nav-btn dropdown-btn" onclick="window.print()" style="width:100%;"><i class="fas fa-print"></i>طباعة الجدول</button>
-        <button class="nav-btn" style="width:100%;background:var(--gradient-primary);" onclick="closeModal(optionsModal)"><i class="fas fa-times"></i>إغلاق</button>
-      </div>
-    </div>
-  </div>
+        // تهيئة التطبيق
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            loadQuestions();
+            setupEventListeners();
+            simulateDashboardData();
+        });
 
-  <!-- ✅ شاشة بيانات الاختبار اليومية Full Screen (التصميم الجديد مع العد التنازلي المدمج) -->
-  <div id="dailyExamModal" class="modal daily-fullscreen" role="dialog" aria-modal="true">
-    <div class="modal-content">
-      <div class="close-daily-top" onclick="closeModal(dailyExamModal)" aria-label="إغلاق الشاشة">
-        <i class="fas fa-times"></i>
-      </div>
-      
-      <div class="daily-header">
-        <div class="daily-header-content">
-          <div class="daily-main-title">امتحان دبلوم التعليم العام</div>
-          <div class="daily-sub-title">مدرسة خولة بنت حكيم للتعليم الأساسي للصفوف (9-12)</div>
-          <div class="header-divider"></div>
-          <div class="daily-year-info"> العام الدراسي 2025/2026م</div>
-        </div>
-      </div>
-
-      <div class="daily-body">
-        <!-- حالة اليوم واليوم -->
-        <div class="exam-status-container">
-          <div class="exam-day-display" id="dailyExamDay">
-            <i class="fas fa-calendar-alt"></i>
-            <span id="dailyDayText">--</span>
-          </div>
-          <div class="exam-status-badge upcoming" id="dailyExamStatus">
-            <i class="fas fa-circle" id="dailyStatusIcon"></i>
-            <span id="dailyStatusText">--</span>
-          </div>
-        </div>
-
-        <!-- ✅ بيانات الامتحان مع العد التنازلي المدمج -->
-        <div class="exam-data-container">
-          <div class="exam-subject" id="dailyExamSubject">--</div>
-          
-          <div class="exam-details-grid">
-            <!-- اليوم والتاريخ -->
-            <div class="exam-detail-item">
-              <div class="detail-label">
-                <i class="fas fa-calendar-day"></i>
-                اليوم والتاريخ
-              </div>
-              <div class="detail-value" id="dailyDayDate">--</div>
-            </div>
+        // تهيئة التطبيق
+        function initializeApp() {
+            // ضبط التاريخ والتوقيت
+            updateDateTime();
+            setInterval(updateDateTime, 60000);
             
-            <!-- وقت الإجابة -->
-            <div class="exam-detail-item">
-              <div class="detail-label">
-                <i class="fas fa-clock"></i>
-                وقت الإجابة
-              </div>
-              <div class="detail-value" id="dailyExamTime">--</div>
-            </div>
+            // تهيئة الرسم البياني
+            initializeChart();
             
-            <!-- زمن الإجابة -->
-            <div class="exam-detail-item">
-              <div class="detail-label">
-                <i class="fas fa-stopwatch"></i>
-                زمن الإجابة
-              </div>
-              <div class="detail-value" id="dailyExamDuration">--</div>
-            </div>
-            
-            <!-- ✅ العد التنازلي كجزء من بيانات الامتحان -->
-            <div class="countdown-container">
-              <div class="countdown-title">
-                <i class="fas fa-hourglass-half"></i>
-                <span>العد التنازلي</span>
-              </div>
-              <div class="countdown-display upcoming" id="dailyCountdownDisplay">--</div>
-              <div class="countdown-hint" id="dailyCountdownHint">--</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const instructionsModal = document.getElementById("instructionsModal");
-    const optionsModal = document.getElementById("optionsModal");
-    const dailyExamModal = document.getElementById("dailyExamModal");
-
-    const instructionsBtn = document.getElementById("instructionsBtn");
-    const optionsBtn = document.getElementById("optionsBtn");
-
-    const closeEls = document.getElementsByClassName("close");
-
-    // عناصر شاشة اليوم الجديدة
-    const dailyDayText = document.getElementById("dailyDayText");
-    const dailyDayDate = document.getElementById("dailyDayDate");
-    const dailyExamSubject = document.getElementById("dailyExamSubject");
-    const dailyExamTime = document.getElementById("dailyExamTime");
-    const dailyExamDuration = document.getElementById("dailyExamDuration");
-    const dailyExamStatus = document.getElementById("dailyExamStatus");
-    const dailyStatusIcon = document.getElementById("dailyStatusIcon");
-    const dailyStatusText = document.getElementById("dailyStatusText");
-    const dailyCountdownHint = document.getElementById("dailyCountdownHint");
-    const dailyCountdownDisplay = document.getElementById("dailyCountdownDisplay");
-
-    // بيانات الامتحانات
-    const exams = [
-      { id: 1, day: "الأربعاء", date: "31/12/2025", subject: "اللغة العربية", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2025, 11, 31, 8, 0, 0), end: new Date(2025, 11, 31, 11, 0, 0), duration: "3 ساعات" },
-      { id: 2, day: "الخميس", date: "1/1/2026", subject: "التربية الإسلامية", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 1, 8, 0, 0), end: new Date(2026, 0, 1, 11, 0, 0), duration: "3 ساعات" },
-      { id: 3, day: "الأحد", date: "4/1/2026", subject: "الرياضيات الأساسية / الرياضيات المتقدمة", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 4, 8, 0, 0), end: new Date(2026, 0, 4, 11, 0, 0), duration: "3 ساعات" },
-      { id: 4, day: "الاثنين", date: "5/1/2026", subject: "التاريخ (العالم من حولي)", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 5, 8, 0, 0), end: new Date(2026, 0, 5, 11, 0, 0), duration: "3 ساعات" },
-      { id: 5, day: "الثلاثاء", date: "6/1/2026", subject: "الكيمياء", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 6, 8, 0, 0), end: new Date(2026, 0, 6, 11, 0, 0), duration: "3 ساعات" },
-      { id: 6, day: "الأربعاء", date: "7/1/2026", subject: "الجغرافيا والتقنيات الحديثة", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 7, 8, 0, 0), end: new Date(2026, 0, 7, 11, 0, 0), duration: "3 ساعات" },
-      { id: 7, day: "الخميس", date: "8/1/2026", subject: "الأحياء", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 8, 8, 0, 0), end: new Date(2026, 0, 8, 11, 0, 0), duration: "3 ساعات" },
-      { id: 8, day: "الأحد", date: "11/1/2026", subject: "الفيزياء", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 11, 8, 0, 0), end: new Date(2026, 0, 11, 11, 0, 0), duration: "3 ساعات" },
-      { id: 9, day: "الإثنين", date: "12/1/2026", subject: "العلوم والبيئة", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 12, 8, 0, 0), end: new Date(2026, 0, 12, 11, 0, 0), duration: "3 ساعات" },
-      { id: 10, day: "الثلاثاء", date: "13/1/2026", subject: "اللغة الإنجليزية", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 13, 8, 0, 0), end: new Date(2026, 0, 13, 11, 0, 0), duration: "3 ساعات" },
-      { id: 11, day: "الأربعاء", date: "14/1/2026", subject: "الدراسات الاجتماعية (هذا وطني)", time: "8:00 صباحًا - 11:00 صباحًا", start: new Date(2026, 0, 14, 8, 0, 0), end: new Date(2026, 0, 14, 11, 0, 0), duration: "3 ساعات" },
-    ];
-
-    function openModal(modal) {
-      modal.style.display = "block";
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
-    }
-    
-    function closeModal(modal) {
-      modal.style.display = "none";
-      document.body.style.overflow = "auto";
-      document.documentElement.style.overflow = "auto";
-      if (modal === dailyExamModal && window.__dailyInt) {
-        clearInterval(window.__dailyInt);
-      }
-    }
-
-    instructionsBtn.onclick = () => openModal(instructionsModal);
-    optionsBtn.onclick = () => openModal(optionsModal);
-
-    for (let i = 0; i < closeEls.length; i++) {
-      closeEls[i].onclick = function() {
-        if (this.closest('#instructionsModal')) closeModal(instructionsModal);
-        if (this.closest('#optionsModal')) closeModal(optionsModal);
-        if (this.closest('#dailyExamModal')) closeModal(dailyExamModal);
-      };
-    }
-
-    window.onclick = (e) => {
-      if (e.target === instructionsModal) closeModal(instructionsModal);
-      if (e.target === optionsModal) closeModal(optionsModal);
-      if (e.target === dailyExamModal) closeModal(dailyExamModal);
-    };
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        closeModal(instructionsModal);
-        closeModal(optionsModal);
-        closeModal(dailyExamModal);
-      }
-    });
-
-    function updateDateTime() {
-      const now = new Date();
-      const timeEl = document.querySelector("#currentTime span");
-      const dateEl = document.querySelector("#currentDate span");
-
-      let h = now.getHours();
-      const ampm = h >= 12 ? "م" : "ص";
-      h = h % 12; h = h ? h : 12;
-      const m = String(now.getMinutes()).padStart(2, "0");
-      const s = String(now.getSeconds()).padStart(2, "0");
-      timeEl.textContent = `${h}:${m}:${s} ${ampm}`;
-
-      const days = ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
-      const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
-      dateEl.textContent = `${days[now.getDay()]}، ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-    }
-
-    function formatDiff(ms) {
-      const total = Math.max(0, ms);
-      const days = Math.floor(total / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((total % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((total % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((total % (1000 * 60)) / 1000);
-      
-      if (days > 0) {
-        return `${days} يوم ${hours} س ${minutes} د`;
-      }
-      if (hours > 0) {
-        return `${hours} س ${minutes} د ${seconds} ث`;
-      }
-      return `${minutes} د ${seconds} ث`;
-    }
-
-    function setRowBadgeAndClass(exam, state) {
-      const row = document.getElementById(`exam${exam.id}`);
-      if (!row) return;
-
-      row.classList.remove("exam-upcoming","exam-active","exam-finished");
-      row.classList.add(`exam-${state}`);
-
-      let badge = row.querySelector(".badge");
-      if (!badge) {
-        badge = document.createElement("div");
-        badge.className = "badge";
-        row.appendChild(badge);
-      }
-      badge.classList.remove("upcoming","active","finished");
-      badge.classList.add(state);
-
-      if (state === "upcoming") badge.textContent = "قادم";
-      if (state === "active") badge.textContent = "الآن";
-      if (state === "finished") badge.textContent = "انتهى";
-    }
-
-    function updateCountdowns() {
-      const now = new Date();
-
-      exams.forEach(exam => {
-        const el = document.getElementById(`countdown${exam.id}`);
-        const row = document.getElementById(`exam${exam.id}`);
-        if (!el || !row) return;
-
-        const text = el.querySelector(".countdown-text");
-        const dot = el.querySelector(".status-dot");
-
-        el.classList.remove("upcoming","active","finished");
-        dot.classList.remove("dot-upcoming","dot-active","dot-finished");
-        row.classList.remove("exam-active-row");
-
-        if (now < exam.start) {
-          const diff = exam.start - now;
-          text.textContent = `يبدأ بعد: ${formatDiff(diff)}`;
-          el.classList.add("upcoming");
-          dot.classList.add("dot-upcoming");
-          setRowBadgeAndClass(exam, "upcoming");
-        } else if (now >= exam.start && now <= exam.end) {
-          const diff = exam.end - now;
-          text.textContent = `متبقي: ${formatDiff(diff)}`;
-          el.classList.add("active");
-          dot.classList.add("dot-active");
-          row.classList.add("exam-active-row");
-          setRowBadgeAndClass(exam, "active");
-        } else {
-          text.textContent = "انتهى";
-          el.classList.add("finished");
-          dot.classList.add("dot-finished");
-          setRowBadgeAndClass(exam, "finished");
+            // تحميل البيانات من Google Sheets (محاكاة)
+            loadApplications();
         }
-      });
-    }
 
-    // ✅ شاشة اليوم: من زر كل بطاقة
-    function openDailyForId(id) {
-      const exam = exams.find(e => e.id === id);
-      if (!exam) return;
-      openDaily(exam);
-    }
+        // تحميل الأسئلة
+        function loadQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            
+            questions.forEach((question, index) => {
+                const questionHTML = `
+                    <div class="question-card" data-question-id="${question.id}">
+                        <div class="question-text">
+                            <strong>السؤال ${question.id}:</strong> ${question.text}
+                        </div>
+                        <div class="options-grid">
+                            ${question.options.map(option => `
+                                <label class="option-label" data-value="${option.value}">
+                                    <input type="radio" name="q${question.id}" value="${option.value}" 
+                                           class="option-input" data-question="${question.id}">
+                                    ${option.label}
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += questionHTML;
+            });
+            
+            // إضافة مستمعات الأحداث للخيارات
+            document.querySelectorAll('.option-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    const questionId = this.getAttribute('data-question');
+                    const value = parseInt(this.value);
+                    const label = this.closest('.option-label');
+                    
+                    // إزالة التحديد من جميع خيارات هذا السؤال
+                    document.querySelectorAll(`[data-question="${questionId}"]`).forEach(input => {
+                        input.closest('.option-label').classList.remove('selected');
+                    });
+                    
+                    // تحديد الخيار المختار
+                    label.classList.add('selected');
+                    
+                    // حفظ الإجابة
+                    answers[questionId] = value;
+                    
+                    // تحديث تقدم الإجابة
+                    updateProgress();
+                });
+            });
+        }
 
-    // ✅ شاشة اليوم: أفضل اختيار (امتحان اليوم أو القادم)
-    function openDailyForBest() {
-      const now = new Date();
-      const todayKey = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
-      const today = exams.find(ex => {
-        const examKey = `${ex.start.getFullYear()}-${ex.start.getMonth()}-${ex.start.getDate()}`;
-        return examKey === todayKey;
-      });
-      const next = exams.find(ex => now < ex.end);
-      openDaily(today || next || exams[0]);
-    }
+        // تحديث تقدم الإجابة
+        function updateProgress() {
+            const answered = Object.keys(answers).length;
+            const progress = (answered / questions.length) * 100;
+            
+            document.getElementById('tendencyProgress').style.width = `${progress}%`;
+            document.getElementById('progressText').textContent = `${answered}/${questions.length}`;
+        }
 
-    function computeState(exam, now) {
-      if (now < exam.start) return "upcoming";
-      if (now >= exam.start && now <= exam.end) return "active";
-      return "finished";
-    }
+        // إعداد مستمعات الأحداث
+        function setupEventListeners() {
+            // التنقل بين التبويبات
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+            
+            // التنقل بين خطوات التسجيل
+            document.getElementById('nextBtn').addEventListener('click', nextStep);
+            document.getElementById('prevBtn').addEventListener('click', prevStep);
+            
+            // رفع الملفات
+            document.getElementById('certificateUpload').addEventListener('click', function() {
+                document.getElementById('certificateFile').click();
+            });
+            
+            document.getElementById('certificateFile').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    document.getElementById('fileName').textContent = `✓ تم رفع الملف: ${file.name}`;
+                }
+            });
+            
+            // تحديث نقاط الإنجليزية
+            document.getElementById('englishScore').addEventListener('input', function() {
+                const score = parseInt(this.value) || 0;
+                let points = 0;
+                
+                if (score >= 90) points = 5;
+                else if (score >= 80) points = 4;
+                else if (score >= 70) points = 3;
+                else if (score >= 60) points = 2;
+                else if (score >= 50) points = 1;
+                
+                document.getElementById('englishPoints').textContent = points;
+            });
+            
+            // إرسال النموذج
+            document.getElementById('registrationForm').addEventListener('submit', submitForm);
+            
+            // البحث عن طلب
+            document.getElementById('trackBtn').addEventListener('click', trackApplication);
+            
+            // تحديث لوحة التحكم
+            document.getElementById('refreshBtn').addEventListener('click', loadApplications);
+            
+            // التصفية في لوحة التحكم
+            document.getElementById('searchApplications').addEventListener('input', filterApplications);
+            document.getElementById('filterStatus').addEventListener('change', filterApplications);
+            document.getElementById('filterGrade').addEventListener('change', filterApplications);
+            
+            // تصدير البيانات
+            document.getElementById('exportBtn').addEventListener('click', exportData);
+            
+            // نافذة النتائج
+            document.getElementById('closeModalBtn').addEventListener('click', function() {
+                document.getElementById('resultModal').classList.remove('active');
+            });
+            
+            document.getElementById('printResultBtn').addEventListener('click', function() {
+                window.print();
+            });
+            
+            // التنقل من الفوتر
+            document.querySelectorAll('.footer-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tabId = this.getAttribute('data-tab');
+                    if (tabId) {
+                        switchTab(tabId);
+                    }
+                });
+            });
+        }
 
-    function renderDaily(exam) {
-      const now = new Date();
-      const state = computeState(exam, now);
+        // التنقل بين التبويبات
+        function switchTab(tabId) {
+            // تحديث الأزرار النشطة
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            
+            // إظهار المحتوى المناسب
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabId}Tab`).classList.add('active');
+            
+            // إذا كانت لوحة التحكم، قم بتحديث البيانات
+            if (tabId === 'dashboard') {
+                loadApplications();
+            }
+        }
 
-      // تحديث البيانات الأساسية
-      dailyDayText.textContent = exam.day;
-      dailyDayDate.textContent = `${exam.day} - ${exam.date}`;
-      dailyExamSubject.textContent = exam.subject;
-      dailyExamTime.textContent = exam.time;
-      dailyExamDuration.textContent = exam.duration;
-      
-      // تحديث حالة الامتحان
-      dailyExamStatus.classList.remove("upcoming","active","finished");
-      dailyExamStatus.classList.add(state);
-      
-      const statusLabel = state === "upcoming" ? "قادم" : state === "active" ? "الآن" : "انتهى";
-      dailyStatusText.textContent = statusLabel;
-      dailyStatusIcon.className = state === "active" ? "fas fa-play-circle" : "fas fa-circle";
+        // التنقل بين الخطوات
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                document.getElementById(`section${currentStep}`).style.display = 'none';
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                
+                currentStep++;
+                
+                if (currentStep > 4) currentStep = 4;
+                
+                document.getElementById(`section${currentStep}`).style.display = 'block';
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                
+                updateNavigationButtons();
+            }
+        }
 
-      // تحديث العداد التنازلي
-      dailyCountdownDisplay.classList.remove("upcoming","active","finished");
-      dailyCountdownDisplay.classList.add(state);
+        function prevStep() {
+            document.getElementById(`section${currentStep}`).style.display = 'none';
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            
+            currentStep--;
+            
+            if (currentStep < 1) currentStep = 1;
+            
+            document.getElementById(`section${currentStep}`).style.display = 'block';
+            document.getElementById(`step${currentStep}`).classList.add('active');
+            
+            updateNavigationButtons();
+        }
 
-      if (state === "upcoming") {
-        dailyCountdownHint.textContent = "العد التنازلي لبداية الامتحان";
-      } else if (state === "active") {
-        dailyCountdownHint.textContent = "العد التنازلي لنهاية الامتحان";
-      } else {
-        dailyCountdownHint.textContent = "انتهى وقت الامتحان";
-      }
-    }
+        function updateNavigationButtons() {
+            document.getElementById('prevBtn').style.display = currentStep > 1 ? 'flex' : 'none';
+            document.getElementById('nextBtn').style.display = currentStep < 4 ? 'flex' : 'none';
+            document.getElementById('submitBtn').style.display = currentStep === 4 ? 'flex' : 'none';
+        }
 
-    function tickDaily(exam) {
-      const now = new Date();
-      const state = computeState(exam, now);
+        // التحقق من صحة الخطوة
+        function validateStep(step) {
+            switch(step) {
+                case 1:
+                    const requiredFields = ['fullName', 'grade', 'nationalId', 'studentPhone', 'parentName', 'parentPhone'];
+                    for (let field of requiredFields) {
+                        const element = document.getElementById(field);
+                        if (!element.value.trim()) {
+                            showAlert(`${element.previousElementSibling.textContent} مطلوب`, 'warning');
+                            element.focus();
+                            return false;
+                        }
+                    }
+                    return true;
+                    
+                case 2:
+                    const answered = Object.keys(answers).length;
+                    if (answered < questions.length) {
+                        showAlert('الرجاء الإجابة على جميع أسئلة الميول', 'warning');
+                        return false;
+                    }
+                    return true;
+                    
+                case 3:
+                    const englishScore = parseInt(document.getElementById('englishScore').value);
+                    if (isNaN(englishScore) || englishScore < 0 || englishScore > 100) {
+                        showAlert('الرجاء إدخال درجة صحيحة للغة الإنجليزية (0-100)', 'warning');
+                        return false;
+                    }
+                    
+                    if (englishScore < 50) {
+                        showAlert('الحد الأدنى للقبول في البرنامج هو 50% في اللغة الإنجليزية', 'warning');
+                        return false;
+                    }
+                    
+                    const file = document.getElementById('certificateFile').files[0];
+                    if (!file) {
+                        showAlert('الرجاء رفع شهادة الفصل الأول', 'warning');
+                        return false;
+                    }
+                    return true;
+                    
+                case 4:
+                    if (!document.getElementById('studentPledge').checked ||
+                        !document.getElementById('parentApproval').checked ||
+                        !document.getElementById('parentSignature').value.trim()) {
+                        showAlert('الرجاء الموافقة على جميع الشروط والتعهدات', 'warning');
+                        return false;
+                    }
+                    return true;
+                    
+                default:
+                    return true;
+            }
+        }
 
-      if (state === "upcoming") {
-        dailyCountdownDisplay.textContent = `يبدأ بعد: ${formatDiff(exam.start - now)}`;
-      } else if (state === "active") {
-        dailyCountdownDisplay.textContent = `متبقي: ${formatDiff(exam.end - now)}`;
-      } else {
-        dailyCountdownDisplay.textContent = "انتهى";
-      }
+        // إرسال النموذج
+        function submitForm(e) {
+            e.preventDefault();
+            
+            if (!validateStep(4)) return;
+            
+            // حساب النقاط
+            const tendencyScore = Object.values(answers).reduce((sum, val) => sum + val, 0);
+            const englishScore = parseInt(document.getElementById('englishScore').value);
+            let englishPoints = 0;
+            
+            if (englishScore >= 90) englishPoints = 5;
+            else if (englishScore >= 80) englishPoints = 4;
+            else if (englishScore >= 70) englishPoints = 3;
+            else if (englishScore >= 60) englishPoints = 2;
+            else if (englishScore >= 50) englishPoints = 1;
+            
+            const totalScore = tendencyScore + englishPoints;
+            
+            // إنشاء كائن الطلب
+            const application = {
+                id: Date.now(),
+                fullName: document.getElementById('fullName').value,
+                grade: document.getElementById('grade').value,
+                nationalId: document.getElementById('nationalId').value,
+                studentPhone: document.getElementById('studentPhone').value,
+                parentName: document.getElementById('parentName').value,
+                parentPhone: document.getElementById('parentPhone').value,
+                tendencyScore: tendencyScore,
+                englishScore: englishScore,
+                englishPoints: englishPoints,
+                totalScore: totalScore,
+                certificate: document.getElementById('certificateFile').files[0]?.name || '',
+                parentSignature: document.getElementById('parentSignature').value,
+                submissionDate: new Date().toISOString(),
+                status: 'معلق',
+                priority: englishScore >= 90 ? totalScore + 2 : totalScore
+            };
+            
+            // حفظ في Google Sheets (محاكاة)
+            saveToGoogleSheets(application);
+            
+            // إظهار النتيجة
+            showResult(application);
+            
+            // إعادة تعيين النموذج
+            resetForm();
+        }
 
-      // تحديث الحالة بصرياً إذا تغيرت
-      const pillState = dailyExamStatus.classList.contains("active") ? "active" :
-                       dailyExamStatus.classList.contains("upcoming") ? "upcoming" : "finished";
-      if (pillState !== state) renderDaily(exam);
-    }
+        // حفظ في Google Sheets (محاكاة)
+        function saveToGoogleSheets(application) {
+            // هنا يتم وضع كود التكامل الفعلي مع Google Sheets
+            const spreadsheetId = '1dzHTUFm7pg2x6GXeLmKjb2PNQLo3-D9kSnk_LJk05w8';
+            
+            // محاكاة الحفظ
+            applications.push(application);
+            updateDashboard();
+            
+            console.log('تم حفظ البيانات في Google Sheets:', application);
+            console.log('معرف الجدول:', spreadsheetId);
+            
+            // في التطبيق الحقيقي، استخدم:
+            // google.sheets({ version: 'v4', auth: client }).spreadsheets.values.append(...)
+        }
 
-    function openDaily(exam) {
-      openModal(dailyExamModal);
-      renderDaily(exam);
-      tickDaily(exam);
+        // إظهار النتيجة
+        function showResult(application) {
+            // تحديد المركز
+            const sortedApps = [...applications]
+                .sort((a, b) => b.priority - a.priority || new Date(a.submissionDate) - new Date(b.submissionDate));
+            
+            const position = sortedApps.findIndex(app => app.id === application.id) + 1;
+            const isAccepted = position <= 50;
+            
+            // تحديث واجهة النتيجة
+            document.getElementById('modalTendency').textContent = `${application.tendencyScore}/10`;
+            document.getElementById('modalEnglish').textContent = `${application.englishPoints}/5`;
+            document.getElementById('modalTotal').textContent = `${application.totalScore}/15`;
+            document.getElementById('modalPosition').textContent = `#${position}`;
+            
+            if (isAccepted) {
+                document.getElementById('resultIcon').className = 'fas fa-trophy';
+                document.getElementById('resultTitle').textContent = 'مبروك! تم قبول طلبك';
+                document.getElementById('resultMessage').textContent = `تم قبولك في برنامج السفر والسياحة. المركز: ${position} من 50. سيتم التواصل معك خلال 48 ساعة للتفاصيل اللاحقة.`;
+                application.status = 'مقبول';
+            } else {
+                document.getElementById('resultIcon').className = 'fas fa-clock';
+                document.getElementById('resultTitle').textContent = 'أنت في قائمة الانتظار';
+                document.getElementById('resultMessage').textContent = `طلبك قيد الدراسة. المركز: ${position}. سيتم إعلامك في حال وجود أماكن شاغرة.`;
+                application.status = 'قائمة انتظار';
+            }
+            
+            // إظهار النافذة
+            document.getElementById('resultModal').classList.add('active');
+        }
 
-      if (window.__dailyInt) clearInterval(window.__dailyInt);
-      window.__dailyInt = setInterval(() => tickDaily(exam), 1000);
-    }
+        // إعادة تعيين النموذج
+        function resetForm() {
+            document.getElementById('registrationForm').reset();
+            document.getElementById('fileName').textContent = '';
+            answers = {};
+            currentStep = 1;
+            
+            // إعادة تعيين الخطوات
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById('section1').style.display = 'block';
+            
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+            document.getElementById('step1').classList.add('active');
+            
+            document.querySelectorAll('.option-label').forEach(label => {
+                label.classList.remove('selected');
+            });
+            
+            updateNavigationButtons();
+            updateProgress();
+        }
 
-    function init() {
-      updateDateTime();
-      updateCountdowns();
-      setInterval(updateDateTime, 1000);
-      setInterval(updateCountdowns, 1000);
+        // تتبع الطلب
+        function trackApplication() {
+            const nationalId = document.getElementById('trackNationalId').value.trim();
+            if (!nationalId) {
+                showAlert('الرجاء إدخال الرقم المدني', 'warning');
+                return;
+            }
+            
+            // البحث في البيانات (محاكاة)
+            const application = applications.find(app => app.nationalId === nationalId);
+            const resultDiv = document.getElementById('trackResult');
+            
+            if (application) {
+                resultDiv.innerHTML = `
+                    <div class="question-card" style="border-right-color: ${application.status === 'مقبول' ? 'var(--success)' : 'var(--warning)'}">
+                        <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">نتيجة التتبع</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <p style="color: #6b7280; font-size: 0.9rem;">اسم الطالبة</p>
+                                <p style="font-weight: bold; color: var(--primary-dark);">${application.fullName}</p>
+                            </div>
+                            <div>
+                                <p style="color: #6b7280; font-size: 0.9rem;">الصف الدراسي</p>
+                                <p style="font-weight: bold; color: var(--primary-dark);">${application.grade}</p>
+                            </div>
+                            <div>
+                                <p style="color: #6b7280; font-size: 0.9rem;">المجموع الكلي</p>
+                                <p style="font-weight: bold; color: var(--accent-teal);">${application.totalScore}/15</p>
+                            </div>
+                            <div>
+                                <p style="color: #6b7280; font-size: 0.9rem;">الحالة</p>
+                                <span class="status-badge ${application.status === 'مقبول' ? 'status-accepted' : 
+                                                            application.status === 'قائمة انتظار' ? 'status-waiting' : 'status-pending'}">
+                                    ${application.status}
+                                </span>
+                            </div>
+                        </div>
+                        ${application.status === 'مقبول' ? 
+                            '<div class="alert alert-success"><i class="fas fa-check-circle"></i> <div>مبروك! تم قبولك في البرنامج. سيتم التواصل معك قريباً.</div></div>' :
+                        application.status === 'قائمة انتظار' ?
+                            '<div class="alert alert-warning"><i class="fas fa-clock"></i> <div>طلبك في قائمة الانتظار. سيتم إعلامك في حال توفر أماكن.</div></div>' :
+                            '<div class="alert alert-info"><i class="fas fa-hourglass-half"></i> <div>طلبك قيد المراجعة. سيتم إعلان النتائج قريباً.</div></div>'
+                        }
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="question-card" style="border-right-color: var(--danger);">
+                        <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">نتيجة التتبع</h3>
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>
+                                <strong>لم يتم العثور على طلب</strong><br>
+                                الرقم المدني ${nationalId} غير مسجل في النظام.
+                            </div>
+                        </div>
+                        <p style="color: #666; margin-top: 1rem;">
+                            تأكدي من صحة الرقم المدني، أو قومي بالتسجيل أولاً من خلال تبويب "تسجيل جديد".
+                        </p>
+                    </div>
+                `;
+            }
+            
+            resultDiv.style.display = 'block';
+        }
 
-      // افتراضي: جهّز شارات الهاتف للبطاقات
-      exams.forEach(ex => setRowBadgeAndClass(ex, "upcoming"));
-      
-      // افتح شاشة اليوم تلقائياً إذا كان هناك امتحان نشط
-      const now = new Date();
-      const activeExam = exams.find(ex => now >= ex.start && now <= ex.end);
-      if (activeExam) {
-        setTimeout(() => openDaily(activeExam), 1000);
-      }
-    }
+        // تحميل الطلبات (محاكاة)
+        function loadApplications() {
+            // في التطبيق الحقيقي، استرجع البيانات من Google Sheets
+            // هنا نقوم بمحاكاة البيانات
+            if (applications.length === 0) {
+                simulateApplications();
+            }
+            
+            updateDashboard();
+            updateApplicationsTable();
+        }
 
-    document.addEventListener("DOMContentLoaded", init);
-  </script>
+        // محاكاة بيانات الطلبات
+        function simulateApplications() {
+            const names = ['نورة أحمد', 'سارة محمد', 'فاطمة خالد', 'لينا عبدالله', 'ريم سلطان', 'الجوهرة ناصر', 'تهاني فارس', 'لمى سعيد'];
+            const grades = ['أول ثانوي', 'ثاني ثانوي', 'ثالث ثانوي'];
+            const statuses = ['مقبول', 'قائمة انتظار', 'معلق'];
+            
+            for (let i = 1; i <= 100; i++) {
+                const tendencyScore = Math.floor(Math.random() * 11);
+                const englishScore = Math.floor(Math.random() * 51) + 50;
+                let englishPoints = 0;
+                
+                if (englishScore >= 90) englishPoints = 5;
+                else if (englishScore >= 80) englishPoints = 4;
+                else if (englishScore >= 70) englishPoints = 3;
+                else if (englishScore >= 60) englishPoints = 2;
+                else if (englishScore >= 50) englishPoints = 1;
+                
+                const totalScore = tendencyScore + englishPoints;
+                const status = i <= 50 ? 'مقبول' : 'قائمة انتظار';
+                
+                applications.push({
+                    id: i,
+                    fullName: names[Math.floor(Math.random() * names.length)] + ' ' + (i % 8 + 1),
+                    grade: grades[Math.floor(Math.random() * grades.length)],
+                    nationalId: '1' + (1000000000 + i).toString().slice(1),
+                    tendencyScore: tendencyScore,
+                    englishScore: englishScore,
+                    englishPoints: englishPoints,
+                    totalScore: totalScore,
+                    status: status,
+                    priority: englishScore >= 90 ? totalScore + 2 : totalScore,
+                    submissionDate: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString()
+                });
+            }
+            
+            // ترتيب الطلبات حسب الأولوية
+            applications.sort((a, b) => b.priority - a.priority || new Date(a.submissionDate) - new Date(b.submissionDate));
+            
+            // تحديث المراكز
+            applications.forEach((app, index) => {
+                app.position = index + 1;
+            });
+        }
+
+        // تحديث لوحة التحكم
+        function updateDashboard() {
+            const total = applications.length;
+            const accepted = applications.filter(app => app.status === 'مقبول').length;
+            const waiting = applications.filter(app => app.status === 'قائمة انتظار').length;
+            const avgScore = total > 0 ? 
+                (applications.reduce((sum, app) => sum + app.totalScore, 0) / total).toFixed(1) : 0;
+            
+            document.getElementById('totalApplications').textContent = total;
+            document.getElementById('acceptedStudents').textContent = accepted;
+            document.getElementById('waitingStudents').textContent = waiting;
+            document.getElementById('avgScore').textContent = avgScore;
+            
+            // تحديث الرسم البياني
+            updateChart();
+        }
+
+        // تحديث جدول الطلبات
+        function updateApplicationsTable(filteredApps = applications) {
+            const tbody = document.getElementById('applicationsTableBody');
+            tbody.innerHTML = '';
+            
+            filteredApps.forEach((app, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${app.position}</td>
+                    <td>${app.fullName}</td>
+                    <td>${app.grade}</td>
+                    <td>${app.nationalId}</td>
+                    <td>${app.tendencyScore}/10</td>
+                    <td>${app.englishPoints}/5 (${app.englishScore})</td>
+                    <td><strong>${app.totalScore}/15</strong></td>
+                    <td><span class="status-badge ${app.status === 'مقبول' ? 'status-accepted' : 
+                                                     app.status === 'قائمة انتظار' ? 'status-waiting' : 'status-pending'}">
+                        ${app.status}
+                    </span></td>
+                    <td>
+                        <button class="btn btn-primary" style="padding: 0.3rem 0.6rem; font-size: 0.85rem;" onclick="viewApplication(${app.id})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // عرض تفاصيل الطلب
+        function viewApplication(id) {
+            const app = applications.find(a => a.id === id);
+            if (app) {
+                alert(`تفاصيل الطلب:\n\nالاسم: ${app.fullName}\nالصف: ${app.grade}\nالرقم المدني: ${app.nationalId}\nنقاط الميول: ${app.tendencyScore}/10\nنقاط الإنجليزية: ${app.englishPoints}/5\nالمجموع: ${app.totalScore}/15\nالحالة: ${app.status}\nالمركز: ${app.position}`);
+            }
+        }
+
+        // تصفية الطلبات
+        function filterApplications() {
+            const searchTerm = document.getElementById('searchApplications').value.toLowerCase();
+            const statusFilter = document.getElementById('filterStatus').value;
+            const gradeFilter = document.getElementById('filterGrade').value;
+            
+            let filtered = applications;
+            
+            if (searchTerm) {
+                filtered = filtered.filter(app => 
+                    app.fullName.toLowerCase().includes(searchTerm) || 
+                    app.nationalId.includes(searchTerm)
+                );
+            }
+            
+            if (statusFilter) {
+                filtered = filtered.filter(app => app.status === statusFilter);
+            }
+            
+            if (gradeFilter) {
+                filtered = filtered.filter(app => app.grade === gradeFilter);
+            }
+            
+            updateApplicationsTable(filtered);
+        }
+
+        // تصدير البيانات
+        function exportData() {
+            const data = applications.map(app => ({
+                'الاسم': app.fullName,
+                'الصف': app.grade,
+                'الرقم المدني': app.nationalId,
+                'نقاط الميول': app.tendencyScore,
+                'درجة الإنجليزية': app.englishScore,
+                'نقاط الإنجليزية': app.englishPoints,
+                'المجموع': app.totalScore,
+                'الحالة': app.status,
+                'المركز': app.position,
+                'تاريخ التسجيل': new Date(app.submissionDate).toLocaleDateString('ar-SA')
+            }));
+            
+            // في التطبيق الحقيقي، استخدم مكتبة مثل SheetJS
+            console.log('بيانات التصدير:', data);
+            alert('سيتم تصدير البيانات إلى ملف Excel. في الإصدار الكامل، سيتم تنزيل الملف تلقائياً.');
+        }
+
+        // تهيئة الرسم البياني
+        function initializeChart() {
+            const ctx = document.getElementById('applicationsChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['مقبول', 'قائمة انتظار', 'معلق'],
+                    datasets: [{
+                        label: 'عدد الطلبات',
+                        data: [0, 0, 0],
+                        backgroundColor: [
+                            'rgba(16, 185, 129, 0.7)',
+                            'rgba(245, 158, 11, 0.7)',
+                            'rgba(59, 130, 246, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgb(16, 185, 129)',
+                            'rgb(245, 158, 11)',
+                            'rgb(59, 130, 246)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            rtl: true
+                        },
+                        title: {
+                            display: true,
+                            text: 'توزيع الطلبات حسب الحالة',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // تحديث الرسم البياني
+        function updateChart() {
+            if (!chart) return;
+            
+            const accepted = applications.filter(app => app.status === 'مقبول').length;
+            const waiting = applications.filter(app => app.status === 'قائمة انتظار').length;
+            const pending = applications.filter(app => app.status === 'معلق').length;
+            
+            chart.data.datasets[0].data = [accepted, waiting, pending];
+            chart.update();
+        }
+
+        // محاكاة بيانات لوحة التحكم
+        function simulateDashboardData() {
+            // تحديث البيانات كل 10 ثواني (محاكاة للتحديث التلقائي)
+            setInterval(() => {
+                if (Math.random() > 0.7) { // 30% فرصة لحدوث تحديث
+                    const newApp = {
+                        id: applications.length + 1,
+                        fullName: 'طالبة جديدة ' + (applications.length + 1),
+                        grade: ['أول ثانوي', 'ثاني ثانوي', 'ثالث ثانوي'][Math.floor(Math.random() * 3)],
+                        nationalId: '1' + (1000000000 + applications.length + 1).toString().slice(1),
+                        tendencyScore: Math.floor(Math.random() * 11),
+                        englishScore: Math.floor(Math.random() * 51) + 50,
+                        englishPoints: 0,
+                        totalScore: 0,
+                        status: 'معلق',
+                        priority: 0,
+                        submissionDate: new Date().toISOString()
+                    };
+                    
+                    // حساب النقاط
+                    if (newApp.englishScore >= 90) newApp.englishPoints = 5;
+                    else if (newApp.englishScore >= 80) newApp.englishPoints = 4;
+                    else if (newApp.englishScore >= 70) newApp.englishPoints = 3;
+                    else if (newApp.englishScore >= 60) newApp.englishPoints = 2;
+                    else if (newApp.englishScore >= 50) newApp.englishPoints = 1;
+                    
+                    newApp.totalScore = newApp.tendencyScore + newApp.englishPoints;
+                    newApp.priority = newApp.englishScore >= 90 ? newApp.totalScore + 2 : newApp.totalScore;
+                    
+                    applications.push(newApp);
+                    
+                    // ترتيب وتحديث المراكز
+                    applications.sort((a, b) => b.priority - a.priority || new Date(a.submissionDate) - new Date(b.submissionDate));
+                    applications.forEach((app, index) => {
+                        app.position = index + 1;
+                        app.status = app.position <= 50 ? 'مقبول' : 'قائمة انتظار';
+                    });
+                    
+                    updateDashboard();
+                    
+                    // إظهار تنبيه
+                    if (document.getElementById('dashboardTab').classList.contains('active')) {
+                        showAlert('تم تحديث البيانات تلقائياً', 'info');
+                    }
+                }
+            }, 10000);
+        }
+
+        // تحديث التاريخ والوقت
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            document.getElementById('lastUpdate').textContent = now.toLocaleDateString('ar-SA', options);
+        }
+
+        // إظهار تنبيه
+        function showAlert(message, type = 'info') {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 
+                                  type === 'warning' ? 'exclamation-triangle' : 
+                                  type === 'danger' ? 'times-circle' : 'info-circle'}"></i>
+                <div>${message}</div>
+            `;
+            
+            document.querySelector('.tab-content.active').insertBefore(alert, document.querySelector('.tab-content.active').firstChild);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        // إضافة تأثيرات تفاعلية إضافية
+        document.addEventListener('click', function(e) {
+            // تأثير النقر على الأزرار
+            if (e.target.closest('.btn') || e.target.closest('.option-label') || e.target.closest('.tab-btn')) {
+                const element = e.target.closest('.btn') || e.target.closest('.option-label') || e.target.closest('.tab-btn');
+                element.classList.add('clickable');
+                setTimeout(() => {
+                    element.classList.remove('clickable');
+                }, 200);
+            }
+            
+            // تأثير التحليق على البطاقات
+            if (e.target.closest('.stat-card') || e.target.closest('.question-card')) {
+                const card = e.target.closest('.stat-card') || e.target.closest('.question-card');
+                card.style.transform = 'translateY(-5px)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 300);
+            }
+        });
+    </script>
 </body>
 </html>
-
-
-
-
