@@ -11,11 +11,11 @@
 
   <style>
     :root {
-      --primary-color: #0a5c36;
-      --secondary-color: #2e8b57;
-      --accent-color: #e63946;
-      --gold-color: #d4af37;
-      --dark-green: #0d3b1e;
+      --primary-color: #5B2C6F; /* Plum / Deep Purple */
+      --secondary-color: #008080; /* Teal */
+      --accent-color: #00CED1; /* Light Cyan / Aqua */
+      --gold-color: #CD7F32; /* Bronze / Gold-Brown */
+      --dark-color: #2C3E50;
       --text-color: #2d3748;
       --text-light: #4a5568;
       --white: #ffffff;
@@ -23,11 +23,11 @@
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       --border-radius: 12px;
       --border-radius-lg: 20px;
-      --gradient-primary: linear-gradient(135deg, rgba(10, 92, 54, 0.95) 0%, rgba(13, 59, 30, 0.95) 100%);
-      --gradient-secondary: linear-gradient(135deg, #2e8b57 0%, #1d6b3e 100%);
-      --gradient-accent: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
-      --gradient-gold: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
-      --gradient-light: linear-gradient(135deg, #f0f8f4 0%, #e8f5e9 100%);
+      --gradient-primary: linear-gradient(135deg, rgba(91, 44, 111, 0.95) 0%, rgba(44, 62, 80, 0.95) 100%);
+      --gradient-secondary: linear-gradient(135deg, #008080 0%, #006666 100%);
+      --gradient-accent: linear-gradient(135deg, #00CED1 0%, #20B2AA 100%);
+      --gradient-gold: linear-gradient(135deg, #CD7F32 0%, #B8860B 100%);
+      --gradient-light: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%);
       --glass-bg: rgba(255, 255, 255, 0.15);
       --glass-border: rgba(255, 255, 255, 0.25);
     }
@@ -36,18 +36,40 @@
     html { scroll-behavior: smooth; overflow-x: hidden; }
     body {
       font-family: 'Tajawal', 'Noto Naskh Arabic', sans-serif;
-      background: linear-gradient(135deg, #f0f8f4 0%, #e8f5e9 100%);
+      background: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%);
       color: var(--text-color);
       line-height: 1.7;
       overflow-x: hidden;
       min-height: 100vh;
       width: 100%;
       max-width: 100%;
+      position: relative;
+    }
+
+    /* تأثيرات ديناميكية للخلفية */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(91, 44, 111, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(0, 128, 128, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(0, 206, 209, 0.1) 0%, transparent 50%);
+      z-index: -1;
+      animation: backgroundShift 15s ease-in-out infinite alternate;
+    }
+
+    @keyframes backgroundShift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-10px, 10px) scale(1.02); }
     }
 
     .container { max-width: 1400px; margin: 0 auto; padding: 0 18px; width: 100%; }
 
-    /* إضافة الشعار المضيء */
+    /* إضافة الشعار المضيء مع الألوان الجديدة */
     .logo-container {
       text-align: center;
       margin-bottom: 20px;
@@ -61,8 +83,8 @@
       object-fit: cover;
       border: 4px solid var(--gold-color);
       box-shadow: 
-        0 0 30px rgba(212, 175, 55, 0.6),
-        0 0 60px rgba(10, 92, 54, 0.4),
+        0 0 30px rgba(205, 127, 50, 0.6),
+        0 0 60px rgba(91, 44, 111, 0.4),
         inset 0 0 20px rgba(255, 255, 255, 0.3);
       transition: var(--transition);
       position: relative;
@@ -72,9 +94,15 @@
     .logo-img:hover {
       transform: scale(1.05);
       box-shadow: 
-        0 0 40px rgba(212, 175, 55, 0.8),
-        0 0 80px rgba(10, 92, 54, 0.6),
+        0 0 40px rgba(205, 127, 50, 0.8),
+        0 0 80px rgba(91, 44, 111, 0.6),
         inset 0 0 30px rgba(255, 255, 255, 0.5);
+      animation: logoPulse 1s ease-in-out;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1.05); }
+      50% { transform: scale(1.08); }
     }
 
     .logo-glow {
@@ -82,7 +110,7 @@
       width: 140px;
       height: 140px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, rgba(10, 92, 54, 0.1) 70%);
+      background: radial-gradient(circle, rgba(205, 127, 50, 0.3) 0%, rgba(91, 44, 111, 0.1) 70%);
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -91,8 +119,9 @@
     }
 
     @keyframes floatLogo {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-10px) rotate(1deg); }
+      66% { transform: translateY(5px) rotate(-1deg); }
     }
 
     @keyframes pulseGlow {
@@ -110,6 +139,12 @@
       position: relative;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
       overflow: hidden;
+      animation: headerEntrance 1s ease-out;
+    }
+
+    @keyframes headerEntrance {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .header-content { padding: 0 12px; }
@@ -119,11 +154,17 @@
       font-weight: 800;
       line-height: 1.25;
       margin-bottom: 10px;
-      background: linear-gradient(135deg, #fff 0%, #e6ffe6 100%);
+      background: linear-gradient(135deg, #fff 0%, #E0F7FA 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      animation: textGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes textGlow {
+      0% { text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2), 0 0 20px rgba(91, 44, 111, 0.3); }
+      100% { text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 206, 209, 0.4); }
     }
 
     .header-subtitle {
@@ -132,6 +173,12 @@
       font-weight: 800;
       text-shadow: 0 2px 8px rgba(0,0,0,0.25);
       margin: 10px 0 14px;
+      animation: subtitleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes subtitleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
 
     .header-meta {
@@ -146,6 +193,12 @@
       -webkit-backdrop-filter: blur(16px);
       box-shadow: 0 6px 18px rgba(0,0,0,0.15);
       max-width: 95%;
+      animation: metaPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes metaPulse {
+      0%, 100% { box-shadow: 0 6px 18px rgba(0,0,0,0.15); }
+      50% { box-shadow: 0 6px 25px rgba(91, 44, 111, 0.25); }
     }
 
     /* العد التنازلي */
@@ -157,6 +210,12 @@
       padding: 20px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(10px);
+      animation: countdownEntrance 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes countdownEntrance {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .countdown-title {
@@ -181,6 +240,20 @@
       min-width: 100px;
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: var(--transition);
+      animation: countdownItemPulse 2s ease-in-out infinite;
+      animation-delay: calc(var(--item-index) * 0.2s);
+    }
+
+    .countdown-item:hover {
+      transform: translateY(-5px) scale(1.05);
+      background: rgba(91, 44, 111, 0.3);
+      border-color: var(--accent-color);
+    }
+
+    @keyframes countdownItemPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     .countdown-value {
@@ -194,7 +267,7 @@
 
     .countdown-label {
       font-size: 0.9rem;
-      color: var(--gold-color);
+      color: var(--accent-color);
       margin-top: 8px;
       font-weight: 600;
     }
@@ -205,6 +278,12 @@
       font-size: 1.1rem;
       color: white;
       font-weight: 600;
+      animation: textFade 3s ease-in-out infinite;
+    }
+
+    @keyframes textFade {
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 1; }
     }
 
     .main-nav {
@@ -214,7 +293,14 @@
       margin-top: 18px;
       flex-wrap: wrap;
       padding: 0 10px;
+      animation: navEntrance 0.8s ease-out 0.4s both;
     }
+
+    @keyframes navEntrance {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
     .nav-btn {
       color: var(--white);
       border: 1px solid rgba(255,255,255,0.25);
@@ -253,24 +339,40 @@
     }
     
     .nav-btn:hover { 
-      transform: translateY(-3px); 
-      box-shadow: 0 14px 26px rgba(0,0,0,0.22);
+      transform: translateY(-5px) scale(1.02); 
+      box-shadow: 0 14px 30px rgba(0,0,0,0.25);
     }
     
     .instructions-btn { 
       background: var(--gradient-secondary);
     }
     
+    .instructions-btn:hover {
+      box-shadow: 0 14px 30px rgba(0, 128, 128, 0.3);
+    }
+    
     .register-btn { 
       background: var(--gradient-gold);
     }
     
+    .register-btn:hover {
+      box-shadow: 0 14px 30px rgba(205, 127, 50, 0.3);
+    }
+    
     .admin-btn {
-      background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+      background: linear-gradient(135deg, #5B2C6F 0%, #8E44AD 100%);
+    }
+    
+    .admin-btn:hover {
+      box-shadow: 0 14px 30px rgba(91, 44, 111, 0.3);
     }
     
     .status-btn {
-      background: linear-gradient(135deg, #4682B4 0%, #5F9EA0 100%);
+      background: var(--gradient-accent);
+    }
+    
+    .status-btn:hover {
+      box-shadow: 0 14px 30px rgba(0, 206, 209, 0.3);
     }
 
     /* قسم التسجيل */
@@ -284,6 +386,12 @@
       max-width: 100%;
       margin-bottom: 50px;
       display: none;
+      animation: containerEntrance 0.6s ease-out;
+    }
+
+    @keyframes containerEntrance {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .registration-container.active {
@@ -291,21 +399,45 @@
     }
 
     .form-title {
-      color: var(--dark-green);
+      color: var(--primary-color);
       font-size: 2rem;
       font-weight: 900;
       margin-bottom: 25px;
       text-align: center;
       padding-bottom: 15px;
-      border-bottom: 3px solid var(--primary-color);
+      border-bottom: 3px solid var(--accent-color);
+      position: relative;
+    }
+
+    .form-title::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      right: 0;
+      width: 100px;
+      height: 3px;
+      background: var(--gold-color);
+      animation: titleUnderline 3s ease-in-out infinite;
+    }
+
+    @keyframes titleUnderline {
+      0%, 100% { width: 100px; }
+      50% { width: 150px; }
     }
 
     .form-section {
       margin-bottom: 30px;
       padding: 20px;
-      background: linear-gradient(135deg, rgba(10, 92, 54, 0.05) 0%, rgba(46, 139, 87, 0.05) 100%);
+      background: linear-gradient(135deg, rgba(91, 44, 111, 0.05) 0%, rgba(0, 206, 209, 0.05) 100%);
       border-radius: var(--border-radius);
-      border: 1px solid rgba(10, 92, 54, 0.1);
+      border: 1px solid rgba(91, 44, 111, 0.1);
+      transition: var(--transition);
+    }
+
+    .form-section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border-color: var(--accent-color);
     }
 
     .section-title {
@@ -320,10 +452,23 @@
 
     .section-title i {
       color: var(--gold-color);
+      animation: iconFloat 2s ease-in-out infinite;
+    }
+
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
     }
 
     .form-group {
       margin-bottom: 20px;
+      animation: formGroupEntrance 0.5s ease-out;
+      animation-fill-mode: both;
+    }
+
+    @keyframes formGroupEntrance {
+      from { transform: translateX(-20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     .form-row {
@@ -336,18 +481,19 @@
       display: block;
       margin-bottom: 8px;
       font-weight: 700;
-      color: var(--dark-green);
+      color: var(--primary-color);
       font-size: 1.05rem;
+      position: relative;
     }
 
     .form-label span {
-      color: var(--accent-color);
+      color: var(--secondary-color);
     }
 
     .form-input, .form-select {
       width: 100%;
       padding: 14px 16px;
-      border: 2px solid rgba(10, 92, 54, 0.2);
+      border: 2px solid rgba(91, 44, 111, 0.2);
       border-radius: 10px;
       font-size: 1rem;
       font-family: 'Tajawal', sans-serif;
@@ -357,13 +503,14 @@
 
     .form-input:focus, .form-select:focus {
       outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(10, 92, 54, 0.1);
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(0, 206, 209, 0.1);
+      transform: translateY(-2px);
     }
 
     .radio-group {
       display: flex;
-      gap: 20px;
+      gap: 15px;
       flex-wrap: wrap;
     }
 
@@ -372,16 +519,38 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      padding: 10px 15px;
-      border-radius: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
       transition: var(--transition);
-      border: 1px solid rgba(10, 92, 54, 0.2);
+      border: 2px solid rgba(91, 44, 111, 0.1);
       background: white;
+      flex: 1;
+      min-width: 120px;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .radio-option::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent, rgba(91, 44, 111, 0.05), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .radio-option:hover::before {
+      opacity: 1;
     }
 
     .radio-option:hover {
-      border-color: var(--primary-color);
-      background: rgba(10, 92, 54, 0.05);
+      border-color: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
 
     .radio-option input {
@@ -390,12 +559,14 @@
 
     .radio-text {
       font-weight: 600;
+      color: var(--primary-color);
+      position: relative;
+      z-index: 1;
     }
 
+    /* إخفاء النقاط تماماً */
     .radio-points {
-      font-weight: 800;
-      color: var(--primary-color);
-      margin-right: 5px;
+      display: none;
     }
 
     /* أسئلة الميول */
@@ -406,26 +577,45 @@
       border-radius: var(--border-radius);
       border: 1px solid rgba(0,0,0,0.08);
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: var(--transition);
+      animation: questionEntrance 0.6s ease-out;
+    }
+
+    .tendency-question:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(91, 44, 111, 0.15);
+      border-color: var(--accent-color);
+    }
+
+    @keyframes questionEntrance {
+      from { transform: translateX(20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     .question-text {
       font-size: 1.2rem;
       font-weight: 700;
-      color: var(--dark-green);
+      color: var(--primary-color);
       margin-bottom: 15px;
       line-height: 1.5;
     }
 
     .points-info {
       display: inline-block;
-      background: rgba(212, 175, 55, 0.1);
+      background: rgba(205, 127, 50, 0.1);
       color: var(--gold-color);
       padding: 4px 12px;
       border-radius: 20px;
       font-size: 0.9rem;
       font-weight: 700;
       margin-top: 10px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      border: 1px solid rgba(205, 127, 50, 0.3);
+      animation: infoPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes infoPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
     }
 
     /* رفع الملف */
@@ -444,9 +634,9 @@
 
     .file-label {
       display: block;
-      padding: 15px;
+      padding: 20px;
       background: white;
-      border: 2px dashed rgba(10, 92, 54, 0.3);
+      border: 2px dashed rgba(91, 44, 111, 0.3);
       border-radius: 10px;
       text-align: center;
       cursor: pointer;
@@ -454,8 +644,9 @@
     }
 
     .file-label:hover {
-      border-color: var(--primary-color);
-      background: rgba(10, 92, 54, 0.05);
+      border-color: var(--accent-color);
+      background: rgba(0, 206, 209, 0.05);
+      transform: translateY(-2px);
     }
 
     .file-label i {
@@ -463,6 +654,12 @@
       font-size: 1.5rem;
       margin-bottom: 10px;
       display: block;
+      animation: uploadIconFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes uploadIconFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
 
     .file-name {
@@ -482,11 +679,23 @@
       display: flex;
       align-items: flex-start;
       gap: 10px;
+      animation: conditionItemEntrance 0.5s ease-out;
+    }
+
+    @keyframes conditionItemEntrance {
+      from { transform: translateX(20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     .condition-item i {
       color: var(--secondary-color);
       margin-top: 3px;
+      animation: conditionIconSpin 10s linear infinite;
+    }
+
+    @keyframes conditionIconSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .checkbox-group {
@@ -494,11 +703,22 @@
       align-items: center;
       gap: 10px;
       margin: 15px 0;
+      padding: 15px;
+      background: rgba(91, 44, 111, 0.05);
+      border-radius: 10px;
+      border: 1px solid rgba(91, 44, 111, 0.1);
+      transition: var(--transition);
+    }
+
+    .checkbox-group:hover {
+      border-color: var(--accent-color);
+      transform: translateX(-5px);
     }
 
     .checkbox-group input {
       width: 18px;
       height: 18px;
+      accent-color: var(--primary-color);
     }
 
     /* النتيجة */
@@ -513,6 +733,12 @@
       margin-bottom: 50px;
       text-align: center;
       display: none;
+      animation: resultEntrance 0.8s ease-out;
+    }
+
+    @keyframes resultEntrance {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     .result-container.active {
@@ -523,28 +749,51 @@
       font-size: 4rem;
       color: var(--secondary-color);
       margin-bottom: 20px;
+      animation: resultIconFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes resultIconFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-10px) rotate(5deg); }
+      66% { transform: translateY(5px) rotate(-5deg); }
     }
 
     .result-title {
       font-size: 2rem;
       font-weight: 900;
-      color: var(--dark-green);
+      color: var(--primary-color);
       margin-bottom: 15px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .result-details {
-      background: linear-gradient(135deg, rgba(10, 92, 54, 0.05) 0%, rgba(46, 139, 87, 0.05) 100%);
+      background: linear-gradient(135deg, rgba(91, 44, 111, 0.05) 0%, rgba(0, 206, 209, 0.05) 100%);
       border-radius: var(--border-radius);
       padding: 20px;
       margin: 20px 0;
       text-align: right;
+      animation: detailsEntrance 0.6s ease-out 0.3s both;
+    }
+
+    @keyframes detailsEntrance {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .result-item {
       display: flex;
       justify-content: space-between;
-      padding: 10px 0;
+      padding: 12px 0;
       border-bottom: 1px solid rgba(0,0,0,0.08);
+      transition: var(--transition);
+    }
+
+    .result-item:hover {
+      background: rgba(255, 255, 255, 0.5);
+      padding-right: 10px;
     }
 
     .result-item:last-child {
@@ -553,12 +802,12 @@
 
     .result-label {
       font-weight: 700;
-      color: var(--dark-green);
+      color: var(--primary-color);
     }
 
     .result-value {
       font-weight: 800;
-      color: var(--primary-color);
+      color: var(--secondary-color);
     }
 
     .result-status {
@@ -568,16 +817,22 @@
       border-radius: 50px;
       display: inline-block;
       margin: 20px 0;
+      animation: statusPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     .status-accepted {
-      background: rgba(46, 139, 87, 0.15);
+      background: rgba(0, 128, 128, 0.15);
       color: var(--secondary-color);
       border: 2px solid var(--secondary-color);
     }
 
     .status-waiting {
-      background: rgba(212, 175, 55, 0.15);
+      background: rgba(205, 127, 50, 0.15);
       color: var(--gold-color);
       border: 2px solid var(--gold-color);
     }
@@ -587,6 +842,12 @@
       font-size: 1rem;
       margin-top: 20px;
       font-style: italic;
+      animation: noteFade 3s ease-in-out infinite;
+    }
+
+    @keyframes noteFade {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; }
     }
 
     /* لوحة الإدارة */
@@ -600,6 +861,12 @@
       max-width: 100%;
       margin-bottom: 50px;
       display: none;
+      animation: adminEntrance 0.8s ease-out;
+    }
+
+    @keyframes adminEntrance {
+      from { transform: translateY(30px) rotateX(-10deg); opacity: 0; }
+      to { transform: translateY(0) rotateX(0); opacity: 1; }
     }
 
     .admin-container.active {
@@ -615,6 +882,12 @@
       gap: 15px;
       margin-bottom: 20px;
       flex-wrap: wrap;
+      animation: controlsEntrance 0.6s ease-out 0.2s both;
+    }
+
+    @keyframes controlsEntrance {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .search-box {
@@ -626,9 +899,15 @@
     .search-input {
       width: 100%;
       padding: 12px 45px 12px 16px;
-      border: 2px solid rgba(10, 92, 54, 0.2);
+      border: 2px solid rgba(91, 44, 111, 0.2);
       border-radius: 10px;
       font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(0, 206, 209, 0.1);
     }
 
     .search-icon {
@@ -636,7 +915,13 @@
       left: 15px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-light);
+      color: var(--primary-color);
+      animation: searchIconFloat 2s ease-in-out infinite;
+    }
+
+    @keyframes searchIconFloat {
+      0%, 100% { transform: translateY(-50%) rotate(0deg); }
+      50% { transform: translateY(-50%) rotate(15deg); }
     }
 
     .stats-grid {
@@ -644,6 +929,12 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
       margin-bottom: 30px;
+      animation: statsEntrance 0.6s ease-out 0.4s both;
+    }
+
+    @keyframes statsEntrance {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .stat-card {
@@ -653,6 +944,30 @@
       text-align: center;
       border: 1px solid rgba(0,0,0,0.08);
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      transform: translateX(100%);
+      transition: transform 0.6s ease-out;
+    }
+
+    .stat-card:hover::before {
+      transform: translateX(0);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(91, 44, 111, 0.15);
     }
 
     .stat-value {
@@ -660,6 +975,11 @@
       font-weight: 900;
       color: var(--primary-color);
       line-height: 1;
+      transition: var(--transition);
+    }
+
+    .stat-card:hover .stat-value {
+      color: var(--secondary-color);
     }
 
     .stat-label {
@@ -673,6 +993,12 @@
       border-collapse: collapse;
       margin-top: 20px;
       min-width: 1000px;
+      animation: tableEntrance 0.6s ease-out 0.6s both;
+    }
+
+    @keyframes tableEntrance {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .applications-table th {
@@ -684,12 +1010,23 @@
       position: sticky;
       top: 0;
       z-index: 10;
+      transition: var(--transition);
+    }
+
+    .applications-table th:hover {
+      background: linear-gradient(135deg, rgba(91, 44, 111, 0.95) 0%, rgba(0, 128, 128, 0.95) 100%);
     }
 
     .applications-table td {
       padding: 12px;
       text-align: center;
       border-bottom: 1px solid rgba(0,0,0,0.08);
+      transition: var(--transition);
+    }
+
+    .applications-table tr:hover td {
+      background: rgba(0, 206, 209, 0.05);
+      transform: scale(1.01);
     }
 
     .status-badge {
@@ -698,21 +1035,29 @@
       font-size: 0.85rem;
       font-weight: 700;
       display: inline-block;
+      transition: var(--transition);
+    }
+
+    .status-badge:hover {
+      transform: scale(1.1);
     }
 
     .badge-accepted {
-      background: rgba(46, 139, 87, 0.15);
+      background: rgba(0, 128, 128, 0.15);
       color: var(--secondary-color);
+      border: 1px solid var(--secondary-color);
     }
 
     .badge-waiting {
-      background: rgba(212, 175, 55, 0.15);
+      background: rgba(205, 127, 50, 0.15);
       color: var(--gold-color);
+      border: 1px solid var(--gold-color);
     }
 
     .badge-excellent {
-      background: rgba(70, 130, 180, 0.15);
-      color: #4682B4;
+      background: rgba(0, 206, 209, 0.15);
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
     }
 
     /* المشرفات */
@@ -720,8 +1065,14 @@
       text-align: center;
       margin-top: 30px;
       padding: 20px;
-      background: linear-gradient(135deg, rgba(10, 92, 54, 0.05) 0%, rgba(46, 139, 87, 0.05) 100%);
+      background: linear-gradient(135deg, rgba(91, 44, 111, 0.05) 0%, rgba(0, 206, 209, 0.05) 100%);
       border-radius: var(--border-radius);
+      animation: supervisorsEntrance 0.6s ease-out 0.8s both;
+    }
+
+    @keyframes supervisorsEntrance {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .supervisors-title {
@@ -741,7 +1092,18 @@
     .supervisor {
       font-size: 1.1rem;
       font-weight: 600;
-      color: var(--dark-green);
+      color: var(--dark-color);
+      padding: 10px 20px;
+      background: white;
+      border-radius: 10px;
+      border: 1px solid rgba(91, 44, 111, 0.1);
+      transition: var(--transition);
+    }
+
+    .supervisor:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(91, 44, 111, 0.15);
+      border-color: var(--accent-color);
     }
 
     footer {
@@ -752,9 +1114,30 @@
       border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
       box-shadow: 0 -10px 30px rgba(0,0,0,0.12);
       margin-top: 50px;
+      position: relative;
+      overflow: hidden;
     }
     
-    footer strong { color: var(--gold-color); }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 70%, rgba(0, 206, 209, 0.1) 0%, transparent 50%);
+      animation: footerGlow 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes footerGlow {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.7; }
+    }
+    
+    footer strong { 
+      color: var(--accent-color); 
+      text-shadow: 0 0 10px rgba(0, 206, 209, 0.5);
+    }
 
     /* استجابية */
     @media (max-width: 768px) {
@@ -783,6 +1166,10 @@
       
       .form-row {
         grid-template-columns: 1fr;
+      }
+      
+      .radio-group {
+        flex-direction: column;
       }
       
       .applications-table {
@@ -814,6 +1201,12 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       padding: 12px;
+      animation: modalFadeIn 0.3s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     
     .modal-content {
@@ -826,6 +1219,12 @@
       overflow: auto;
       position: relative;
       box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+      animation: modalContentEntrance 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes modalContentEntrance {
+      from { transform: scale(0.8) translateY(50px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
     }
     
     .close {
@@ -847,7 +1246,7 @@
     .close:hover { 
       background: var(--accent-color); 
       color: white; 
-      transform: rotate(90deg);
+      transform: rotate(90deg) scale(1.1);
     }
   </style>
 </head>
@@ -872,19 +1271,19 @@
             <i class="fas fa-clock"></i> العد التنازلي لانتهاء فترة التسجيل
           </div>
           <div class="countdown-display">
-            <div class="countdown-item">
+            <div class="countdown-item" style="--item-index: 0">
               <span class="countdown-value" id="countdownDays">00</span>
               <span class="countdown-label">يوم</span>
             </div>
-            <div class="countdown-item">
+            <div class="countdown-item" style="--item-index: 1">
               <span class="countdown-value" id="countdownHours">00</span>
               <span class="countdown-label">ساعة</span>
             </div>
-            <div class="countdown-item">
+            <div class="countdown-item" style="--item-index: 2">
               <span class="countdown-value" id="countdownMinutes">00</span>
               <span class="countdown-label">دقيقة</span>
             </div>
-            <div class="countdown-item">
+            <div class="countdown-item" style="--item-index: 3">
               <span class="countdown-value" id="countdownSeconds">00</span>
               <span class="countdown-label">ثانية</span>
             </div>
@@ -929,11 +1328,11 @@
         <div class="form-section">
           <h3 class="section-title"><i class="fas fa-user-graduate"></i> البيانات الشخصية</h3>
           <div class="form-row">
-            <div class="form-group">
+            <div class="form-group" style="animation-delay: 0.1s">
               <label class="form-label">الاسم الكامل للطالبة <span>*</span></label>
               <input type="text" class="form-input" id="studentName" required placeholder="أدخل الاسم الكامل">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="animation-delay: 0.2s">
               <label class="form-label">الصف الدراسي <span>*</span></label>
               <select class="form-select" id="studentGrade" required>
                 <option value="">اختر الصف</option>
@@ -944,33 +1343,33 @@
           </div>
           
           <div class="form-row">
-            <div class="form-group">
+            <div class="form-group" style="animation-delay: 0.3s">
               <label class="form-label">الرقم المدني <span>*</span></label>
               <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني" maxlength="11">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="animation-delay: 0.4s">
               <label class="form-label">رقم هاتف الطالبة <span>*</span></label>
               <input type="tel" class="form-input" id="studentPhone" required placeholder="أدخل رقم الهاتف">
             </div>
           </div>
           
           <div class="form-row">
-            <div class="form-group">
+            <div class="form-group" style="animation-delay: 0.5s">
               <label class="form-label">رقم هاتف ولي الأمر <span>*</span></label>
               <input type="tel" class="form-input" id="parentPhone" required placeholder="أدخل رقم ولي الأمر">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="animation-delay: 0.6s">
               <label class="form-label">المنطقة السكنية <span>*</span></label>
               <input type="text" class="form-input" id="residentialArea" required placeholder="أدخل المنطقة السكنية">
             </div>
           </div>
           
           <div class="form-row">
-            <div class="form-group">
+            <div class="form-group" style="animation-delay: 0.7s">
               <label class="form-label">اسم ولي الأمر <span>*</span></label>
               <input type="text" class="form-input" id="parentName" required placeholder="أدخل اسم ولي الأمر">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="animation-delay: 0.8s">
               <label class="form-label">علاقة ولي الأمر <span>*</span></label>
               <select class="form-select" id="parentRelation" required>
                 <option value="">اختر العلاقة</option>
@@ -987,11 +1386,11 @@
         <!-- أسئلة الميول -->
         <div class="form-section">
           <h3 class="section-title"><i class="fas fa-brain"></i> أسئلة الميول المهنية</h3>
-          <p style="margin-bottom: 20px; color: var(--text-color); font-weight: 600; text-align: center; background: rgba(212, 175, 55, 0.1); padding: 12px; border-radius: 8px; border-right: 4px solid var(--gold-color);">
-            <i class="fas fa-lightbulb"></i> أجيبي بكل صدق، لا توجد إجابة صحيحة أو خاطئة. كل إجابة تُحسب بنقاط: نعم = 2، أحيانًا = 1، لا = 0
+          <p style="margin-bottom: 20px; color: var(--text-color); font-weight: 600; text-align: center; background: rgba(205, 127, 50, 0.1); padding: 12px; border-radius: 8px; border-right: 4px solid var(--gold-color);">
+            <i class="fas fa-lightbulb"></i> أجيبي بكل صدق، لا توجد إجابة صحيحة أو خاطئة. كل إجابة تُحسب بنقاط بشكل تلقائي.
           </p>
           
-          <div class="tendency-question">
+          <div class="tendency-question" style="animation-delay: 0.1s">
             <div class="question-text">1. هل تستمتعين بالتحدث مع أشخاص جدد والعمل معهم في فرق صغيرة أو كبيرة؟</div>
             <div class="radio-group">
               <label class="radio-option">
@@ -1012,7 +1411,7 @@
             </div>
           </div>
           
-          <div class="tendency-question">
+          <div class="tendency-question" style="animation-delay: 0.2s">
             <div class="question-text">2. هل لديك رغبة في التعرف على ثقافات جديدة وزيارة أماكن سياحية مختلفة؟</div>
             <div class="radio-group">
               <label class="radio-option">
@@ -1033,7 +1432,7 @@
             </div>
           </div>
           
-          <div class="tendency-question">
+          <div class="tendency-question" style="animation-delay: 0.3s">
             <div class="question-text">3. هل تحبين ترتيب وتنظيم الأنشطة، أو تخطيط الرحلات والفعاليات؟</div>
             <div class="radio-group">
               <label class="radio-option">
@@ -1054,7 +1453,7 @@
             </div>
           </div>
           
-          <div class="tendency-question">
+          <div class="tendency-question" style="animation-delay: 0.4s">
             <div class="question-text">4. هل تستطيعين التعامل مع مواقف غير متوقعة أثناء تنظيم الرحلات أو استقبال الزوار؟</div>
             <div class="radio-group">
               <label class="radio-option">
@@ -1075,7 +1474,7 @@
             </div>
           </div>
           
-          <div class="tendency-question">
+          <div class="tendency-question" style="animation-delay: 0.5s">
             <div class="question-text">5. هل تفضلين التعلم العملي والتطبيقي في الأنشطة والرحلات على التعلم النظري فقط؟</div>
             <div class="radio-group">
               <label class="radio-option">
@@ -1101,14 +1500,14 @@
         <div class="form-section">
           <h3 class="section-title"><i class="fas fa-language"></i> مستوى اللغة الإنجليزية</h3>
           <div class="form-row">
-            <div class="form-group">
+            <div class="form-group" style="animation-delay: 0.1s">
               <label class="form-label">درجة اللغة الإنجليزية في الفصل الأول <span>*</span></label>
               <input type="number" class="form-input" id="englishGrade" required min="0" max="100" placeholder="أدخل الدرجة من 0 إلى 100">
               <div class="points-info" style="margin-top: 10px;">
-                <i class="fas fa-info-circle"></i> سيتم تحويل الدرجة إلى نقاط: 90-100 = 5 نقاط، 80-89 = 4 نقاط، 70-79 = 3 نقاط، 60-69 = 2 نقاط، 50-59 = 1 نقطة
+                <i class="fas fa-info-circle"></i> سيتم تحويل الدرجة إلى نقاط بشكل تلقائي
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="animation-delay: 0.2s">
               <label class="form-label">رفع شهادة الفصل الأول (PDF أو صورة) <span>*</span></label>
               <div class="file-upload">
                 <input type="file" class="file-input" id="certificateFile" accept=".pdf,.jpg,.jpeg,.png" required>
@@ -1129,38 +1528,38 @@
           <div class="conditions-list">
             <h4 style="color: var(--primary-color); margin-bottom: 15px;">شروط التسجيل والقبول (تخصص السياحة):</h4>
             
-            <div class="condition-item">
+            <div class="condition-item" style="animation-delay: 0.1s">
               <i class="fas fa-check-circle"></i>
               <span>أن تكمل الطالبة الصف العاشر بنجاح</span>
             </div>
-            <div class="condition-item">
+            <div class="condition-item" style="animation-delay: 0.2s">
               <i class="fas fa-check-circle"></i>
               <span>أن تكون الطالبة عمانية أو من أبناء دول مجلس التعاون لدول الخليج العربية</span>
             </div>
-            <div class="condition-item">
+            <div class="condition-item" style="animation-delay: 0.3s">
               <i class="fas fa-check-circle"></i>
               <span>أن يكون لدى الطالبة رغبة في الالتحاق بالتعليم المهني والتقني (دبلوم السفر والسياحة)</span>
             </div>
-            <div class="condition-item">
+            <div class="condition-item" style="animation-delay: 0.4s">
               <i class="fas fa-check-circle"></i>
               <span>أن تكون الطالبة لائقة صحياً بما يتوافق مع التخصص المطلوب</span>
             </div>
-            <div class="condition-item">
+            <div class="condition-item" style="animation-delay: 0.5s">
               <i class="fas fa-check-circle"></i>
               <span>ألا يتجاوز عمر الطالبة المتقدم (20) عاماً</span>
             </div>
           </div>
           
-          <div class="checkbox-group">
+          <div class="checkbox-group" style="animation-delay: 0.6s">
             <input type="checkbox" id="studentCommitment" required>
-            <label for="studentCommitment" style="font-weight: 600; color: var(--dark-green);">
+            <label for="studentCommitment" style="font-weight: 600; color: var(--primary-color);">
               أوافق على الالتزام بحضور الحصص الدراسية ومراعاة ضوابط الحضور والغياب، وتسليم المشاريع والواجبات في الوقت المحدد، والمحافظة على الأجهزة الإلكترونية.
             </label>
           </div>
           
-          <div class="checkbox-group">
+          <div class="checkbox-group" style="animation-delay: 0.7s">
             <input type="checkbox" id="parentApproval" required>
-            <label for="parentApproval" style="font-weight: 600; color: var(--dark-green);">
+            <label for="parentApproval" style="font-weight: 600; color: var(--primary-color);">
               أنا ولي أمر الطالبة أوافق على تسجيل ابنتي في مسار السفر والسياحة وأتعهد بمتابعتها والتزامها بجميع الشروط.
             </label>
           </div>
@@ -1168,7 +1567,7 @@
 
         <!-- زر الإرسال -->
         <div style="text-align: center; margin-top: 30px;">
-          <button type="submit" class="nav-btn register-btn" style="width: 100%; max-width: 400px; font-size: 1.2rem;">
+          <button type="submit" class="nav-btn register-btn" style="width: 100%; max-width: 400px; font-size: 1.2rem; animation-delay: 0.8s">
             <i class="fas fa-paper-plane"></i> إرسال طلب التسجيل
           </button>
         </div>
@@ -1245,19 +1644,19 @@
       </div>
       
       <div class="stats-grid">
-        <div class="stat-card">
+        <div class="stat-card" style="animation-delay: 0.1s">
           <div class="stat-value" id="totalApplications">0</div>
           <div class="stat-label">إجمالي الطلبات</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card" style="animation-delay: 0.2s">
           <div class="stat-value" id="acceptedApplications">0</div>
           <div class="stat-label">مقبولين</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card" style="animation-delay: 0.3s">
           <div class="stat-value" id="waitingApplications">0</div>
           <div class="stat-label">قائمة الانتظار</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card" style="animation-delay: 0.4s">
           <div class="stat-value" id="excellentEnglish">0</div>
           <div class="stat-label">ممتاز في الإنجليزية</div>
         </div>
@@ -1324,9 +1723,9 @@
   <div id="instructionsModal" class="modal" role="dialog" aria-labelledby="instructionsTitle" aria-modal="true">
     <div class="modal-content">
       <span class="close" aria-label="إغلاق النافذة">&times;</span>
-      <h2 id="instructionsTitle" style="text-align:center;color:var(--dark-green);margin-bottom:20px;">شروط وشروط التسجيل في مسار السفر والسياحة</h2>
+      <h2 id="instructionsTitle" style="text-align:center;color:var(--primary-color);margin-bottom:20px;">شروط وشروط التسجيل في مسار السفر والسياحة</h2>
       
-      <div style="background:rgba(10,92,54,0.06);padding:16px;border-radius:12px;margin-bottom:20px;border-right:4px solid var(--primary-color);">
+      <div style="background:rgba(91,44,111,0.06);padding:16px;border-radius:12px;margin-bottom:20px;border-right:4px solid var(--primary-color);">
         <h3 style="color:var(--primary-color);margin-bottom:10px;"><i class="fas fa-exclamation-circle"></i> معلومات هامة</h3>
         <p style="color:var(--text-color);font-weight:500;">يرجى الاطلاع على الشروط التالية بعناية قبل تقديم طلب التسجيل.</p>
       </div>
@@ -1335,7 +1734,7 @@
         <div class="condition-item" style="margin-bottom: 15px; padding: 15px; background: white; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);">
           <i class="fas fa-user-graduate" style="color: var(--primary-color);"></i>
           <div>
-            <div style="font-weight: 800; color: var(--dark-green); margin-bottom: 5px;">الشروط الأساسية:</div>
+            <div style="font-weight: 800; color: var(--primary-color); margin-bottom: 5px;">الشروط الأساسية:</div>
             <ol style="padding-right: 20px; margin-top: 10px;">
               <li>أن تكمل الطالبة الصف العاشر بنجاح</li>
               <li>أن تكون الطالبة عمانية أو من أبناء دول مجلس التعاون لدول الخليج العربية</li>
@@ -1349,7 +1748,7 @@
         <div class="condition-item" style="margin-bottom: 15px; padding: 15px; background: white; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);">
           <i class="fas fa-clipboard-check" style="color: var(--primary-color);"></i>
           <div>
-            <div style="font-weight: 800; color: var(--dark-green); margin-bottom: 5px;">الضوابط العامة:</div>
+            <div style="font-weight: 800; color: var(--primary-color); margin-bottom: 5px;">الضوابط العامة:</div>
             <ul style="padding-right: 20px; margin-top: 10px;">
               <li>استكمال متطلبات البرنامج</li>
               <li>الالتزام بحضور الحصص الدراسية ومراعاة ضوابط الحضور والغياب (وفق لائحة شؤون الطلبة)</li>
@@ -1362,10 +1761,10 @@
         <div class="condition-item" style="margin-bottom: 15px; padding: 15px; background: white; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);">
           <i class="fas fa-chart-bar" style="color: var(--primary-color);"></i>
           <div>
-            <div style="font-weight: 800; color: var(--dark-green); margin-bottom: 5px;">آلية التقييم والترشيح:</div>
+            <div style="font-weight: 800; color: var(--primary-color); margin-bottom: 5px;">آلية التقييم والترشيح:</div>
             <ul style="padding-right: 20px; margin-top: 10px;">
-              <li>يتم احتساب نقاط الميول من 5 أسئلة (نعم = 2، أحيانًا = 1، لا = 0)</li>
-              <li>يتم تحويل درجة اللغة الإنجليزية إلى نقاط (90-100 = 5، 80-89 = 4، 70-79 = 3، 60-69 = 2، 50-59 = 1)</li>
+              <li>يتم احتساب نقاط الميول من 5 أسئلة بشكل تلقائي</li>
+              <li>يتم تحويل درجة اللغة الإنجليزية إلى نقاط بشكل تلقائي</li>
               <li>يتم جمع نقاط الميول ونقاط اللغة الإنجليزية للحصول على المجموع الكلي</li>
               <li>يتم قبول أول 50 طالبة ذات أعلى مجموع</li>
               <li>يتم إعطاء أولوية للطالبات الحاصلات على مستوى ممتاز في اللغة الإنجليزية (90-100)</li>
@@ -1374,8 +1773,8 @@
           </div>
         </div>
         
-        <div style="margin-top:20px;padding:14px;background:linear-gradient(135deg, rgba(212,175,55,0.12), rgba(46,139,87,0.08));border-radius:12px;border:1px solid rgba(212,175,55,0.25);">
-          <p style="text-align:center;font-weight:800;color:var(--dark-green);margin:0;">
+        <div style="margin-top:20px;padding:14px;background:linear-gradient(135deg, rgba(205,127,50,0.12), rgba(0,128,128,0.08));border-radius:12px;border:1px solid rgba(205,127,50,0.25);">
+          <p style="text-align:center;font-weight:800;color:var(--primary-color);margin:0;">
             نرجو لجميع الطالبات التوفيق والنجاح في مسار السفر والسياحة، ونسأل الله أن يوفق الجميع لما فيه الخير والفلاح
           </p>
         </div>
@@ -1655,7 +2054,7 @@
         
         // تحديد لون الصف للغة الإنجليزية الممتازة
         if (app.englishGrade >= 90) {
-          row.style.backgroundColor = 'rgba(70, 130, 180, 0.05)';
+          row.style.backgroundColor = 'rgba(0, 206, 209, 0.05)';
         }
         
         row.innerHTML = `
@@ -1674,7 +2073,7 @@
           </td>
           <td>${app.notes || '-'}</td>
           <td>
-            <button onclick="toggleApplicationStatus(${app.id})" style="background: var(--primary-color); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+            <button onclick="toggleApplicationStatus(${app.id})" style="background: var(--primary-color); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; transition: var(--transition);">
               تغيير الحالة
             </button>
           </td>
@@ -1758,7 +2157,7 @@
         statusResult.style.display = 'block';
       } else {
         statusResult.innerHTML = `
-          <div style="text-align: center; padding: 20px; background: rgba(230, 57, 70, 0.1); border-radius: 10px; border: 1px solid rgba(230, 57, 70, 0.3);">
+          <div style="text-align: center; padding: 20px; background: rgba(0, 206, 209, 0.1); border-radius: 10px; border: 1px solid rgba(0, 206, 209, 0.3);">
             <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 10px;"></i>
             <h3 style="color: var(--accent-color);">لم يتم العثور على طلب</h3>
             <p>الرقم المدني المدخل غير مسجل في النظام. يرجى التأكد من الرقم أو تقديم طلب جديد.</p>
@@ -1799,10 +2198,33 @@
       }
     });
     
+    // إضافة تأثيرات تفاعلية للعناصر
+    document.querySelectorAll('.radio-option').forEach(option => {
+      option.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-3px) scale(1.02)';
+        this.style.boxShadow = '0 8px 20px rgba(91, 44, 111, 0.15)';
+      });
+      
+      option.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+        this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.05)';
+      });
+    });
+    
     // التهيئة الأولية
     function init() {
       showRegistrationForm();
       updateCountdown();
+      
+      // إضافة تأثيرات للعدادات
+      document.querySelectorAll('.countdown-item').forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.2}s`;
+      });
+      
+      // إضافة تأثيرات للعناصر المتأخرة
+      document.querySelectorAll('.form-group, .tendency-question, .condition-item, .checkbox-group, .stat-card').forEach((item, index) => {
+        item.style.animationDelay = `${(index % 10) * 0.1}s`;
+      });
     }
     
     document.addEventListener("DOMContentLoaded", init);
