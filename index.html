@@ -1,2266 +1,1811 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مسار السفر والسياحة - نظام الترشيح الذكي</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        :root {
-            --primary-dark: #1a365d;
-            --primary-blue: #2d5aa0;
-            --accent-gold: #d4af37;
-            --accent-teal: #38b2ac;
-            --light-bg: #f8fafc;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --gradient-primary: linear-gradient(135deg, #1a365d 0%, #2d5aa0 100%);
-            --gradient-accent: linear-gradient(135deg, #d4af37 0%, #fbbf24 100%);
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Cairo', sans-serif;
-        }
-
-        body {
-            background: var(--light-bg);
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(56, 178, 172, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%);
-        }
-
-        /* تصميم الهيدر المميز */
-        .main-header {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 1.5rem 0;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-img {
-            height: 80px;
-            width: auto;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .logo-text h1 {
-            font-size: 1.8rem;
-            margin-bottom: 0.3rem;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .logo-text p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .nav-tabs {
-            display: flex;
-            gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-        }
-
-        .tab-btn {
-            background: transparent;
-            border: none;
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .tab-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .tab-btn.active {
-            background: var(--accent-gold);
-            color: var(--primary-dark);
-        }
-
-        /* تصميم محتوى التبويبات */
-        .tab-content {
-            display: none;
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* تصميم بطاقة النموذج */
-        .form-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 2rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .form-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            position: relative;
-            padding-bottom: 1.5rem;
-        }
-
-        .form-header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 25%;
-            width: 50%;
-            height: 4px;
-            background: var(--gradient-accent);
-            border-radius: 2px;
-        }
-
-        .form-header h2 {
-            color: var(--primary-dark);
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-header p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-
-        /* تصميم خطوات التسجيل */
-        .form-steps {
-            display: flex;
-            justify-content: space-between;
-            margin: 2rem 0;
-            position: relative;
-        }
-
-        .form-steps::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: #e5e7eb;
-            z-index: 1;
-        }
-
-        .step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-            flex: 1;
-        }
-
-        .step-icon {
-            width: 40px;
-            height: 40px;
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 0.5rem;
-            color: #9ca3af;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .step.active .step-icon {
-            background: var(--accent-teal);
-            border-color: var(--accent-teal);
-            color: white;
-            transform: scale(1.1);
-        }
-
-        .step.completed .step-icon {
-            background: var(--success);
-            border-color: var(--success);
-            color: white;
-        }
-
-        .step-label {
-            font-size: 0.9rem;
-            color: #6b7280;
-            text-align: center;
-        }
-
-        .step.active .step-label {
-            color: var(--primary-dark);
-            font-weight: 600;
-        }
-
-        /* تصميم أقسام النموذج */
-        .form-section {
-            margin-bottom: 2.5rem;
-            padding: 1.5rem;
-            background: #f9fafb;
-            border-radius: 15px;
-            border-right: 4px solid var(--accent-teal);
-            transition: transform 0.3s ease;
-        }
-
-        .form-section:hover {
-            transform: translateX(-5px);
-        }
-
-        .section-title {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--primary-dark);
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-        }
-
-        .section-title i {
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-        }
-
-        /* تصميم الحقول */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #4b5563;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .form-label i {
-            color: var(--accent-teal);
-        }
-
-        .form-input, .form-select {
-            width: 100%;
-            padding: 0.875rem 1rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .form-input:focus, .form-select:focus {
-            outline: none;
-            border-color: var(--accent-teal);
-            box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.1);
-        }
-
-        /* تصميم أسئلة الميول */
-        .question-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid var(--accent-teal);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-        }
-
-        .question-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
-
-        .question-text {
-            font-size: 1.1rem;
-            color: var(--primary-dark);
-            margin-bottom: 1.2rem;
-            line-height: 1.5;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-        }
-
-        .option-label {
-            display: flex;
-            align-items: center;
-            padding: 0.8rem 1rem;
-            background: #f3f4f6;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .option-label:hover {
-            background: #e5e7eb;
-        }
-
-        .option-label.selected {
-            background: var(--accent-teal);
-            color: white;
-            border-color: var(--accent-teal);
-        }
-
-        .option-input {
-            margin-left: 0.75rem;
-        }
-
-        /* تصميم رفع الملفات */
-        .upload-container {
-            border: 2px dashed #d1d5db;
-            border-radius: 12px;
-            padding: 2.5rem;
-            text-align: center;
-            background: #fafafa;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .upload-container:hover, .upload-container.dragover {
-            border-color: var(--accent-teal);
-            background: rgba(56, 178, 172, 0.05);
-        }
-
-        .upload-icon {
-            font-size: 3rem;
-            color: var(--accent-teal);
-            margin-bottom: 1rem;
-        }
-
-        /* تصميم الأزرار */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.875rem 2rem;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: var(--gradient-primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(26, 54, 93, 0.2);
-        }
-
-        .btn-accent {
-            background: var(--gradient-accent);
-            color: var(--primary-dark);
-        }
-
-        .btn-accent:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
-        }
-
-        .btn-block {
-            width: 100%;
-        }
-
-        /* تصميم لوحة التحكم */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow-md);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-primary);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .stat-content h3 {
-            font-size: 2rem;
-            color: var(--primary-dark);
-            margin-bottom: 0.25rem;
-        }
-
-        .stat-content p {
-            color: #6b7280;
-            font-size: 0.9rem;
-        }
-
-        /* تصميم جدول الطلبات */
-        .table-container {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 2rem;
-        }
-
-        .table-header {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 1.25rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .data-table th {
-            background: #f9fafb;
-            padding: 1rem 1.5rem;
-            text-align: right;
-            color: var(--primary-dark);
-            font-weight: 600;
-            border-bottom: 2px solid #e5e7eb;
-        }
-
-        .data-table td {
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .data-table tr:hover {
-            background: #f9fafb;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .status-accepted {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .status-waiting {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-pending {
-            background: #e0e7ff;
-            color: #3730a3;
-        }
-
-        /* تصميم البحث والفلترة */
-        .filters-bar {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow-md);
-            margin-bottom: 2rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .search-box {
-            flex: 1;
-            min-width: 300px;
-            position: relative;
-        }
-
-        .search-box i {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--accent-teal);
-        }
-
-        /* تصميم إشعارات النتائج */
-        .result-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .result-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .result-modal.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-icon {
-            font-size: 4rem;
-            color: var(--accent-gold);
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-
-        /* تصميم متجاوب */
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1.5rem;
-                text-align: center;
-            }
-
-            .nav-tabs {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .form-steps::before {
-                left: 15%;
-                right: 15%;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .filters-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-box {
-                min-width: 100%;
-            }
-        }
-
-        /* تصميم التقدم */
-        .progress-container {
-            background: #f3f4f6;
-            border-radius: 10px;
-            height: 10px;
-            margin: 1rem 0;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: var(--gradient-accent);
-            border-radius: 10px;
-            width: 0%;
-            transition: width 1s ease;
-        }
-
-        /* تصميم فهرس الألوان */
-        .color-palette {
-            display: flex;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .color-box {
-            width: 30px;
-            height: 30px;
-            border-radius: 6px;
-        }
-
-        .color-dark { background: var(--primary-dark); }
-        .color-blue { background: var(--primary-blue); }
-        .color-gold { background: var(--accent-gold); }
-        .color-teal { background: var(--accent-teal); }
-
-        /* تصميم الرسوم البيانية */
-        .chart-container {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow-md);
-            margin-bottom: 2rem;
-        }
-
-        /* تصميم التنبيهات */
-        .alert {
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            animation: slideIn 0.5s ease;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .alert-success {
-            background: #d1fae5;
-            color: #065f46;
-            border-right: 4px solid #10b981;
-        }
-
-        .alert-warning {
-            background: #fef3c7;
-            color: #92400e;
-            border-right: 4px solid #f59e0b;
-        }
-
-        .alert-info {
-            background: #e0f2fe;
-            color: #0369a1;
-            border-right: 4px solid #0ea5e9;
-        }
-
-        /* تصميم البطاقات المتألقة */
-        .glowing-card {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glowing-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(255, 255, 255, 0.1),
-                transparent
-            );
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: rotate(45deg) translateX(-100%); }
-            100% { transform: rotate(45deg) translateX(100%); }
-        }
-
-        /* تحسينات إضافية */
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            cursor: help;
-        }
-
-        .tooltip .tooltip-text {
-            visibility: hidden;
-            width: 200px;
-            background: var(--primary-dark);
-            color: white;
-            text-align: center;
-            border-radius: 6px;
-            padding: 0.5rem;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.85rem;
-        }
-
-        .tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* تصميم النقرات */
-        .clickable {
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .clickable:active {
-            transform: scale(0.95);
-        }
-
-        /* تحسينات النص */
-        .highlight {
-            background: linear-gradient(120deg, var(--accent-gold) 0%, var(--accent-gold) 100%);
-            background-repeat: no-repeat;
-            background-size: 100% 0.4em;
-            background-position: 0 88%;
-            padding: 0 0.2rem;
-        }
-
-        /* تصميم الفوتر */
-        .main-footer {
-            background: var(--primary-dark);
-            color: white;
-            padding: 2rem 0;
-            margin-top: 3rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1.5rem 0;
-        }
-
-        .footer-link {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-link:hover {
-            color: var(--accent-gold);
-        }
-
-        .copyright {
-            margin-top: 1.5rem;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>نظام تسجيل وترشيح طالبات مسار السفر والسياحة | مدرسة خولة بنت حكيم</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="https://d.top4top.io/p_36520q11g1.png">
+
+  <style>
+    :root {
+      --primary-color: #0a5c36;
+      --secondary-color: #2e8b57;
+      --accent-color: #e63946;
+      --gold-color: #d4af37;
+      --dark-green: #0d3b1e;
+      --text-color: #2d3748;
+      --text-light: #4a5568;
+      --white: #ffffff;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --border-radius: 12px;
+      --border-radius-lg: 20px;
+      --gradient-primary: linear-gradient(135deg, rgba(10, 92, 54, 0.95) 0%, rgba(13, 59, 30, 0.95) 100%);
+      --gradient-secondary: linear-gradient(135deg, #2e8b57 0%, #1d6b3e 100%);
+      --gradient-accent: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
+      --gradient-gold: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+      --gradient-light: linear-gradient(135deg, #f0f8f4 0%, #e8f5e9 100%);
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      font-family: 'Tajawal', 'Noto Naskh Arabic', sans-serif;
+      background: linear-gradient(135deg, #f0f8f4 0%, #e8f5e9 100%);
+      color: var(--text-color);
+      line-height: 1.7;
+      overflow-x: hidden;
+      min-height: 100vh;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 18px; width: 100%; }
+
+    /* إضافة الشعار المضيء */
+    .logo-container {
+      text-align: center;
+      margin-bottom: 20px;
+      animation: floatLogo 6s ease-in-out infinite;
+    }
+
+    .logo-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--gold-color);
+      box-shadow: 
+        0 0 30px rgba(212, 175, 55, 0.6),
+        0 0 60px rgba(10, 92, 54, 0.4),
+        inset 0 0 20px rgba(255, 255, 255, 0.3);
+      transition: var(--transition);
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-img:hover {
+      transform: scale(1.05);
+      box-shadow: 
+        0 0 40px rgba(212, 175, 55, 0.8),
+        0 0 80px rgba(10, 92, 54, 0.6),
+        inset 0 0 30px rgba(255, 255, 255, 0.5);
+    }
+
+    .logo-glow {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, rgba(10, 92, 54, 0.1) 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    }
+
+    header {
+      background: var(--gradient-primary), url('https://d.top4top.io/p_36520q11g1.png') center/cover no-repeat;
+      color: var(--white);
+      padding: 30px 0 28px;
+      text-align: center;
+      border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+      margin-bottom: 34px;
+      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+
+    .header-content { padding: 0 12px; }
+    
+    h1 {
+      font-size: clamp(1.8rem, 4.8vw, 3rem);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #fff 0%, #e6ffe6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-subtitle {
+      font-size: clamp(1.2rem, 3.2vw, 2rem);
+      color: var(--gold-color);
+      font-weight: 800;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      margin: 10px 0 14px;
+    }
+
+    .header-meta {
+      display: inline-block;
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      font-weight: 700;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      max-width: 95%;
+    }
+
+    /* العد التنازلي */
+    .countdown-container {
+      margin: 25px auto 15px;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: var(--border-radius-lg);
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .countdown-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--gold-color);
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .countdown-display {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .countdown-item {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      padding: 15px;
+      min-width: 100px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .countdown-value {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: white;
+      display: block;
+      line-height: 1;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .countdown-label {
+      font-size: 0.9rem;
+      color: var(--gold-color);
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    .registration-period {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1.1rem;
+      color: white;
+      font-weight: 600;
+    }
+
+    .main-nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+      padding: 0 10px;
+    }
+    .nav-btn {
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: var(--transition);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      min-height: 52px;
+      width: min(330px, 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+    
+    .nav-btn:hover::before {
+      left: 100%;
+    }
+    
+    .nav-btn:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 14px 26px rgba(0,0,0,0.22);
+    }
+    
+    .instructions-btn { 
+      background: var(--gradient-secondary);
+    }
+    
+    .register-btn { 
+      background: var(--gradient-gold);
+    }
+    
+    .admin-btn {
+      background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+    }
+    
+    .status-btn {
+      background: linear-gradient(135deg, #4682B4 0%, #5F9EA0 100%);
+    }
+
+    /* قسم التسجيل */
+    .registration-container {
+      background: var(--white);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      border: 1px solid rgba(0,0,0,0.06);
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 50px;
+      display: none;
+    }
+
+    .registration-container.active {
+      display: block;
+    }
+
+    .form-title {
+      color: var(--dark-green);
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 25px;
+      text-align: center;
+      padding-bottom: 15px;
+      border-bottom: 3px solid var(--primary-color);
+    }
+
+    .form-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(10, 92, 54, 0.05) 0%, rgba(46, 139, 87, 0.05) 100%);
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(10, 92, 54, 0.1);
+    }
+
+    .section-title {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title i {
+      color: var(--gold-color);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: var(--dark-green);
+      font-size: 1.05rem;
+    }
+
+    .form-label span {
+      color: var(--accent-color);
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid rgba(10, 92, 54, 0.2);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Tajawal', sans-serif;
+      transition: var(--transition);
+      background: white;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(10, 92, 54, 0.1);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 8px;
+      transition: var(--transition);
+      border: 1px solid rgba(10, 92, 54, 0.2);
+      background: white;
+    }
+
+    .radio-option:hover {
+      border-color: var(--primary-color);
+      background: rgba(10, 92, 54, 0.05);
+    }
+
+    .radio-option input {
+      margin: 0;
+    }
+
+    .radio-text {
+      font-weight: 600;
+    }
+
+    .radio-points {
+      font-weight: 800;
+      color: var(--primary-color);
+      margin-right: 5px;
+    }
+
+    /* أسئلة الميول */
+    .tendency-question {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: white;
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .question-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark-green);
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .points-info {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold-color);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-top: 10px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    /* رفع الملف */
+    .file-upload {
+      position: relative;
+      margin-top: 10px;
+    }
+
+    .file-input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .file-label {
+      display: block;
+      padding: 15px;
+      background: white;
+      border: 2px dashed rgba(10, 92, 54, 0.3);
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .file-label:hover {
+      border-color: var(--primary-color);
+      background: rgba(10, 92, 54, 0.05);
+    }
+
+    .file-label i {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .file-name {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* شروط القبول */
+    .conditions-list {
+      padding-right: 20px;
+      margin-bottom: 25px;
+    }
+
+    .condition-item {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .condition-item i {
+      color: var(--secondary-color);
+      margin-top: 3px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .checkbox-group input {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* النتيجة */
+    .result-container {
+      background: var(--white);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      border: 1px solid rgba(0,0,0,0.06);
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 50px;
+      text-align: center;
+      display: none;
+    }
+
+    .result-container.active {
+      display: block;
+    }
+
+    .result-icon {
+      font-size: 4rem;
+      color: var(--secondary-color);
+      margin-bottom: 20px;
+    }
+
+    .result-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--dark-green);
+      margin-bottom: 15px;
+    }
+
+    .result-details {
+      background: linear-gradient(135deg, rgba(10, 92, 54, 0.05) 0%, rgba(46, 139, 87, 0.05) 100%);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin: 20px 0;
+      text-align: right;
+    }
+
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .result-item:last-child {
+      border-bottom: none;
+    }
+
+    .result-label {
+      font-weight: 700;
+      color: var(--dark-green);
+    }
+
+    .result-value {
+      font-weight: 800;
+      color: var(--primary-color);
+    }
+
+    .result-status {
+      font-size: 1.3rem;
+      font-weight: 900;
+      padding: 15px 30px;
+      border-radius: 50px;
+      display: inline-block;
+      margin: 20px 0;
+    }
+
+    .status-accepted {
+      background: rgba(46, 139, 87, 0.15);
+      color: var(--secondary-color);
+      border: 2px solid var(--secondary-color);
+    }
+
+    .status-waiting {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold-color);
+      border: 2px solid var(--gold-color);
+    }
+
+    .result-note {
+      color: var(--text-light);
+      font-size: 1rem;
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    /* لوحة الإدارة */
+    .admin-container {
+      background: var(--white);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      border: 1px solid rgba(0,0,0,0.06);
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 50px;
+      display: none;
+    }
+
+    .admin-container.active {
+      display: block;
+    }
+
+    .admin-panel {
+      margin-top: 20px;
+    }
+
+    .admin-controls {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 300px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 45px 12px 16px;
+      border: 2px solid rgba(10, 92, 54, 0.2);
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--primary-color);
+      line-height: 1;
+    }
+
+    .stat-label {
+      color: var(--text-light);
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .applications-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      min-width: 1000px;
+    }
+
+    .applications-table th {
+      background: var(--gradient-primary);
+      color: var(--white);
+      padding: 15px;
+      text-align: center;
+      font-weight: 900;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .applications-table td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    .badge-accepted {
+      background: rgba(46, 139, 87, 0.15);
+      color: var(--secondary-color);
+    }
+
+    .badge-waiting {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold-color);
+    }
+
+    .badge-excellent {
+      background: rgba(70, 130, 180, 0.15);
+      color: #4682B4;
+    }
+
+    /* المشرفات */
+    .supervisors {
+      text-align: center;
+      margin-top: 30px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(10, 92, 54, 0.05) 0%, rgba(46, 139, 87, 0.05) 100%);
+      border-radius: var(--border-radius);
+    }
+
+    .supervisors-title {
+      color: var(--primary-color);
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    .supervisors-list {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .supervisor {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--dark-green);
+    }
+
+    footer {
+      text-align: center;
+      padding: 36px 14px;
+      background: var(--gradient-primary), url('https://d.top4top.io/p_36520q11g1.png') center/cover no-repeat;
+      color: var(--white);
+      border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.12);
+      margin-top: 50px;
+    }
+    
+    footer strong { color: var(--gold-color); }
+
+    /* استجابية */
+    @media (max-width: 768px) {
+      .logo-img {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .logo-glow {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .countdown-item {
+        min-width: 80px;
+        padding: 12px;
+      }
+      
+      .countdown-value {
+        font-size: 2rem;
+      }
+      
+      .registration-container, .result-container, .admin-container {
+        padding: 20px 15px;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .applications-table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .search-box {
+        min-width: 100%;
+      }
+      
+      .admin-controls {
+        flex-direction: column;
+      }
+      
+      .supervisors-list {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+
+    /* Modals */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 12px;
+    }
+    
+    .modal-content {
+      background: white;
+      width: min(900px, 100%);
+      margin: 0 auto;
+      border-radius: 20px;
+      padding: 22px;
+      max-height: 92vh;
+      overflow: auto;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+    
+    .close {
+      position: sticky;
+      top: 0;
+      float: left;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      cursor: pointer;
+      background: rgba(0,0,0,0.06);
+      transition: var(--transition);
+    }
+    
+    .close:hover { 
+      background: var(--accent-color); 
+      color: white; 
+      transform: rotate(90deg);
+    }
+  </style>
 </head>
+
 <body>
-    <!-- الهيدر الرئيسي -->
-    <header class="main-header">
-        <div class="header-container">
-            <div class="logo-section">
-                <img src="https://f.top4top.io/p_3674xpg8w1.png" alt="شعار المدرسة" class="logo-img" id="dynamicLogo">
-                <div class="logo-text">
-                    <h1>مسار السفر والسياحة</h1>
-                    <p>نظام الترشيح الذكي المتقدم</p>
-                </div>
+  <div class="container">
+    <header>
+      <!-- إضافة الشعار المضيء -->
+      <div class="logo-container">
+        <div class="logo-glow"></div>
+        <img src="https://d.top4top.io/p_36520q11g1.png" alt="شعار المدرسة" class="logo-img">
+      </div>
+      
+      <div class="header-content">
+        <h1>نظام تسجيل وترشيح طالبات مسار السفر والسياحة</h1>
+        <div class="header-subtitle">مدرسة خولة بنت حكيم للتعليم الأساسي</div>
+        <div class="header-meta"> الفصل الدراسي الثاني - العام الدراسي 2025/2026</div>
+
+        <!-- العد التنازلي للتسجيل -->
+        <div class="countdown-container">
+          <div class="countdown-title">
+            <i class="fas fa-clock"></i> العد التنازلي لانتهاء فترة التسجيل
+          </div>
+          <div class="countdown-display">
+            <div class="countdown-item">
+              <span class="countdown-value" id="countdownDays">00</span>
+              <span class="countdown-label">يوم</span>
             </div>
-            
-            <div class="nav-tabs" id="mainTabs">
-                <button class="tab-btn active" data-tab="registration">
-                    <i class="fas fa-user-plus"></i> تسجيل جديد
-                </button>
-                <button class="tab-btn" data-tab="status">
-                    <i class="fas fa-search"></i> متابعة الطلب
-                </button>
-                <button class="tab-btn" data-tab="dashboard">
-                    <i class="fas fa-chart-line"></i> لوحة التحكم
-                </button>
-                <button class="tab-btn" data-tab="instructions">
-                    <i class="fas fa-info-circle"></i> التعليمات
-                </button>
+            <div class="countdown-item">
+              <span class="countdown-value" id="countdownHours">00</span>
+              <span class="countdown-label">ساعة</span>
             </div>
+            <div class="countdown-item">
+              <span class="countdown-value" id="countdownMinutes">00</span>
+              <span class="countdown-label">دقيقة</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-value" id="countdownSeconds">00</span>
+              <span class="countdown-label">ثانية</span>
+            </div>
+          </div>
+          <div class="registration-period">
+            <i class="fas fa-calendar-alt"></i> فترة التسجيل مفتوحة من 25 يناير إلى 26 فبراير 2026
+          </div>
         </div>
+
+        <!-- المشرفات -->
+        <div class="supervisors">
+          <div class="supervisors-title">أخصائيات التوجيه المهني:</div>
+          <div class="supervisors-list">
+            <div class="supervisor">أ/ إيمان سعيد البهانتة</div>
+            <div class="supervisor">أ/ فاطمة علي بيت سعيد</div>
+          </div>
+        </div>
+
+        <div class="main-nav">
+          <button class="nav-btn instructions-btn" id="instructionsBtn">
+            <i class="fas fa-info-circle"></i>شروط وشروط التسجيل
+          </button>
+          <button class="nav-btn register-btn" id="registerBtn">
+            <i class="fas fa-user-plus"></i>تقديم طلب التسجيل
+          </button>
+          <button class="nav-btn status-btn" id="statusBtn">
+            <i class="fas fa-search"></i>الاستعلام عن حالة الطلب
+          </button>
+          <button class="nav-btn admin-btn" id="adminBtn">
+            <i class="fas fa-lock"></i>لوحة الإدارة
+          </button>
+        </div>
+      </div>
     </header>
 
-    <!-- محتوى تبويب التسجيل -->
-    <section class="tab-content active" id="registrationTab">
-        <div class="form-card glowing-card">
-            <div class="form-header">
-                <h2><span class="highlight">نموذج التسجيل</span> في برنامج السفر والسياحة</h2>
-                <p>سجلي الآن وكوني جزءًا من رحلة التعليم التطبيقي المميزة</p>
+    <!-- قسم التسجيل -->
+    <div class="registration-container" id="registrationForm">
+      <h2 class="form-title">تقديم طلب التسجيل في مسار السفر والسياحة</h2>
+      
+      <form id="studentRegistrationForm">
+        <!-- البيانات الشخصية -->
+        <div class="form-section">
+          <h3 class="section-title"><i class="fas fa-user-graduate"></i> البيانات الشخصية</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">الاسم الكامل للطالبة <span>*</span></label>
+              <input type="text" class="form-input" id="studentName" required placeholder="أدخل الاسم الكامل">
             </div>
-
-            <!-- خطوات التسجيل -->
-            <div class="form-steps">
-                <div class="step active" id="step1">
-                    <div class="step-icon">1</div>
-                    <span class="step-label">البيانات الأساسية</span>
-                </div>
-                <div class="step" id="step2">
-                    <div class="step-icon">2</div>
-                    <span class="step-label">أسئلة الميول</span>
-                </div>
-                <div class="step" id="step3">
-                    <div class="step-icon">3</div>
-                    <span class="step-label">المستوى الأكاديمي</span>
-                </div>
-                <div class="step" id="step4">
-                    <div class="step-icon">4</div>
-                    <span class="step-label">التعهد والموافقة</span>
-                </div>
+            <div class="form-group">
+              <label class="form-label">الصف الدراسي <span>*</span></label>
+              <select class="form-select" id="studentGrade" required>
+                <option value="">اختر الصف</option>
+                <option value="10">الصف العاشر</option>
+                <option value="11">الصف الحادي عشر</option>
+              </select>
             </div>
-
-            <!-- نموذج التسجيل -->
-            <form id="registrationForm">
-                <!-- الخطوة 1: البيانات الأساسية -->
-                <div class="form-section" id="section1">
-                    <h3 class="section-title">
-                        <i class="fas fa-user-graduate"></i>
-                        البيانات الشخصية للطالبة
-                    </h3>
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label" for="fullName">
-                                <i class="fas fa-signature"></i>
-                                الاسم الكامل للطالبة
-                            </label>
-                            <input type="text" class="form-input" id="fullName" required 
-                                   placeholder="الرجاء إدخال الاسم رباعي">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="grade">
-                                <i class="fas fa-graduation-cap"></i>
-                                الصف الدراسي
-                            </label>
-                            <select class="form-select" id="grade" required>
-                                <option value="">اختر الصف الدراسي</option>
-                                <option value="أول ثانوي">أول ثانوي</option>
-                                <option value="ثاني ثانوي">ثاني ثانوي</option>
-                                <option value="ثالث ثانوي">ثالث ثانوي</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="nationalId">
-                                <i class="fas fa-id-card"></i>
-                                الرقم المدني
-                            </label>
-                            <input type="text" class="form-input" id="nationalId" required 
-                                   placeholder="10 أرقام بدون شرطات">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="studentPhone">
-                                <i class="fas fa-phone"></i>
-                                رقم هاتف الطالبة
-                            </label>
-                            <input type="tel" class="form-input" id="studentPhone" required 
-                                   placeholder="05xxxxxxxx">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="parentName">
-                                <i class="fas fa-user-tie"></i>
-                                اسم ولي الأمر
-                            </label>
-                            <input type="text" class="form-input" id="parentName" required 
-                                   placeholder="اسم ولي الأمر كاملاً">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="parentPhone">
-                                <i class="fas fa-phone-alt"></i>
-                                رقم هاتف ولي الأمر
-                            </label>
-                            <input type="tel" class="form-input" id="parentPhone" required 
-                                   placeholder="05xxxxxxxx">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- الخطوة 2: أسئلة الميول -->
-                <div class="form-section" id="section2" style="display: none;">
-                    <h3 class="section-title">
-                        <i class="fas fa-star"></i>
-                        أسئلة الميول الشخصية
-                    </h3>
-                    <p style="color: #666; margin-bottom: 1.5rem; font-style: italic;">
-                        <i class="fas fa-lightbulb"></i>
-                        أجيبي بكل صدق، لا توجد إجابة صحيحة أو خاطئة. كل إجابة تُحسب بنقاط تساعد في التقييم الشامل.
-                    </p>
-                    
-                    <div id="questionsContainer">
-                        <!-- سيتم إنشاء الأسئلة ديناميكيًا -->
-                    </div>
-                    
-                    <div class="progress-container">
-                        <div class="progress-bar" id="tendencyProgress"></div>
-                    </div>
-                    <p style="text-align: center; color: #6b7280; font-size: 0.9rem;">
-                        تقدم الإجابة على الأسئلة: <span id="progressText">0/5</span>
-                    </p>
-                </div>
-
-                <!-- الخطوة 3: المستوى الأكاديمي -->
-                <div class="form-section" id="section3" style="display: none;">
-                    <h3 class="section-title">
-                        <i class="fas fa-language"></i>
-                        المستوى الأكاديمي والمهارات
-                    </h3>
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label" for="englishScore">
-                                <i class="fas fa-award"></i>
-                                درجة اللغة الإنجليزية (من 100)
-                                <span class="tooltip">
-                                    <i class="fas fa-question-circle" style="color: var(--accent-teal);"></i>
-                                    <span class="tooltip-text">درجتك في مادة اللغة الإنجليزية في الفصل الأول</span>
-                                </span>
-                            </label>
-                            <input type="number" class="form-input" id="englishScore" min="0" max="100" required 
-                                   placeholder="أدخلي الدرجة من 100">
-                            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--accent-teal);">
-                                <i class="fas fa-calculator"></i>
-                                النقاط المكافئة: <span id="englishPoints">0</span> من 5
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">
-                                <i class="fas fa-certificate"></i>
-                                رفع شهادة الفصل الأول
-                            </label>
-                            <div class="upload-container" id="certificateUpload">
-                                <div class="upload-icon">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                </div>
-                                <p style="font-weight: 600; margin-bottom: 0.5rem;">انقري لرفع شهادة الفصل الأول</p>
-                                <p style="color: #6b7280; font-size: 0.9rem;">
-                                    صورة واضحة للشهادة تظهر المعدل والتقدير
-                                </p>
-                                <input type="file" id="certificateFile" accept="image/*,.pdf" style="display: none;">
-                                <p id="fileName" style="margin-top: 1rem; color: var(--accent-teal); font-weight: 600;"></p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="alert alert-info" style="margin-top: 1.5rem;">
-                        <i class="fas fa-info-circle"></i>
-                        <div>
-                            <strong>ملاحظة هامة:</strong> سيتم إعطاء أولوية إضافية للطالبات الحاصلات على مستوى ممتاز في اللغة الإنجليزية (90-100).
-                        </div>
-                    </div>
-                </div>
-
-                <!-- الخطوة 4: التعهد والموافقة -->
-                <div class="form-section" id="section4" style="display: none;">
-                    <h3 class="section-title">
-                        <i class="fas fa-file-signature"></i>
-                        التعهد والموافقة النهائية
-                    </h3>
-                    
-                    <div class="form-group">
-                        <div class="checkbox-group" style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
-                            <input type="checkbox" id="studentPledge" style="margin-top: 0.3rem;" required>
-                            <label for="studentPledge" style="flex: 1;">
-                                <strong>تعهد الطالبة:</strong>
-                                أتعهد بالالتزام الكامل ببرنامج مسار السفر والسياحة، وحضور جميع المحاضرات والأنشطة والرحلات المخطط لها، والالتزام بالتعليمات واللوائح المنظمة للبرنامج.
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="checkbox-group" style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
-                            <input type="checkbox" id="parentApproval" style="margin-top: 0.3rem;" required>
-                            <label for="parentApproval" style="flex: 1;">
-                                <strong>موافقة ولي الأمر:</strong>
-                                أنا ولي الأمر أوافق على مشاركة ابنتي/ابني في برنامج مسار السفر والسياحة، وأتعهد بمتابعتها والتزامها بالبرنامج، وأوافق على جميع الشروط واللوائح المنظمة.
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="parentSignature">
-                            <i class="fas fa-signature"></i>
-                            توقيع ولي الأمر (الاسم الكامل)
-                        </label>
-                        <input type="text" class="form-input" id="parentSignature" required 
-                               placeholder="اكتبي الاسم الكامل كتوقيع">
-                    </div>
-                    
-                    <div class="alert alert-success" style="margin-top: 1.5rem;">
-                        <i class="fas fa-check-circle"></i>
-                        <div>
-                            <strong>تهانينا!</strong> أنتِ على وشك إكمال عملية التسجيل. بعد الإرسال، سيتم تقييم طلبك وإعلامك بالنتيجة خلال 48 ساعة.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- أزرار التنقل -->
-                <div style="display: flex; justify-content: space-between; margin-top: 2.5rem;">
-                    <button type="button" class="btn btn-primary" id="prevBtn" style="display: none;">
-                        <i class="fas fa-arrow-right"></i> السابق
-                    </button>
-                    <button type="button" class="btn btn-accent" id="nextBtn">
-                        التالي <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">
-                        <i class="fas fa-paper-plane"></i> إرسال الطلب
-                    </button>
-                </div>
-            </form>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">الرقم المدني <span>*</span></label>
+              <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني" maxlength="11">
+            </div>
+            <div class="form-group">
+              <label class="form-label">رقم هاتف الطالبة <span>*</span></label>
+              <input type="tel" class="form-input" id="studentPhone" required placeholder="أدخل رقم الهاتف">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">رقم هاتف ولي الأمر <span>*</span></label>
+              <input type="tel" class="form-input" id="parentPhone" required placeholder="أدخل رقم ولي الأمر">
+            </div>
+            <div class="form-group">
+              <label class="form-label">المنطقة السكنية <span>*</span></label>
+              <input type="text" class="form-input" id="residentialArea" required placeholder="أدخل المنطقة السكنية">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">اسم ولي الأمر <span>*</span></label>
+              <input type="text" class="form-input" id="parentName" required placeholder="أدخل اسم ولي الأمر">
+            </div>
+            <div class="form-group">
+              <label class="form-label">علاقة ولي الأمر <span>*</span></label>
+              <select class="form-select" id="parentRelation" required>
+                <option value="">اختر العلاقة</option>
+                <option value="الأب">الأب</option>
+                <option value="الأم">الأم</option>
+                <option value="الوصي">الوصي</option>
+                <option value="أخ">أخ</option>
+                <option value="أخرى">أخرى</option>
+              </select>
+            </div>
+          </div>
         </div>
-    </section>
 
-    <!-- محتوى تبويب متابعة الطلب -->
-    <section class="tab-content" id="statusTab">
-        <div class="form-card">
-            <div class="form-header">
-                <h2><span class="highlight">متابعة حالة الطلب</span></h2>
-                <p>ادخلي الرقم المدني لمتابعة حالة طلبك والتحقق من القبول</p>
+        <!-- أسئلة الميول -->
+        <div class="form-section">
+          <h3 class="section-title"><i class="fas fa-brain"></i> أسئلة الميول المهنية</h3>
+          <p style="margin-bottom: 20px; color: var(--text-color); font-weight: 600; text-align: center; background: rgba(212, 175, 55, 0.1); padding: 12px; border-radius: 8px; border-right: 4px solid var(--gold-color);">
+            <i class="fas fa-lightbulb"></i> أجيبي بكل صدق، لا توجد إجابة صحيحة أو خاطئة. كل إجابة تُحسب بنقاط: نعم = 2، أحيانًا = 1، لا = 0
+          </p>
+          
+          <div class="tendency-question">
+            <div class="question-text">1. هل تستمتعين بالتحدث مع أشخاص جدد والعمل معهم في فرق صغيرة أو كبيرة؟</div>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="q1" value="2" required>
+                <span class="radio-text">نعم</span>
+                <span class="radio-points">(2 نقطة)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="q1" value="1">
+                <span class="radio-text">أحيانًا</span>
+                <span class="radio-points">(1 نقطة)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="q1" value="0">
+                <span class="radio-text">لا</span>
+                <span class="radio-points">(0 نقطة)</span>
+              </label>
             </div>
-            
-            <div style="max-width: 600px; margin: 0 auto;">
-                <div class="form-group">
-                    <label class="form-label" for="trackNationalId">
-                        <i class="fas fa-id-card"></i>
-                        الرقم المدني للطالبة
-                    </label>
-                    <div class="search-box">
-                        <input type="text" class="form-input" id="trackNationalId" 
-                               placeholder="أدخلي الرقم المدني للبحث">
-                        <i class="fas fa-search"></i>
-                    </div>
-                </div>
-                
-                <button class="btn btn-accent btn-block" id="trackBtn">
-                    <i class="fas fa-search"></i> بحث وتتبع الطلب
-                </button>
-                
-                <div id="trackResult" style="display: none; margin-top: 2rem;">
-                    <!-- سيتم عرض نتيجة التتبع هنا -->
-                </div>
+          </div>
+          
+          <div class="tendency-question">
+            <div class="question-text">2. هل لديك رغبة في التعرف على ثقافات جديدة وزيارة أماكن سياحية مختلفة؟</div>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="q2" value="2" required>
+                <span class="radio-text">نعم</span>
+                <span class="radio-points">(2 نقطة)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="q2" value="1">
+                <span class="radio-text">أحيانًا</span>
+                <span class="radio-points">(1 نقطة)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="q2" value="0">
+                <span class="radio-text">لا</span>
+                <span class="radio-points">(0 نقطة)</span>
+              </label>
             </div>
+          </div>
+          
+          <div class="tendency-question">
+            <div class="question-text">3. هل تحبين ترتيب وتنظيم الأنشطة، أو تخطيط الرحلات والفعاليات؟</div>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="q3" value="2" required>
+                <span class="radio-text">نعم</span>
+                <span class="radio-points">(2 نقطة)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="q3" value="1">
+                <span class="radio-text">أحيانًا</span>
+                <span class="radio-points">(1 نقطة)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="q3" value="0">
+                <span class="radio-text">لا</span>
+                <span class="radio-points">(0 نقطة)</span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="tendency-question">
+            <div class="question-text">4. هل تستطيعين التعامل مع مواقف غير متوقعة أثناء تنظيم الرحلات أو استقبال الزوار؟</div>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="q4" value="2" required>
+                <span class="radio-text">نعم</span>
+                <span class="radio-points">(2 نقطة)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="q4" value="1">
+                <span class="radio-text">أحيانًا</span>
+                <span class="radio-points">(1 نقطة)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="q4" value="0">
+                <span class="radio-text">لا</span>
+                <span class="radio-points">(0 نقطة)</span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="tendency-question">
+            <div class="question-text">5. هل تفضلين التعلم العملي والتطبيقي في الأنشطة والرحلات على التعلم النظري فقط؟</div>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="q5" value="2" required>
+                <span class="radio-text">نعم</span>
+                <span class="radio-points">(2 نقطة)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="q5" value="1">
+                <span class="radio-text">أحيانًا</span>
+                <span class="radio-points">(1 نقطة)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="q5" value="0">
+                <span class="radio-text">لا</span>
+                <span class="radio-points">(0 نقطة)</span>
+              </label>
+            </div>
+          </div>
         </div>
-    </section>
 
-    <!-- محتوى تبويب لوحة التحكم -->
-    <section class="tab-content" id="dashboardTab">
-        <div class="dashboard-grid">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="stat-content">
-                    <h3 id="totalApplications">0</h3>
-                    <p>إجمالي الطلبات</p>
-                </div>
+        <!-- مستوى اللغة الإنجليزية -->
+        <div class="form-section">
+          <h3 class="section-title"><i class="fas fa-language"></i> مستوى اللغة الإنجليزية</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">درجة اللغة الإنجليزية في الفصل الأول <span>*</span></label>
+              <input type="number" class="form-input" id="englishGrade" required min="0" max="100" placeholder="أدخل الدرجة من 0 إلى 100">
+              <div class="points-info" style="margin-top: 10px;">
+                <i class="fas fa-info-circle"></i> سيتم تحويل الدرجة إلى نقاط: 90-100 = 5 نقاط، 80-89 = 4 نقاط، 70-79 = 3 نقاط، 60-69 = 2 نقاط، 50-59 = 1 نقطة
+              </div>
             </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon" style="background: var(--gradient-accent);">
-                    <i class="fas fa-user-check"></i>
-                </div>
-                <div class="stat-content">
-                    <h3 id="acceptedStudents">0</h3>
-                    <p>طالبات مقبولات</p>
-                </div>
+            <div class="form-group">
+              <label class="form-label">رفع شهادة الفصل الأول (PDF أو صورة) <span>*</span></label>
+              <div class="file-upload">
+                <input type="file" class="file-input" id="certificateFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                <label for="certificateFile" class="file-label">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <span>انقر لرفع شهادة الفصل الأول</span>
+                  <div class="file-name" id="fileName">لم يتم اختيار ملف</div>
+                </label>
+              </div>
             </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon" style="background: linear-gradient(135deg, var(--accent-teal), #4fd1c7);">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <div class="stat-content">
-                    <h3 id="waitingStudents">0</h3>
-                    <p>في قائمة الانتظار</p>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="stat-content">
-                    <h3 id="avgScore">0</h3>
-                    <p>متوسط النقاط</p>
-                </div>
-            </div>
+          </div>
         </div>
-        
-        <div class="filters-bar">
-            <div class="search-box">
-                <input type="text" class="form-input" id="searchApplications" 
-                       placeholder="ابحثي بالاسم أو الرقم المدني...">
-                <i class="fas fa-search"></i>
-            </div>
-            
-            <select class="form-select" id="filterStatus" style="width: 200px;">
-                <option value="">جميع الحالات</option>
-                <option value="مقبول">مقبول</option>
-                <option value="قائمة انتظار">قائمة انتظار</option>
-                <option value="معلق">معلق</option>
-            </select>
-            
-            <select class="form-select" id="filterGrade" style="width: 180px;">
-                <option value="">جميع الصفوف</option>
-                <option value="أول ثانوي">أول ثانوي</option>
-                <option value="ثاني ثانوي">ثاني ثانوي</option>
-                <option value="ثالث ثانوي">ثالث ثانوي</option>
-            </select>
-            
-            <button class="btn btn-primary" id="exportBtn">
-                <i class="fas fa-file-export"></i> تصدير البيانات
-            </button>
-        </div>
-        
-        <div class="table-container">
-            <div class="table-header">
-                <h3 style="margin: 0; color: white;">الطلبات المقدمة</h3>
-                <div style="display: flex; gap: 1rem; align-items: center;">
-                    <span style="font-size: 0.9rem;">آخر تحديث: <span id="lastUpdate">الآن</span></span>
-                    <button class="btn btn-accent" id="refreshBtn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
-                        <i class="fas fa-sync-alt"></i> تحديث
-                    </button>
-                </div>
-            </div>
-            
-            <div class="table-responsive">
-                <table class="data-table" id="applicationsTable">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>الاسم</th>
-                            <th>الصف</th>
-                            <th>الرقم المدني</th>
-                            <th>نقاط الميول</th>
-                            <th>نقاط الإنجليزية</th>
-                            <th>المجموع</th>
-                            <th>الحالة</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="applicationsTableBody">
-                        <!-- سيتم تعبئة البيانات ديناميكيًا -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <div class="chart-container">
-            <canvas id="applicationsChart"></canvas>
-        </div>
-    </section>
 
-    <!-- محتوى تبويب التعليمات -->
-    <section class="tab-content" id="instructionsTab">
-        <div class="form-card">
-            <div class="form-header">
-                <h2><span class="highlight">تعليمات وشروط</span> البرنامج</h2>
-                <p>دليل شامل للطالبات وأولياء الأمور حول برنامج السفر والسياحة</p>
-            </div>
+        <!-- الشروط والتعهدات -->
+        <div class="form-section">
+          <h3 class="section-title"><i class="fas fa-file-contract"></i> الشروط والتعهدات</h3>
+          
+          <div class="conditions-list">
+            <h4 style="color: var(--primary-color); margin-bottom: 15px;">شروط التسجيل والقبول (تخصص السياحة):</h4>
             
-            <div class="form-grid">
-                <div class="question-card">
-                    <h3 class="section-title" style="border: none; padding: 0; margin-bottom: 1rem;">
-                        <i class="fas fa-question-circle" style="color: var(--accent-gold);"></i>
-                        شروط القبول في البرنامج
-                    </h3>
-                    <ul style="list-style-type: none; padding-right: 1rem;">
-                        <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-                            <i class="fas fa-check-circle" style="color: var(--success); margin-top: 0.2rem;"></i>
-                            <span>الحد الأدنى لمعدل اللغة الإنجليزية 50%</span>
-                        </li>
-                        <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-                            <i class="fas fa-check-circle" style="color: var(--success); margin-top: 0.2rem;"></i>
-                            <span>التزام كامل بحضور الأنشطة والرحلات</span>
-                        </li>
-                        <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-                            <i class="fas fa-check-circle" style="color: var(--success); margin-top: 0.2rem;"></i>
-                            <span>موافقة ولي الأمر خطياً على المشاركة</span>
-                        </li>
-                        <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
-                            <i class="fas fa-check-circle" style="color: var(--success); margin-top: 0.2rem;"></i>
-                            <span>الاكتفاء بأول 50 طالبة يتم ترشيحهن</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="question-card">
-                    <h3 class="section-title" style="border: none; padding: 0; margin-bottom: 1rem;">
-                        <i class="fas fa-calculator" style="color: var(--accent-teal);"></i>
-                        نظام النقاط والترشيح
-                    </h3>
-                    <ul style="list-style-type: none; padding-right: 1rem;">
-                        <li style="margin-bottom: 0.75rem;">
-                            <strong>أسئلة الميول:</strong> 5 أسئلة × 2 لكل إجابة = 10 نقاط كحد أقصى
-                        </li>
-                        <li style="margin-bottom: 0.75rem;">
-                            <strong>اللغة الإنجليزية:</strong> 90-100 = 5 نقاط، 80-89 = 4 نقاط، 70-79 = 3 نقاط، 60-69 = 2 نقاط، 50-59 = 1 نقطة
-                        </li>
-                        <li style="margin-bottom: 0.75rem;">
-                            <strong>الأولوية:</strong> إعطاء أولوية للطالبات الممتازات في الإنجليزية (90-100)
-                        </li>
-                        <li>
-                            <strong>الترتيب:</strong> يتم ترتيب الطلبات حسب النقاط الكلية ثم التاريخ
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="question-card">
-                    <h3 class="section-title" style="border: none; padding: 0; margin-bottom: 1rem;">
-                        <i class="fas fa-calendar-alt" style="color: var(--primary-blue);"></i>
-                        الجدول الزمني للبرنامج
-                    </h3>
-                    <ul style="list-style-type: none; padding-right: 1rem;">
-                        <li style="margin-bottom: 0.75rem; display: flex; justify-content: space-between;">
-                            <span>فتح التسجيل:</span>
-                            <strong>من اليوم حتى 15/6</strong>
-                        </li>
-                        <li style="margin-bottom: 0.75rem; display: flex; justify-content: space-between;">
-                            <span>إعلان النتائج:</span>
-                            <strong>20/6</strong>
-                        </li>
-                        <li style="margin-bottom: 0.75rem; display: flex; justify-content: space-between;">
-                            <span>بداية البرنامج:</span>
-                            <strong>1/9</strong>
-                        </li>
-                        <li style="display: flex; justify-content: space-between;">
-                            <span>الرحلات الميدانية:</span>
-                            <strong>خلال الفصل الدراسي</strong>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="question-card">
-                    <h3 class="section-title" style="border: none; padding: 0; margin-bottom: 1rem;">
-                        <i class="fas fa-headset" style="color: var(--accent-teal);"></i>
-                        الدعم والاستفسارات
-                    </h3>
-                    <ul style="list-style-type: none; padding-right: 1rem;">
-                        <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-                            <i class="fas fa-phone" style="color: var(--accent-teal); margin-top: 0.2rem;"></i>
-                            <span>الدعم الفني: <strong>0112345678</strong></span>
-                        </li>
-                        <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-                            <i class="fas fa-envelope" style="color: var(--accent-teal); margin-top: 0.2rem;"></i>
-                            <span>البريد الإلكتروني: <strong>tourism@school.edu.sa</strong></span>
-                        </li>
-                        <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
-                            <i class="fas fa-clock" style="color: var(--accent-teal); margin-top: 0.2rem;"></i>
-                            <span>ساعات العمل: <strong>8 ص - 2 م (أيام الدراسة)</strong></span>
-                        </li>
-                    </ul>
-                </div>
+            <div class="condition-item">
+              <i class="fas fa-check-circle"></i>
+              <span>أن تكمل الطالبة الصف العاشر بنجاح</span>
             </div>
+            <div class="condition-item">
+              <i class="fas fa-check-circle"></i>
+              <span>أن تكون الطالبة عمانية أو من أبناء دول مجلس التعاون لدول الخليج العربية</span>
+            </div>
+            <div class="condition-item">
+              <i class="fas fa-check-circle"></i>
+              <span>أن يكون لدى الطالبة رغبة في الالتحاق بالتعليم المهني والتقني (دبلوم السفر والسياحة)</span>
+            </div>
+            <div class="condition-item">
+              <i class="fas fa-check-circle"></i>
+              <span>أن تكون الطالبة لائقة صحياً بما يتوافق مع التخصص المطلوب</span>
+            </div>
+            <div class="condition-item">
+              <i class="fas fa-check-circle"></i>
+              <span>ألا يتجاوز عمر الطالبة المتقدم (20) عاماً</span>
+            </div>
+          </div>
+          
+          <div class="checkbox-group">
+            <input type="checkbox" id="studentCommitment" required>
+            <label for="studentCommitment" style="font-weight: 600; color: var(--dark-green);">
+              أوافق على الالتزام بحضور الحصص الدراسية ومراعاة ضوابط الحضور والغياب، وتسليم المشاريع والواجبات في الوقت المحدد، والمحافظة على الأجهزة الإلكترونية.
+            </label>
+          </div>
+          
+          <div class="checkbox-group">
+            <input type="checkbox" id="parentApproval" required>
+            <label for="parentApproval" style="font-weight: 600; color: var(--dark-green);">
+              أنا ولي أمر الطالبة أوافق على تسجيل ابنتي في مسار السفر والسياحة وأتعهد بمتابعتها والتزامها بجميع الشروط.
+            </label>
+          </div>
         </div>
-    </section>
 
-    <!-- نافذة النتائج -->
-    <div class="result-modal" id="resultModal">
-        <div class="modal-content">
-            <div class="modal-icon">
-                <i class="fas fa-trophy" id="resultIcon"></i>
-            </div>
-            <h2 id="resultTitle" style="color: var(--primary-dark); margin-bottom: 1rem;"></h2>
-            <p id="resultMessage" style="color: #666; line-height: 1.6; margin-bottom: 1.5rem;"></p>
-            
-            <div style="background: #f9fafb; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
-                <h3 style="color: var(--primary-dark); margin-bottom: 1rem; font-size: 1.1rem;">ملخص النتائج:</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                    <div>
-                        <p style="color: #6b7280; font-size: 0.9rem;">نقاط الميول</p>
-                        <p style="font-weight: bold; color: var(--accent-teal);" id="modalTendency">0/10</p>
-                    </div>
-                    <div>
-                        <p style="color: #6b7280; font-size: 0.9rem;">نقاط الإنجليزية</p>
-                        <p style="font-weight: bold; color: var(--accent-teal);" id="modalEnglish">0/5</p>
-                    </div>
-                    <div>
-                        <p style="color: #6b7280; font-size: 0.9rem;">المجموع الكلي</p>
-                        <p style="font-weight: bold; color: var(--accent-gold);" id="modalTotal">0/15</p>
-                    </div>
-                    <div>
-                        <p style="color: #6b7280; font-size: 0.9rem;">المركز</p>
-                        <p style="font-weight: bold; color: var(--accent-gold);" id="modalPosition">-</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-buttons">
-                <button class="btn btn-primary" id="closeModalBtn">
-                    <i class="fas fa-check"></i> حسناً
-                </button>
-                <button class="btn btn-accent" id="printResultBtn">
-                    <i class="fas fa-print"></i> طباعة
-                </button>
-            </div>
+        <!-- زر الإرسال -->
+        <div style="text-align: center; margin-top: 30px;">
+          <button type="submit" class="nav-btn register-btn" style="width: 100%; max-width: 400px; font-size: 1.2rem;">
+            <i class="fas fa-paper-plane"></i> إرسال طلب التسجيل
+          </button>
         </div>
+      </form>
     </div>
 
-    <!-- الفوتر -->
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="logo-section" style="justify-content: center; margin-bottom: 1.5rem;">
-                <img src="https://f.top4top.io/p_3674xpg8w1.png" alt="شعار المدرسة" style="height: 60px; filter: brightness(0) invert(1);">
-                <div class="logo-text">
-                    <h3 style="background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.5rem;">مسار السفر والسياحة</h3>
-                </div>
-            </div>
-            
-            <div class="footer-links">
-                <a href="#" class="footer-link" data-tab="registration">التسجيل</a>
-                <a href="#" class="footer-link" data-tab="status">متابعة الطلب</a>
-                <a href="#" class="footer-link" data-tab="dashboard">لوحة التحكم</a>
-                <a href="#" class="footer-link" data-tab="instructions">الشروط</a>
-                <a href="#" class="footer-link">اتصل بنا</a>
-            </div>
-            
-            <div class="copyright">
-                <p>© 2023 جميع الحقوق محفوظة - نظام الترشيح الذكي لمسار السفر والسياحة</p>
-                <p style="margin-top: 0.5rem;">تم التطوير باستخدام Google Sheets API - رقم الجدول: 1dzHTUFm7pg2x6GXeLmKjb2PNQLo3-D9kSnk_LJk05w8</p>
-            </div>
+    <!-- قسم النتيجة -->
+    <div class="result-container" id="resultSection">
+      <div class="result-icon">
+        <i class="fas fa-clipboard-check"></i>
+      </div>
+      <h2 class="result-title">تم استلام طلب التسجيل</h2>
+      
+      <div class="result-details">
+        <div class="result-item">
+          <span class="result-label">رقم الطلب:</span>
+          <span class="result-value" id="resultApplicationId">--</span>
         </div>
+        <div class="result-item">
+          <span class="result-label">اسم الطالبة:</span>
+          <span class="result-value" id="resultStudentName">--</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">الرقم المدني:</span>
+          <span class="result-value" id="resultCivilId">--</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">نقاط الميول:</span>
+          <span class="result-value" id="resultTendencyPoints">--</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">نقاط اللغة الإنجليزية:</span>
+          <span class="result-value" id="resultEnglishPoints">--</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">المجموع الكلي:</span>
+          <span class="result-value" id="resultTotalPoints">--</span>
+        </div>
+      </div>
+      
+      <div class="result-status status-waiting" id="resultStatus">
+        جاري مراجعة الطلب
+      </div>
+      
+      <p class="result-note">
+        <i class="fas fa-info-circle"></i> سيتم مراجعة طلبك من قبل أخصائيات التوجيه المهني، وسيتم إعلامك بالنتيجة لاحقاً.
+      </p>
+      
+      <div style="margin-top: 30px;">
+        <button class="nav-btn instructions-btn" onclick="showRegistrationForm()">
+          <i class="fas fa-arrow-left"></i> العودة للتسجيل
+        </button>
+        <button class="nav-btn status-btn" onclick="checkApplicationStatus()">
+          <i class="fas fa-search"></i> الاستعلام عن حالة الطلب
+        </button>
+      </div>
+    </div>
+
+    <!-- لوحة الإدارة -->
+    <div class="admin-container" id="adminPanel">
+      <h2 class="form-title">لوحة إدارة نظام التسجيل</h2>
+      
+      <div class="admin-controls">
+        <div class="search-box">
+          <input type="text" class="search-input" id="adminSearch" placeholder="البحث بالرقم المدني أو اسم الطالبة">
+          <i class="fas fa-search search-icon"></i>
+        </div>
+        <button class="nav-btn" onclick="exportApplications()" style="background: var(--gradient-secondary);">
+          <i class="fas fa-download"></i> تصدير البيانات
+        </button>
+        <button class="nav-btn" onclick="showRegistrationForm()" style="background: var(--gradient-primary);">
+          <i class="fas fa-home"></i> العودة للرئيسية
+        </button>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="totalApplications">0</div>
+          <div class="stat-label">إجمالي الطلبات</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="acceptedApplications">0</div>
+          <div class="stat-label">مقبولين</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="waitingApplications">0</div>
+          <div class="stat-label">قائمة الانتظار</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="excellentEnglish">0</div>
+          <div class="stat-label">ممتاز في الإنجليزية</div>
+        </div>
+      </div>
+      
+      <div style="overflow-x: auto;">
+        <table class="applications-table">
+          <thead>
+            <tr>
+              <th>م</th>
+              <th>اسم الطالبة</th>
+              <th>الرقم المدني</th>
+              <th>الصف</th>
+              <th>نقاط الميول</th>
+              <th>نقاط الإنجليزية</th>
+              <th>المجموع</th>
+              <th>الحالة</th>
+              <th>ملاحظات</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="applicationsTableBody">
+            <!-- سيتم ملؤها بالبيانات من JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- قسم الاستعلام عن حالة الطلب -->
+    <div class="registration-container" id="statusCheckSection" style="display: none;">
+      <h2 class="form-title">الاستعلام عن حالة طلب التسجيل</h2>
+      
+      <div class="form-section" style="text-align: center;">
+        <div class="form-group" style="max-width: 500px; margin: 0 auto;">
+          <label class="form-label">أدخل الرقم المدني للاستعلام</label>
+          <input type="text" class="form-input" id="statusCheckInput" placeholder="أدخل الرقم المدني">
+        </div>
+        
+        <button class="nav-btn status-btn" onclick="checkStatusByCivilId()" style="margin-top: 20px; width: 200px;">
+          <i class="fas fa-search"></i> بحث
+        </button>
+        
+        <div id="statusResult" style="margin-top: 30px; display: none;">
+          <!-- سيتم عرض نتيجة الاستعلام هنا -->
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 30px;">
+        <button class="nav-btn instructions-btn" onclick="showRegistrationForm()">
+          <i class="fas fa-arrow-left"></i> العودة للتسجيل
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <p>مدرسة خولة بنت حكيم للتعليم الأساسي - مسار السفر والسياحة</p>
+      <p>أخصائيات التوجيه المهني: <strong>أ/ إيمان سعيد البهانتة</strong> | <strong>أ/ فاطمة علي بيت سعيد</strong></p>
+      <p>جميع الحقوق محفوظة &copy; 2025</p>
+      <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;">نظام ذكي لتسجيل وترشيح طالبات مسار السفر والسياحة</p>
     </footer>
+  </div>
 
-    <!-- الأكواد البرمجية -->
-    <script>
-        // البيانات الأولية
-        const questions = [
-            {
-                id: 1,
-                text: "هل تستمتعين بالتحدث مع أشخاص جدد والعمل معهم في فرق صغيرة أو كبيرة؟",
-                options: [
-                    { value: 2, label: "نعم (2 نقطة)" },
-                    { value: 1, label: "أحيانًا (1 نقطة)" },
-                    { value: 0, label: "لا (0 نقطة)" }
-                ]
-            },
-            {
-                id: 2,
-                text: "هل لديك رغبة في التعرف على ثقافات جديدة وزيارة أماكن سياحية مختلفة؟",
-                options: [
-                    { value: 2, label: "نعم (2 نقطة)" },
-                    { value: 1, label: "أحيانًا (1 نقطة)" },
-                    { value: 0, label: "لا (0 نقطة)" }
-                ]
-            },
-            {
-                id: 3,
-                text: "هل تحبين ترتيب وتنظيم الأنشطة، أو تخطيط الرحلات والفعاليات؟",
-                options: [
-                    { value: 2, label: "نعم (2 نقطة)" },
-                    { value: 1, label: "أحيانًا (1 نقطة)" },
-                    { value: 0, label: "لا (0 نقطة)" }
-                ]
-            },
-            {
-                id: 4,
-                text: "هل تستطيعين التعامل مع مواقف غير متوقعة أثناء تنظيم الرحلات أو استقبال الزوار؟",
-                options: [
-                    { value: 2, label: "نعم (2 نقطة)" },
-                    { value: 1, label: "أحيانًا (1 نقطة)" },
-                    { value: 0, label: "لا (0 نقطة)" }
-                ]
-            },
-            {
-                id: 5,
-                text: "هل تفضلين التعلم العملي والتطبيقي في الأنشطة والرحلات على التعلم النظري فقط؟",
-                options: [
-                    { value: 2, label: "نعم (2 نقطة)" },
-                    { value: 1, label: "أحيانًا (1 نقطة)" },
-                    { value: 0, label: "لا (0 نقطة)" }
-                ]
-            }
-        ];
+  <!-- Modal شروط التسجيل -->
+  <div id="instructionsModal" class="modal" role="dialog" aria-labelledby="instructionsTitle" aria-modal="true">
+    <div class="modal-content">
+      <span class="close" aria-label="إغلاق النافذة">&times;</span>
+      <h2 id="instructionsTitle" style="text-align:center;color:var(--dark-green);margin-bottom:20px;">شروط وشروط التسجيل في مسار السفر والسياحة</h2>
+      
+      <div style="background:rgba(10,92,54,0.06);padding:16px;border-radius:12px;margin-bottom:20px;border-right:4px solid var(--primary-color);">
+        <h3 style="color:var(--primary-color);margin-bottom:10px;"><i class="fas fa-exclamation-circle"></i> معلومات هامة</h3>
+        <p style="color:var(--text-color);font-weight:500;">يرجى الاطلاع على الشروط التالية بعناية قبل تقديم طلب التسجيل.</p>
+      </div>
+      
+      <div style="max-height:65vh;overflow-y:auto;padding-right:8px;">
+        <div class="condition-item" style="margin-bottom: 15px; padding: 15px; background: white; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);">
+          <i class="fas fa-user-graduate" style="color: var(--primary-color);"></i>
+          <div>
+            <div style="font-weight: 800; color: var(--dark-green); margin-bottom: 5px;">الشروط الأساسية:</div>
+            <ol style="padding-right: 20px; margin-top: 10px;">
+              <li>أن تكمل الطالبة الصف العاشر بنجاح</li>
+              <li>أن تكون الطالبة عمانية أو من أبناء دول مجلس التعاون لدول الخليج العربية</li>
+              <li>أن يكون لدى الطالبة رغبة في الالتحاق بالتعليم المهني والتقني (دبلوم السفر والسياحة)</li>
+              <li>أن تكون الطالبة لائقة صحياً بما يتوافق مع التخصص المطلوب</li>
+              <li>ألا يتجاوز عمر الطالبة المتقدم (20) عاماً</li>
+            </ol>
+          </div>
+        </div>
+        
+        <div class="condition-item" style="margin-bottom: 15px; padding: 15px; background: white; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);">
+          <i class="fas fa-clipboard-check" style="color: var(--primary-color);"></i>
+          <div>
+            <div style="font-weight: 800; color: var(--dark-green); margin-bottom: 5px;">الضوابط العامة:</div>
+            <ul style="padding-right: 20px; margin-top: 10px;">
+              <li>استكمال متطلبات البرنامج</li>
+              <li>الالتزام بحضور الحصص الدراسية ومراعاة ضوابط الحضور والغياب (وفق لائحة شؤون الطلبة)</li>
+              <li>الالتزام بمواعيد تسليم المشاريع والواجبات في الوقت المحدد</li>
+              <li>المحافظة على الأجهزة الإلكترونية ومراعاة ضوابط الأمن والسلامة عند استخدامها</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="condition-item" style="margin-bottom: 15px; padding: 15px; background: white; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);">
+          <i class="fas fa-chart-bar" style="color: var(--primary-color);"></i>
+          <div>
+            <div style="font-weight: 800; color: var(--dark-green); margin-bottom: 5px;">آلية التقييم والترشيح:</div>
+            <ul style="padding-right: 20px; margin-top: 10px;">
+              <li>يتم احتساب نقاط الميول من 5 أسئلة (نعم = 2، أحيانًا = 1، لا = 0)</li>
+              <li>يتم تحويل درجة اللغة الإنجليزية إلى نقاط (90-100 = 5، 80-89 = 4، 70-79 = 3، 60-69 = 2، 50-59 = 1)</li>
+              <li>يتم جمع نقاط الميول ونقاط اللغة الإنجليزية للحصول على المجموع الكلي</li>
+              <li>يتم قبول أول 50 طالبة ذات أعلى مجموع</li>
+              <li>يتم إعطاء أولوية للطالبات الحاصلات على مستوى ممتاز في اللغة الإنجليزية (90-100)</li>
+              <li>يتم وضع باقي الطالبات في قائمة الانتظار</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div style="margin-top:20px;padding:14px;background:linear-gradient(135deg, rgba(212,175,55,0.12), rgba(46,139,87,0.08));border-radius:12px;border:1px solid rgba(212,175,55,0.25);">
+          <p style="text-align:center;font-weight:800;color:var(--dark-green);margin:0;">
+            نرجو لجميع الطالبات التوفيق والنجاح في مسار السفر والسياحة، ونسأل الله أن يوفق الجميع لما فيه الخير والفلاح
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        // المتغيرات العامة
-        let currentStep = 1;
-        let answers = {};
-        let applications = [];
-        let chart = null;
-
-        // تهيئة التطبيق
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeApp();
-            loadQuestions();
-            setupEventListeners();
-            simulateDashboardData();
-        });
-
-        // تهيئة التطبيق
-        function initializeApp() {
-            // ضبط التاريخ والتوقيت
-            updateDateTime();
-            setInterval(updateDateTime, 60000);
-            
-            // تهيئة الرسم البياني
-            initializeChart();
-            
-            // تحميل البيانات من Google Sheets (محاكاة)
-            loadApplications();
+  <script>
+    // البيانات والمتغيرات العامة
+    let applications = JSON.parse(localStorage.getItem('tourismApplications')) || [];
+    let applicationCounter = parseInt(localStorage.getItem('applicationCounter')) || 1000;
+    
+    // عناصر DOM
+    const instructionsModal = document.getElementById("instructionsModal");
+    const registrationForm = document.getElementById("registrationForm");
+    const resultSection = document.getElementById("resultSection");
+    const adminPanel = document.getElementById("adminPanel");
+    const statusCheckSection = document.getElementById("statusCheckSection");
+    
+    const instructionsBtn = document.getElementById("instructionsBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const adminBtn = document.getElementById("adminBtn");
+    const statusBtn = document.getElementById("statusBtn");
+    
+    const closeEls = document.getElementsByClassName("close");
+    
+    // العد التنازلي
+    const countdownDays = document.getElementById("countdownDays");
+    const countdownHours = document.getElementById("countdownHours");
+    const countdownMinutes = document.getElementById("countdownMinutes");
+    const countdownSeconds = document.getElementById("countdownSeconds");
+    
+    // عناصر النموذج
+    const studentRegistrationForm = document.getElementById("studentRegistrationForm");
+    const certificateFile = document.getElementById("certificateFile");
+    const fileName = document.getElementById("fileName");
+    
+    // عناصر النتيجة
+    const resultApplicationId = document.getElementById("resultApplicationId");
+    const resultStudentName = document.getElementById("resultStudentName");
+    const resultCivilId = document.getElementById("resultCivilId");
+    const resultTendencyPoints = document.getElementById("resultTendencyPoints");
+    const resultEnglishPoints = document.getElementById("resultEnglishPoints");
+    const resultTotalPoints = document.getElementById("resultTotalPoints");
+    const resultStatus = document.getElementById("resultStatus");
+    
+    // عناصر لوحة الإدارة
+    const totalApplications = document.getElementById("totalApplications");
+    const acceptedApplications = document.getElementById("acceptedApplications");
+    const waitingApplications = document.getElementById("waitingApplications");
+    const excellentEnglish = document.getElementById("excellentEnglish");
+    const applicationsTableBody = document.getElementById("applicationsTableBody");
+    const adminSearch = document.getElementById("adminSearch");
+    
+    // تاريخ بداية ونهاية التسجيل
+    const registrationEndDate = new Date('2026-02-26T23:59:59');
+    
+    // تهيئة العد التنازلي
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = registrationEndDate - now;
+      
+      if (distance < 0) {
+        countdownDays.textContent = "00";
+        countdownHours.textContent = "00";
+        countdownMinutes.textContent = "00";
+        countdownSeconds.textContent = "00";
+        return;
+      }
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      countdownDays.textContent = days.toString().padStart(2, '0');
+      countdownHours.textContent = hours.toString().padStart(2, '0');
+      countdownMinutes.textContent = minutes.toString().padStart(2, '0');
+      countdownSeconds.textContent = seconds.toString().padStart(2, '0');
+    }
+    
+    // تحديث العد التنازلي كل ثانية
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // التشغيل الأولي
+    
+    // عرض نموذج التسجيل
+    function showRegistrationForm() {
+      registrationForm.classList.add('active');
+      resultSection.classList.remove('active');
+      adminPanel.classList.remove('active');
+      statusCheckSection.style.display = 'none';
+      studentRegistrationForm.reset();
+      fileName.textContent = 'لم يتم اختيار ملف';
+    }
+    
+    // عرض نتيجة التسجيل
+    function showResultSection() {
+      registrationForm.classList.remove('active');
+      resultSection.classList.add('active');
+      adminPanel.classList.remove('active');
+      statusCheckSection.style.display = 'none';
+    }
+    
+    // عرض لوحة الإدارة
+    function showAdminPanel() {
+      const password = prompt("أدخل كلمة المرور للوصول إلى لوحة الإدارة:");
+      if (password === "7211") {
+        registrationForm.classList.remove('active');
+        resultSection.classList.remove('active');
+        adminPanel.classList.add('active');
+        statusCheckSection.style.display = 'none';
+        updateAdminPanel();
+      } else {
+        alert("كلمة المرور غير صحيحة!");
+      }
+    }
+    
+    // عرض قسم الاستعلام
+    function showStatusCheck() {
+      registrationForm.classList.remove('active');
+      resultSection.classList.remove('active');
+      adminPanel.classList.remove('active');
+      statusCheckSection.style.display = 'block';
+    }
+    
+    // تحديث اسم الملف المرفوع
+    certificateFile.addEventListener('change', function(e) {
+      if (this.files && this.files[0]) {
+        fileName.textContent = this.files[0].name;
+      } else {
+        fileName.textContent = 'لم يتم اختيار ملف';
+      }
+    });
+    
+    // تحويل درجة الإنجليزية إلى نقاط
+    function calculateEnglishPoints(grade) {
+      if (grade >= 90 && grade <= 100) return 5;
+      if (grade >= 80 && grade <= 89) return 4;
+      if (grade >= 70 && grade <= 79) return 3;
+      if (grade >= 60 && grade <= 69) return 2;
+      if (grade >= 50 && grade <= 59) return 1;
+      return 0;
+    }
+    
+    // حساب نقاط الميول
+    function calculateTendencyPoints(formData) {
+      let total = 0;
+      for (let i = 1; i <= 5; i++) {
+        total += parseInt(formData.get(`q${i}`)) || 0;
+      }
+      return total;
+    }
+    
+    // تحديد حالة الطلب (مقبول/انتظار)
+    function determineApplicationStatus(totalPoints, englishGrade, currentApplications) {
+      // أولوية للغة الإنجليزية الممتازة
+      if (englishGrade >= 90) {
+        return 'مقبول';
+      }
+      
+      // إذا وصلنا للحد الأقصى (50 مقبول)
+      const acceptedCount = currentApplications.filter(app => app.status === 'مقبول').length;
+      if (acceptedCount >= 50) {
+        return 'قائمة الانتظار';
+      }
+      
+      // إذا كان المجموع عالي بما يكفي
+      const sortedApplications = [...currentApplications].sort((a, b) => b.totalPoints - a.totalPoints);
+      if (sortedApplications.length < 50 || totalPoints >= sortedApplications[Math.min(49, sortedApplications.length-1)].totalPoints) {
+        return 'مقبول';
+      }
+      
+      return 'قائمة الانتظار';
+    }
+    
+    // معالجة تقديم النموذج
+    studentRegistrationForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      
+      // جمع البيانات
+      const applicationData = {
+        id: applicationCounter++,
+        studentName: document.getElementById('studentName').value,
+        studentGrade: document.getElementById('studentGrade').value,
+        civilId: document.getElementById('civilId').value,
+        studentPhone: document.getElementById('studentPhone').value,
+        parentPhone: document.getElementById('parentPhone').value,
+        residentialArea: document.getElementById('residentialArea').value,
+        parentName: document.getElementById('parentName').value,
+        parentRelation: document.getElementById('parentRelation').value,
+        englishGrade: parseInt(document.getElementById('englishGrade').value),
+        tendencyPoints: calculateTendencyPoints(formData),
+        submissionDate: new Date().toISOString(),
+        certificateFile: certificateFile.files[0] ? certificateFile.files[0].name : null
+      };
+      
+      // حساب النقاط
+      applicationData.englishPoints = calculateEnglishPoints(applicationData.englishGrade);
+      applicationData.totalPoints = applicationData.tendencyPoints + applicationData.englishPoints;
+      
+      // تحديد الحالة
+      applicationData.status = determineApplicationStatus(applicationData.totalPoints, applicationData.englishGrade, applications);
+      applicationData.notes = applicationData.englishGrade >= 90 ? 'أولوية للغة الإنجليزية الممتازة' : '';
+      
+      // إضافة الطلب
+      applications.push(applicationData);
+      
+      // حفظ في localStorage
+      localStorage.setItem('tourismApplications', JSON.stringify(applications));
+      localStorage.setItem('applicationCounter', applicationCounter.toString());
+      
+      // عرض النتيجة
+      displayApplicationResult(applicationData);
+      
+      // إعادة تعيين النموذج
+      this.reset();
+      fileName.textContent = 'لم يتم اختيار ملف';
+    });
+    
+    // عرض نتيجة الطلب
+    function displayApplicationResult(application) {
+      resultApplicationId.textContent = application.id;
+      resultStudentName.textContent = application.studentName;
+      resultCivilId.textContent = application.civilId;
+      resultTendencyPoints.textContent = application.tendencyPoints;
+      resultEnglishPoints.textContent = application.englishPoints;
+      resultTotalPoints.textContent = application.totalPoints;
+      
+      // تحديث حالة النتيجة
+      if (application.status === 'مقبول') {
+        resultStatus.textContent = 'تم استلام الطلب - جاري المراجعة';
+        resultStatus.className = 'result-status status-accepted';
+      } else {
+        resultStatus.textContent = 'تم استلام الطلب - جاري المراجعة';
+        resultStatus.className = 'result-status status-waiting';
+      }
+      
+      showResultSection();
+    }
+    
+    // تحديث لوحة الإدارة
+    function updateAdminPanel() {
+      // تحديث الإحصائيات
+      totalApplications.textContent = applications.length;
+      
+      const accepted = applications.filter(app => app.status === 'مقبول').length;
+      const waiting = applications.filter(app => app.status === 'قائمة الانتظار').length;
+      const excellent = applications.filter(app => app.englishGrade >= 90).length;
+      
+      acceptedApplications.textContent = accepted;
+      waitingApplications.textContent = waiting;
+      excellentEnglish.textContent = excellent;
+      
+      // تحديث الجدول
+      updateApplicationsTable();
+    }
+    
+    // تحديث جدول الطلبات
+    function updateApplicationsTable(filter = '') {
+      applicationsTableBody.innerHTML = '';
+      
+      let filteredApplications = applications;
+      if (filter) {
+        filteredApplications = applications.filter(app => 
+          app.civilId.includes(filter) || 
+          app.studentName.includes(filter)
+        );
+      }
+      
+      // ترتيب حسب المجموع الكلي (تنازلي)
+      filteredApplications.sort((a, b) => b.totalPoints - a.totalPoints);
+      
+      filteredApplications.forEach((app, index) => {
+        const row = document.createElement('tr');
+        
+        // تحديد لون الصف للغة الإنجليزية الممتازة
+        if (app.englishGrade >= 90) {
+          row.style.backgroundColor = 'rgba(70, 130, 180, 0.05)';
         }
-
-        // تحميل الأسئلة
-        function loadQuestions() {
-            const container = document.getElementById('questionsContainer');
-            container.innerHTML = '';
-            
-            questions.forEach((question, index) => {
-                const questionHTML = `
-                    <div class="question-card" data-question-id="${question.id}">
-                        <div class="question-text">
-                            <strong>السؤال ${question.id}:</strong> ${question.text}
-                        </div>
-                        <div class="options-grid">
-                            ${question.options.map(option => `
-                                <label class="option-label" data-value="${option.value}">
-                                    <input type="radio" name="q${question.id}" value="${option.value}" 
-                                           class="option-input" data-question="${question.id}">
-                                    ${option.label}
-                                </label>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += questionHTML;
-            });
-            
-            // إضافة مستمعات الأحداث للخيارات
-            document.querySelectorAll('.option-input').forEach(input => {
-                input.addEventListener('change', function() {
-                    const questionId = this.getAttribute('data-question');
-                    const value = parseInt(this.value);
-                    const label = this.closest('.option-label');
-                    
-                    // إزالة التحديد من جميع خيارات هذا السؤال
-                    document.querySelectorAll(`[data-question="${questionId}"]`).forEach(input => {
-                        input.closest('.option-label').classList.remove('selected');
-                    });
-                    
-                    // تحديد الخيار المختار
-                    label.classList.add('selected');
-                    
-                    // حفظ الإجابة
-                    answers[questionId] = value;
-                    
-                    // تحديث تقدم الإجابة
-                    updateProgress();
-                });
-            });
-        }
-
-        // تحديث تقدم الإجابة
-        function updateProgress() {
-            const answered = Object.keys(answers).length;
-            const progress = (answered / questions.length) * 100;
-            
-            document.getElementById('tendencyProgress').style.width = `${progress}%`;
-            document.getElementById('progressText').textContent = `${answered}/${questions.length}`;
-        }
-
-        // إعداد مستمعات الأحداث
-        function setupEventListeners() {
-            // التنقل بين التبويبات
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    switchTab(tabId);
-                });
-            });
-            
-            // التنقل بين خطوات التسجيل
-            document.getElementById('nextBtn').addEventListener('click', nextStep);
-            document.getElementById('prevBtn').addEventListener('click', prevStep);
-            
-            // رفع الملفات
-            document.getElementById('certificateUpload').addEventListener('click', function() {
-                document.getElementById('certificateFile').click();
-            });
-            
-            document.getElementById('certificateFile').addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    document.getElementById('fileName').textContent = `✓ تم رفع الملف: ${file.name}`;
-                }
-            });
-            
-            // تحديث نقاط الإنجليزية
-            document.getElementById('englishScore').addEventListener('input', function() {
-                const score = parseInt(this.value) || 0;
-                let points = 0;
-                
-                if (score >= 90) points = 5;
-                else if (score >= 80) points = 4;
-                else if (score >= 70) points = 3;
-                else if (score >= 60) points = 2;
-                else if (score >= 50) points = 1;
-                
-                document.getElementById('englishPoints').textContent = points;
-            });
-            
-            // إرسال النموذج
-            document.getElementById('registrationForm').addEventListener('submit', submitForm);
-            
-            // البحث عن طلب
-            document.getElementById('trackBtn').addEventListener('click', trackApplication);
-            
-            // تحديث لوحة التحكم
-            document.getElementById('refreshBtn').addEventListener('click', loadApplications);
-            
-            // التصفية في لوحة التحكم
-            document.getElementById('searchApplications').addEventListener('input', filterApplications);
-            document.getElementById('filterStatus').addEventListener('change', filterApplications);
-            document.getElementById('filterGrade').addEventListener('change', filterApplications);
-            
-            // تصدير البيانات
-            document.getElementById('exportBtn').addEventListener('click', exportData);
-            
-            // نافذة النتائج
-            document.getElementById('closeModalBtn').addEventListener('click', function() {
-                document.getElementById('resultModal').classList.remove('active');
-            });
-            
-            document.getElementById('printResultBtn').addEventListener('click', function() {
-                window.print();
-            });
-            
-            // التنقل من الفوتر
-            document.querySelectorAll('.footer-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const tabId = this.getAttribute('data-tab');
-                    if (tabId) {
-                        switchTab(tabId);
-                    }
-                });
-            });
-        }
-
-        // التنقل بين التبويبات
-        function switchTab(tabId) {
-            // تحديث الأزرار النشطة
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
-            
-            // إظهار المحتوى المناسب
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(`${tabId}Tab`).classList.add('active');
-            
-            // إذا كانت لوحة التحكم، قم بتحديث البيانات
-            if (tabId === 'dashboard') {
-                loadApplications();
-            }
-        }
-
-        // التنقل بين الخطوات
-        function nextStep() {
-            if (validateStep(currentStep)) {
-                document.getElementById(`section${currentStep}`).style.display = 'none';
-                document.getElementById(`step${currentStep}`).classList.remove('active');
-                
-                currentStep++;
-                
-                if (currentStep > 4) currentStep = 4;
-                
-                document.getElementById(`section${currentStep}`).style.display = 'block';
-                document.getElementById(`step${currentStep}`).classList.add('active');
-                
-                updateNavigationButtons();
-            }
-        }
-
-        function prevStep() {
-            document.getElementById(`section${currentStep}`).style.display = 'none';
-            document.getElementById(`step${currentStep}`).classList.remove('active');
-            
-            currentStep--;
-            
-            if (currentStep < 1) currentStep = 1;
-            
-            document.getElementById(`section${currentStep}`).style.display = 'block';
-            document.getElementById(`step${currentStep}`).classList.add('active');
-            
-            updateNavigationButtons();
-        }
-
-        function updateNavigationButtons() {
-            document.getElementById('prevBtn').style.display = currentStep > 1 ? 'flex' : 'none';
-            document.getElementById('nextBtn').style.display = currentStep < 4 ? 'flex' : 'none';
-            document.getElementById('submitBtn').style.display = currentStep === 4 ? 'flex' : 'none';
-        }
-
-        // التحقق من صحة الخطوة
-        function validateStep(step) {
-            switch(step) {
-                case 1:
-                    const requiredFields = ['fullName', 'grade', 'nationalId', 'studentPhone', 'parentName', 'parentPhone'];
-                    for (let field of requiredFields) {
-                        const element = document.getElementById(field);
-                        if (!element.value.trim()) {
-                            showAlert(`${element.previousElementSibling.textContent} مطلوب`, 'warning');
-                            element.focus();
-                            return false;
-                        }
-                    }
-                    return true;
-                    
-                case 2:
-                    const answered = Object.keys(answers).length;
-                    if (answered < questions.length) {
-                        showAlert('الرجاء الإجابة على جميع أسئلة الميول', 'warning');
-                        return false;
-                    }
-                    return true;
-                    
-                case 3:
-                    const englishScore = parseInt(document.getElementById('englishScore').value);
-                    if (isNaN(englishScore) || englishScore < 0 || englishScore > 100) {
-                        showAlert('الرجاء إدخال درجة صحيحة للغة الإنجليزية (0-100)', 'warning');
-                        return false;
-                    }
-                    
-                    if (englishScore < 50) {
-                        showAlert('الحد الأدنى للقبول في البرنامج هو 50% في اللغة الإنجليزية', 'warning');
-                        return false;
-                    }
-                    
-                    const file = document.getElementById('certificateFile').files[0];
-                    if (!file) {
-                        showAlert('الرجاء رفع شهادة الفصل الأول', 'warning');
-                        return false;
-                    }
-                    return true;
-                    
-                case 4:
-                    if (!document.getElementById('studentPledge').checked ||
-                        !document.getElementById('parentApproval').checked ||
-                        !document.getElementById('parentSignature').value.trim()) {
-                        showAlert('الرجاء الموافقة على جميع الشروط والتعهدات', 'warning');
-                        return false;
-                    }
-                    return true;
-                    
-                default:
-                    return true;
-            }
-        }
-
-        // إرسال النموذج
-        function submitForm(e) {
-            e.preventDefault();
-            
-            if (!validateStep(4)) return;
-            
-            // حساب النقاط
-            const tendencyScore = Object.values(answers).reduce((sum, val) => sum + val, 0);
-            const englishScore = parseInt(document.getElementById('englishScore').value);
-            let englishPoints = 0;
-            
-            if (englishScore >= 90) englishPoints = 5;
-            else if (englishScore >= 80) englishPoints = 4;
-            else if (englishScore >= 70) englishPoints = 3;
-            else if (englishScore >= 60) englishPoints = 2;
-            else if (englishScore >= 50) englishPoints = 1;
-            
-            const totalScore = tendencyScore + englishPoints;
-            
-            // إنشاء كائن الطلب
-            const application = {
-                id: Date.now(),
-                fullName: document.getElementById('fullName').value,
-                grade: document.getElementById('grade').value,
-                nationalId: document.getElementById('nationalId').value,
-                studentPhone: document.getElementById('studentPhone').value,
-                parentName: document.getElementById('parentName').value,
-                parentPhone: document.getElementById('parentPhone').value,
-                tendencyScore: tendencyScore,
-                englishScore: englishScore,
-                englishPoints: englishPoints,
-                totalScore: totalScore,
-                certificate: document.getElementById('certificateFile').files[0]?.name || '',
-                parentSignature: document.getElementById('parentSignature').value,
-                submissionDate: new Date().toISOString(),
-                status: 'معلق',
-                priority: englishScore >= 90 ? totalScore + 2 : totalScore
-            };
-            
-            // حفظ في Google Sheets (محاكاة)
-            saveToGoogleSheets(application);
-            
-            // إظهار النتيجة
-            showResult(application);
-            
-            // إعادة تعيين النموذج
-            resetForm();
-        }
-
-        // حفظ في Google Sheets (محاكاة)
-        function saveToGoogleSheets(application) {
-            // هنا يتم وضع كود التكامل الفعلي مع Google Sheets
-            const spreadsheetId = '1dzHTUFm7pg2x6GXeLmKjb2PNQLo3-D9kSnk_LJk05w8';
-            
-            // محاكاة الحفظ
-            applications.push(application);
-            updateDashboard();
-            
-            console.log('تم حفظ البيانات في Google Sheets:', application);
-            console.log('معرف الجدول:', spreadsheetId);
-            
-            // في التطبيق الحقيقي، استخدم:
-            // google.sheets({ version: 'v4', auth: client }).spreadsheets.values.append(...)
-        }
-
-        // إظهار النتيجة
-        function showResult(application) {
-            // تحديد المركز
-            const sortedApps = [...applications]
-                .sort((a, b) => b.priority - a.priority || new Date(a.submissionDate) - new Date(b.submissionDate));
-            
-            const position = sortedApps.findIndex(app => app.id === application.id) + 1;
-            const isAccepted = position <= 50;
-            
-            // تحديث واجهة النتيجة
-            document.getElementById('modalTendency').textContent = `${application.tendencyScore}/10`;
-            document.getElementById('modalEnglish').textContent = `${application.englishPoints}/5`;
-            document.getElementById('modalTotal').textContent = `${application.totalScore}/15`;
-            document.getElementById('modalPosition').textContent = `#${position}`;
-            
-            if (isAccepted) {
-                document.getElementById('resultIcon').className = 'fas fa-trophy';
-                document.getElementById('resultTitle').textContent = 'مبروك! تم قبول طلبك';
-                document.getElementById('resultMessage').textContent = `تم قبولك في برنامج السفر والسياحة. المركز: ${position} من 50. سيتم التواصل معك خلال 48 ساعة للتفاصيل اللاحقة.`;
-                application.status = 'مقبول';
-            } else {
-                document.getElementById('resultIcon').className = 'fas fa-clock';
-                document.getElementById('resultTitle').textContent = 'أنت في قائمة الانتظار';
-                document.getElementById('resultMessage').textContent = `طلبك قيد الدراسة. المركز: ${position}. سيتم إعلامك في حال وجود أماكن شاغرة.`;
-                application.status = 'قائمة انتظار';
-            }
-            
-            // إظهار النافذة
-            document.getElementById('resultModal').classList.add('active');
-        }
-
-        // إعادة تعيين النموذج
-        function resetForm() {
-            document.getElementById('registrationForm').reset();
-            document.getElementById('fileName').textContent = '';
-            answers = {};
-            currentStep = 1;
-            
-            // إعادة تعيين الخطوات
-            document.querySelectorAll('.form-section').forEach(section => {
-                section.style.display = 'none';
-            });
-            document.getElementById('section1').style.display = 'block';
-            
-            document.querySelectorAll('.step').forEach(step => {
-                step.classList.remove('active', 'completed');
-            });
-            document.getElementById('step1').classList.add('active');
-            
-            document.querySelectorAll('.option-label').forEach(label => {
-                label.classList.remove('selected');
-            });
-            
-            updateNavigationButtons();
-            updateProgress();
-        }
-
-        // تتبع الطلب
-        function trackApplication() {
-            const nationalId = document.getElementById('trackNationalId').value.trim();
-            if (!nationalId) {
-                showAlert('الرجاء إدخال الرقم المدني', 'warning');
-                return;
-            }
-            
-            // البحث في البيانات (محاكاة)
-            const application = applications.find(app => app.nationalId === nationalId);
-            const resultDiv = document.getElementById('trackResult');
-            
-            if (application) {
-                resultDiv.innerHTML = `
-                    <div class="question-card" style="border-right-color: ${application.status === 'مقبول' ? 'var(--success)' : 'var(--warning)'}">
-                        <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">نتيجة التتبع</h3>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                            <div>
-                                <p style="color: #6b7280; font-size: 0.9rem;">اسم الطالبة</p>
-                                <p style="font-weight: bold; color: var(--primary-dark);">${application.fullName}</p>
-                            </div>
-                            <div>
-                                <p style="color: #6b7280; font-size: 0.9rem;">الصف الدراسي</p>
-                                <p style="font-weight: bold; color: var(--primary-dark);">${application.grade}</p>
-                            </div>
-                            <div>
-                                <p style="color: #6b7280; font-size: 0.9rem;">المجموع الكلي</p>
-                                <p style="font-weight: bold; color: var(--accent-teal);">${application.totalScore}/15</p>
-                            </div>
-                            <div>
-                                <p style="color: #6b7280; font-size: 0.9rem;">الحالة</p>
-                                <span class="status-badge ${application.status === 'مقبول' ? 'status-accepted' : 
-                                                            application.status === 'قائمة انتظار' ? 'status-waiting' : 'status-pending'}">
-                                    ${application.status}
-                                </span>
-                            </div>
-                        </div>
-                        ${application.status === 'مقبول' ? 
-                            '<div class="alert alert-success"><i class="fas fa-check-circle"></i> <div>مبروك! تم قبولك في البرنامج. سيتم التواصل معك قريباً.</div></div>' :
-                        application.status === 'قائمة انتظار' ?
-                            '<div class="alert alert-warning"><i class="fas fa-clock"></i> <div>طلبك في قائمة الانتظار. سيتم إعلامك في حال توفر أماكن.</div></div>' :
-                            '<div class="alert alert-info"><i class="fas fa-hourglass-half"></i> <div>طلبك قيد المراجعة. سيتم إعلان النتائج قريباً.</div></div>'
-                        }
-                    </div>
-                `;
-            } else {
-                resultDiv.innerHTML = `
-                    <div class="question-card" style="border-right-color: var(--danger);">
-                        <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">نتيجة التتبع</h3>
-                        <div class="alert alert-warning">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <div>
-                                <strong>لم يتم العثور على طلب</strong><br>
-                                الرقم المدني ${nationalId} غير مسجل في النظام.
-                            </div>
-                        </div>
-                        <p style="color: #666; margin-top: 1rem;">
-                            تأكدي من صحة الرقم المدني، أو قومي بالتسجيل أولاً من خلال تبويب "تسجيل جديد".
-                        </p>
-                    </div>
-                `;
-            }
-            
-            resultDiv.style.display = 'block';
-        }
-
-        // تحميل الطلبات (محاكاة)
-        function loadApplications() {
-            // في التطبيق الحقيقي، استرجع البيانات من Google Sheets
-            // هنا نقوم بمحاكاة البيانات
-            if (applications.length === 0) {
-                simulateApplications();
-            }
-            
-            updateDashboard();
-            updateApplicationsTable();
-        }
-
-        // محاكاة بيانات الطلبات
-        function simulateApplications() {
-            const names = ['نورة أحمد', 'سارة محمد', 'فاطمة خالد', 'لينا عبدالله', 'ريم سلطان', 'الجوهرة ناصر', 'تهاني فارس', 'لمى سعيد'];
-            const grades = ['أول ثانوي', 'ثاني ثانوي', 'ثالث ثانوي'];
-            const statuses = ['مقبول', 'قائمة انتظار', 'معلق'];
-            
-            for (let i = 1; i <= 100; i++) {
-                const tendencyScore = Math.floor(Math.random() * 11);
-                const englishScore = Math.floor(Math.random() * 51) + 50;
-                let englishPoints = 0;
-                
-                if (englishScore >= 90) englishPoints = 5;
-                else if (englishScore >= 80) englishPoints = 4;
-                else if (englishScore >= 70) englishPoints = 3;
-                else if (englishScore >= 60) englishPoints = 2;
-                else if (englishScore >= 50) englishPoints = 1;
-                
-                const totalScore = tendencyScore + englishPoints;
-                const status = i <= 50 ? 'مقبول' : 'قائمة انتظار';
-                
-                applications.push({
-                    id: i,
-                    fullName: names[Math.floor(Math.random() * names.length)] + ' ' + (i % 8 + 1),
-                    grade: grades[Math.floor(Math.random() * grades.length)],
-                    nationalId: '1' + (1000000000 + i).toString().slice(1),
-                    tendencyScore: tendencyScore,
-                    englishScore: englishScore,
-                    englishPoints: englishPoints,
-                    totalScore: totalScore,
-                    status: status,
-                    priority: englishScore >= 90 ? totalScore + 2 : totalScore,
-                    submissionDate: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString()
-                });
-            }
-            
-            // ترتيب الطلبات حسب الأولوية
-            applications.sort((a, b) => b.priority - a.priority || new Date(a.submissionDate) - new Date(b.submissionDate));
-            
-            // تحديث المراكز
-            applications.forEach((app, index) => {
-                app.position = index + 1;
-            });
-        }
-
-        // تحديث لوحة التحكم
-        function updateDashboard() {
-            const total = applications.length;
-            const accepted = applications.filter(app => app.status === 'مقبول').length;
-            const waiting = applications.filter(app => app.status === 'قائمة انتظار').length;
-            const avgScore = total > 0 ? 
-                (applications.reduce((sum, app) => sum + app.totalScore, 0) / total).toFixed(1) : 0;
-            
-            document.getElementById('totalApplications').textContent = total;
-            document.getElementById('acceptedStudents').textContent = accepted;
-            document.getElementById('waitingStudents').textContent = waiting;
-            document.getElementById('avgScore').textContent = avgScore;
-            
-            // تحديث الرسم البياني
-            updateChart();
-        }
-
-        // تحديث جدول الطلبات
-        function updateApplicationsTable(filteredApps = applications) {
-            const tbody = document.getElementById('applicationsTableBody');
-            tbody.innerHTML = '';
-            
-            filteredApps.forEach((app, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${app.position}</td>
-                    <td>${app.fullName}</td>
-                    <td>${app.grade}</td>
-                    <td>${app.nationalId}</td>
-                    <td>${app.tendencyScore}/10</td>
-                    <td>${app.englishPoints}/5 (${app.englishScore})</td>
-                    <td><strong>${app.totalScore}/15</strong></td>
-                    <td><span class="status-badge ${app.status === 'مقبول' ? 'status-accepted' : 
-                                                     app.status === 'قائمة انتظار' ? 'status-waiting' : 'status-pending'}">
-                        ${app.status}
-                    </span></td>
-                    <td>
-                        <button class="btn btn-primary" style="padding: 0.3rem 0.6rem; font-size: 0.85rem;" onclick="viewApplication(${app.id})">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // عرض تفاصيل الطلب
-        function viewApplication(id) {
-            const app = applications.find(a => a.id === id);
-            if (app) {
-                alert(`تفاصيل الطلب:\n\nالاسم: ${app.fullName}\nالصف: ${app.grade}\nالرقم المدني: ${app.nationalId}\nنقاط الميول: ${app.tendencyScore}/10\nنقاط الإنجليزية: ${app.englishPoints}/5\nالمجموع: ${app.totalScore}/15\nالحالة: ${app.status}\nالمركز: ${app.position}`);
-            }
-        }
-
-        // تصفية الطلبات
-        function filterApplications() {
-            const searchTerm = document.getElementById('searchApplications').value.toLowerCase();
-            const statusFilter = document.getElementById('filterStatus').value;
-            const gradeFilter = document.getElementById('filterGrade').value;
-            
-            let filtered = applications;
-            
-            if (searchTerm) {
-                filtered = filtered.filter(app => 
-                    app.fullName.toLowerCase().includes(searchTerm) || 
-                    app.nationalId.includes(searchTerm)
-                );
-            }
-            
-            if (statusFilter) {
-                filtered = filtered.filter(app => app.status === statusFilter);
-            }
-            
-            if (gradeFilter) {
-                filtered = filtered.filter(app => app.grade === gradeFilter);
-            }
-            
-            updateApplicationsTable(filtered);
-        }
-
-        // تصدير البيانات
-        function exportData() {
-            const data = applications.map(app => ({
-                'الاسم': app.fullName,
-                'الصف': app.grade,
-                'الرقم المدني': app.nationalId,
-                'نقاط الميول': app.tendencyScore,
-                'درجة الإنجليزية': app.englishScore,
-                'نقاط الإنجليزية': app.englishPoints,
-                'المجموع': app.totalScore,
-                'الحالة': app.status,
-                'المركز': app.position,
-                'تاريخ التسجيل': new Date(app.submissionDate).toLocaleDateString('ar-SA')
-            }));
-            
-            // في التطبيق الحقيقي، استخدم مكتبة مثل SheetJS
-            console.log('بيانات التصدير:', data);
-            alert('سيتم تصدير البيانات إلى ملف Excel. في الإصدار الكامل، سيتم تنزيل الملف تلقائياً.');
-        }
-
-        // تهيئة الرسم البياني
-        function initializeChart() {
-            const ctx = document.getElementById('applicationsChart').getContext('2d');
-            chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['مقبول', 'قائمة انتظار', 'معلق'],
-                    datasets: [{
-                        label: 'عدد الطلبات',
-                        data: [0, 0, 0],
-                        backgroundColor: [
-                            'rgba(16, 185, 129, 0.7)',
-                            'rgba(245, 158, 11, 0.7)',
-                            'rgba(59, 130, 246, 0.7)'
-                        ],
-                        borderColor: [
-                            'rgb(16, 185, 129)',
-                            'rgb(245, 158, 11)',
-                            'rgb(59, 130, 246)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            rtl: true
-                        },
-                        title: {
-                            display: true,
-                            text: 'توزيع الطلبات حسب الحالة',
-                            font: {
-                                size: 16
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 1
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        // تحديث الرسم البياني
-        function updateChart() {
-            if (!chart) return;
-            
-            const accepted = applications.filter(app => app.status === 'مقبول').length;
-            const waiting = applications.filter(app => app.status === 'قائمة انتظار').length;
-            const pending = applications.filter(app => app.status === 'معلق').length;
-            
-            chart.data.datasets[0].data = [accepted, waiting, pending];
-            chart.update();
-        }
-
-        // محاكاة بيانات لوحة التحكم
-        function simulateDashboardData() {
-            // تحديث البيانات كل 10 ثواني (محاكاة للتحديث التلقائي)
-            setInterval(() => {
-                if (Math.random() > 0.7) { // 30% فرصة لحدوث تحديث
-                    const newApp = {
-                        id: applications.length + 1,
-                        fullName: 'طالبة جديدة ' + (applications.length + 1),
-                        grade: ['أول ثانوي', 'ثاني ثانوي', 'ثالث ثانوي'][Math.floor(Math.random() * 3)],
-                        nationalId: '1' + (1000000000 + applications.length + 1).toString().slice(1),
-                        tendencyScore: Math.floor(Math.random() * 11),
-                        englishScore: Math.floor(Math.random() * 51) + 50,
-                        englishPoints: 0,
-                        totalScore: 0,
-                        status: 'معلق',
-                        priority: 0,
-                        submissionDate: new Date().toISOString()
-                    };
-                    
-                    // حساب النقاط
-                    if (newApp.englishScore >= 90) newApp.englishPoints = 5;
-                    else if (newApp.englishScore >= 80) newApp.englishPoints = 4;
-                    else if (newApp.englishScore >= 70) newApp.englishPoints = 3;
-                    else if (newApp.englishScore >= 60) newApp.englishPoints = 2;
-                    else if (newApp.englishScore >= 50) newApp.englishPoints = 1;
-                    
-                    newApp.totalScore = newApp.tendencyScore + newApp.englishPoints;
-                    newApp.priority = newApp.englishScore >= 90 ? newApp.totalScore + 2 : newApp.totalScore;
-                    
-                    applications.push(newApp);
-                    
-                    // ترتيب وتحديث المراكز
-                    applications.sort((a, b) => b.priority - a.priority || new Date(a.submissionDate) - new Date(b.submissionDate));
-                    applications.forEach((app, index) => {
-                        app.position = index + 1;
-                        app.status = app.position <= 50 ? 'مقبول' : 'قائمة انتظار';
-                    });
-                    
-                    updateDashboard();
-                    
-                    // إظهار تنبيه
-                    if (document.getElementById('dashboardTab').classList.contains('active')) {
-                        showAlert('تم تحديث البيانات تلقائياً', 'info');
-                    }
-                }
-            }, 10000);
-        }
-
-        // تحديث التاريخ والوقت
-        function updateDateTime() {
-            const now = new Date();
-            const options = { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            };
-            document.getElementById('lastUpdate').textContent = now.toLocaleDateString('ar-SA', options);
-        }
-
-        // إظهار تنبيه
-        function showAlert(message, type = 'info') {
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type}`;
-            alert.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : 
-                                  type === 'warning' ? 'exclamation-triangle' : 
-                                  type === 'danger' ? 'times-circle' : 'info-circle'}"></i>
-                <div>${message}</div>
-            `;
-            
-            document.querySelector('.tab-content.active').insertBefore(alert, document.querySelector('.tab-content.active').firstChild);
-            
-            setTimeout(() => {
-                alert.remove();
-            }, 5000);
-        }
-
-        // إضافة تأثيرات تفاعلية إضافية
-        document.addEventListener('click', function(e) {
-            // تأثير النقر على الأزرار
-            if (e.target.closest('.btn') || e.target.closest('.option-label') || e.target.closest('.tab-btn')) {
-                const element = e.target.closest('.btn') || e.target.closest('.option-label') || e.target.closest('.tab-btn');
-                element.classList.add('clickable');
-                setTimeout(() => {
-                    element.classList.remove('clickable');
-                }, 200);
-            }
-            
-            // تأثير التحليق على البطاقات
-            if (e.target.closest('.stat-card') || e.target.closest('.question-card')) {
-                const card = e.target.closest('.stat-card') || e.target.closest('.question-card');
-                card.style.transform = 'translateY(-5px)';
-                setTimeout(() => {
-                    card.style.transform = '';
-                }, 300);
-            }
-        });
-    </script>
+        
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${app.studentName}</td>
+          <td>${app.civilId}</td>
+          <td>${app.studentGrade}</td>
+          <td>${app.tendencyPoints}</td>
+          <td>${app.englishPoints}</td>
+          <td><strong>${app.totalPoints}</strong></td>
+          <td>
+            <span class="status-badge ${app.status === 'مقبول' ? 'badge-accepted' : 'badge-waiting'}">
+              ${app.status}
+            </span>
+            ${app.englishGrade >= 90 ? '<span class="status-badge badge-excellent" style="margin-right: 5px;">ممتاز إنجليزي</span>' : ''}
+          </td>
+          <td>${app.notes || '-'}</td>
+          <td>
+            <button onclick="toggleApplicationStatus(${app.id})" style="background: var(--primary-color); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+              تغيير الحالة
+            </button>
+          </td>
+        `;
+        
+        applicationsTableBody.appendChild(row);
+      });
+    }
+    
+    // تغيير حالة الطلب
+    function toggleApplicationStatus(id) {
+      const appIndex = applications.findIndex(app => app.id === id);
+      if (appIndex !== -1) {
+        applications[appIndex].status = applications[appIndex].status === 'مقبول' ? 'قائمة الانتظار' : 'مقبول';
+        localStorage.setItem('tourismApplications', JSON.stringify(applications));
+        updateAdminPanel();
+      }
+    }
+    
+    // تصدير البيانات
+    function exportApplications() {
+      const dataStr = JSON.stringify(applications, null, 2);
+      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+      
+      const exportFileDefaultName = `طلبات_مسار_السفر_والسياحة_${new Date().toISOString().slice(0,10)}.json`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+    }
+    
+    // البحث في لوحة الإدارة
+    adminSearch.addEventListener('input', function() {
+      updateApplicationsTable(this.value);
+    });
+    
+    // الاستعلام عن حالة الطلب بالرقم المدني
+    function checkApplicationStatus() {
+      showStatusCheck();
+    }
+    
+    function checkStatusByCivilId() {
+      const civilId = document.getElementById('statusCheckInput').value;
+      const application = applications.find(app => app.civilId === civilId);
+      
+      const statusResult = document.getElementById('statusResult');
+      
+      if (application) {
+        let statusHTML = `
+          <div class="result-details">
+            <div class="result-item">
+              <span class="result-label">اسم الطالبة:</span>
+              <span class="result-value">${application.studentName}</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">رقم الطلب:</span>
+              <span class="result-value">${application.id}</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">تاريخ التقديم:</span>
+              <span class="result-value">${new Date(application.submissionDate).toLocaleDateString('ar-OM')}</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">المجموع الكلي:</span>
+              <span class="result-value">${application.totalPoints} نقطة</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">الحالة:</span>
+              <span class="result-value" style="font-weight: 900; color: ${application.status === 'مقبول' ? 'var(--secondary-color)' : 'var(--gold-color)'}">
+                ${application.status === 'مقبول' ? 'جاري المراجعة' : 'جاري المراجعة'}
+              </span>
+            </div>
+          </div>
+          <p class="result-note" style="margin-top: 20px;">
+            <i class="fas fa-info-circle"></i> سيتم إعلامك بالنتيجة النهائية بعد انتهاء فترة التسجيل ومراجعة جميع الطلبات.
+          </p>
+        `;
+        
+        statusResult.innerHTML = statusHTML;
+        statusResult.style.display = 'block';
+      } else {
+        statusResult.innerHTML = `
+          <div style="text-align: center; padding: 20px; background: rgba(230, 57, 70, 0.1); border-radius: 10px; border: 1px solid rgba(230, 57, 70, 0.3);">
+            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 10px;"></i>
+            <h3 style="color: var(--accent-color);">لم يتم العثور على طلب</h3>
+            <p>الرقم المدني المدخل غير مسجل في النظام. يرجى التأكد من الرقم أو تقديم طلب جديد.</p>
+          </div>
+        `;
+        statusResult.style.display = 'block';
+      }
+    }
+    
+    // معالجة الأحداث
+    instructionsBtn.onclick = () => {
+      instructionsModal.style.display = "block";
+      document.body.style.overflow = "hidden";
+    };
+    
+    registerBtn.onclick = showRegistrationForm;
+    adminBtn.onclick = showAdminPanel;
+    statusBtn.onclick = showStatusCheck;
+    
+    for (let i = 0; i < closeEls.length; i++) {
+      closeEls[i].onclick = function() {
+        instructionsModal.style.display = "none";
+        document.body.style.overflow = "auto";
+      };
+    }
+    
+    window.onclick = (e) => {
+      if (e.target === instructionsModal) {
+        instructionsModal.style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+    };
+    
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        instructionsModal.style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+    });
+    
+    // التهيئة الأولية
+    function init() {
+      showRegistrationForm();
+      updateCountdown();
+    }
+    
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
 </body>
 </html>
