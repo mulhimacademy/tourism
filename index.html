@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>نظام تسجيل وترشيح طالبات مسار السفر والسياحة | مدرسة خولة بنت حكيم</title>
+  <title>نظام تسجيل وترشيح طالبات مسار السفر والسياحة | مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -69,7 +69,7 @@
 
     .container { max-width: 1400px; margin: 0 auto; padding: 0 18px; width: 100%; }
 
-    /* إضافة الشعار المضيء مع الألوان الجديدة */
+    /* إضافة الشعار المحدث - خلفية بيضاء دائرية وثابتة */
     .logo-container {
       text-align: center;
       margin-bottom: 20px;
@@ -89,6 +89,8 @@
       transition: var(--transition);
       position: relative;
       z-index: 10;
+      background: white;
+      padding: 10px;
     }
 
     .logo-img:hover {
@@ -284,6 +286,51 @@
     @keyframes textFade {
       0%, 100% { opacity: 0.9; }
       50% { opacity: 1; }
+    }
+
+    /* المشرفات - لون أوضح */
+    .supervisors {
+      text-align: center;
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: var(--border-radius);
+      animation: supervisorsEntrance 0.6s ease-out 0.8s both;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .supervisors-title {
+      color: var(--accent-color); /* لون أوضح */
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .supervisors-list {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .supervisor {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white; /* لون أبيض لأفضل وضوح */
+      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: var(--transition);
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .supervisor:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+      border-color: var(--accent-color);
+      background: rgba(0, 0, 0, 0.3);
     }
 
     .main-nav {
@@ -506,6 +553,38 @@
       border-color: var(--accent-color);
       box-shadow: 0 0 0 3px rgba(0, 206, 209, 0.1);
       transform: translateY(-2px);
+    }
+
+    /* تحديث خيارات الصفوف */
+    .grade-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .grade-option {
+      padding: 10px;
+      text-align: center;
+      background: white;
+      border: 2px solid rgba(91, 44, 111, 0.1);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .grade-option:hover {
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
+      background: rgba(0, 206, 209, 0.05);
+    }
+
+    .grade-option.selected {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
     }
 
     .radio-group {
@@ -1060,52 +1139,6 @@
       border: 1px solid var(--accent-color);
     }
 
-    /* المشرفات */
-    .supervisors {
-      text-align: center;
-      margin-top: 30px;
-      padding: 20px;
-      background: linear-gradient(135deg, rgba(91, 44, 111, 0.05) 0%, rgba(0, 206, 209, 0.05) 100%);
-      border-radius: var(--border-radius);
-      animation: supervisorsEntrance 0.6s ease-out 0.8s both;
-    }
-
-    @keyframes supervisorsEntrance {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .supervisors-title {
-      color: var(--primary-color);
-      font-size: 1.3rem;
-      font-weight: 800;
-      margin-bottom: 15px;
-    }
-
-    .supervisors-list {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    .supervisor {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--dark-color);
-      padding: 10px 20px;
-      background: white;
-      border-radius: 10px;
-      border: 1px solid rgba(91, 44, 111, 0.1);
-      transition: var(--transition);
-    }
-
-    .supervisor:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(91, 44, 111, 0.15);
-      border-color: var(--accent-color);
-    }
-
     footer {
       text-align: center;
       padding: 36px 14px;
@@ -1139,6 +1172,46 @@
       text-shadow: 0 0 10px rgba(0, 206, 209, 0.5);
     }
 
+    /* رابط الاتصال الجديد */
+    .contact-info {
+      margin-top: 25px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .contact-title {
+      color: var(--accent-color);
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .contact-phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      color: white;
+      font-weight: 700;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .contact-phone:hover {
+      background: rgba(0, 206, 209, 0.3);
+      transform: translateY(-3px);
+      border-color: var(--accent-color);
+    }
+
+    .contact-phone i {
+      color: var(--accent-color);
+    }
+
     /* استجابية */
     @media (max-width: 768px) {
       .logo-img {
@@ -1170,6 +1243,10 @@
       
       .radio-group {
         flex-direction: column;
+      }
+      
+      .grade-options {
+        grid-template-columns: repeat(3, 1fr);
       }
       
       .applications-table {
@@ -1254,16 +1331,16 @@
 <body>
   <div class="container">
     <header>
-      <!-- إضافة الشعار المضيء -->
+      <!-- إضافة الشعار المحدث - خلفية بيضاء دائرية -->
       <div class="logo-container">
         <div class="logo-glow"></div>
-        <img src="https://d.top4top.io/p_36520q11g1.png" alt="شعار المدرسة" class="logo-img">
+        <img src="https://d.top4top.io/p_36520q11g1.png" alt="شعار مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)" class="logo-img">
       </div>
       
       <div class="header-content">
         <h1>نظام تسجيل وترشيح طالبات مسار السفر والسياحة</h1>
-        <div class="header-subtitle">مدرسة خولة بنت حكيم للتعليم الأساسي</div>
-        <div class="header-meta"> الفصل الدراسي الثاني - العام الدراسي 2025/2026</div>
+        <div class="header-subtitle">مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)</div>
+        <div class="header-meta"> الفصل الدراسي الثاني - العام الدراسي 2025/2026 م</div>
 
         <!-- العد التنازلي للتسجيل -->
         <div class="countdown-container">
@@ -1289,22 +1366,22 @@
             </div>
           </div>
           <div class="registration-period">
-            <i class="fas fa-calendar-alt"></i> فترة التسجيل مفتوحة من 25 يناير إلى 26 فبراير 2026
+            <i class="fas fa-calendar-alt"></i> فترة التسجيل مفتوحة من 25 يناير إلى 26 فبراير 2026 م
           </div>
         </div>
 
-        <!-- المشرفات -->
+        <!-- المشرفات - بأسماء مكتملة ولون واضح -->
         <div class="supervisors">
           <div class="supervisors-title">أخصائيات التوجيه المهني:</div>
           <div class="supervisors-list">
-            <div class="supervisor">أ/ إيمان سعيد البهانتة</div>
-            <div class="supervisor">أ/ فاطمة علي بيت سعيد</div>
+            <div class="supervisor">أ/ إيمان سعيد فارح البهانتة</div>
+            <div class="supervisor">أ/ فاطمة علي مسلم بيت سعيد</div>
           </div>
         </div>
 
         <div class="main-nav">
           <button class="nav-btn instructions-btn" id="instructionsBtn">
-            <i class="fas fa-info-circle"></i>شروط وشروط التسجيل
+            <i class="fas fa-info-circle"></i>شروط التسجيل
           </button>
           <button class="nav-btn register-btn" id="registerBtn">
             <i class="fas fa-user-plus"></i>تقديم طلب التسجيل
@@ -1329,56 +1406,53 @@
           <h3 class="section-title"><i class="fas fa-user-graduate"></i> البيانات الشخصية</h3>
           <div class="form-row">
             <div class="form-group" style="animation-delay: 0.1s">
-              <label class="form-label">الاسم الكامل للطالبة <span>*</span></label>
-              <input type="text" class="form-input" id="studentName" required placeholder="أدخل الاسم الكامل">
+              <label class="form-label">الاسم الثلاثي للطالبة (مع القبيلة) <span>*</span></label>
+              <input type="text" class="form-input" id="studentName" required placeholder="أدخل الاسم الثلاثي مع القبيلة">
             </div>
             <div class="form-group" style="animation-delay: 0.2s">
-              <label class="form-label">الصف الدراسي <span>*</span></label>
-              <select class="form-select" id="studentGrade" required>
-                <option value="">اختر الصف</option>
-                <option value="10">الصف العاشر</option>
-                <option value="11">الصف الحادي عشر</option>
-              </select>
+              <label class="form-label">اسم المدرسة <span>*</span></label>
+              <input type="text" class="form-input" id="schoolName" value="مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)" readonly style="background-color: #f8f9fa;">
             </div>
           </div>
           
           <div class="form-row">
             <div class="form-group" style="animation-delay: 0.3s">
-              <label class="form-label">الرقم المدني <span>*</span></label>
-              <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني" maxlength="11">
+              <label class="form-label">الصف الدراسي <span>*</span></label>
+              <div class="grade-options">
+                <div class="grade-option" data-value="10-1">10-1</div>
+                <div class="grade-option" data-value="10-2">10-2</div>
+                <div class="grade-option" data-value="10-3">10-3</div>
+                <div class="grade-option" data-value="10-4">10-4</div>
+                <div class="grade-option" data-value="10-5">10-5</div>
+                <div class="grade-option" data-value="10-6">10-6</div>
+              </div>
+              <input type="hidden" id="studentGrade" required>
             </div>
             <div class="form-group" style="animation-delay: 0.4s">
-              <label class="form-label">رقم هاتف الطالبة <span>*</span></label>
-              <input type="tel" class="form-input" id="studentPhone" required placeholder="أدخل رقم الهاتف">
+              <label class="form-label">الرقم المدني <span>*</span></label>
+              <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني" maxlength="11">
             </div>
           </div>
           
           <div class="form-row">
             <div class="form-group" style="animation-delay: 0.5s">
-              <label class="form-label">رقم هاتف ولي الأمر <span>*</span></label>
-              <input type="tel" class="form-input" id="parentPhone" required placeholder="أدخل رقم ولي الأمر">
+              <label class="form-label">رقم هاتف الطالبة <span>*</span></label>
+              <input type="tel" class="form-input" id="studentPhone" required placeholder="أدخل رقم الهاتف">
             </div>
             <div class="form-group" style="animation-delay: 0.6s">
-              <label class="form-label">المنطقة السكنية <span>*</span></label>
-              <input type="text" class="form-input" id="residentialArea" required placeholder="أدخل المنطقة السكنية">
+              <label class="form-label">رقم هاتف ولي الأمر <span>*</span></label>
+              <input type="tel" class="form-input" id="parentPhone" required placeholder="أدخل رقم ولي الأمر">
             </div>
           </div>
           
           <div class="form-row">
             <div class="form-group" style="animation-delay: 0.7s">
-              <label class="form-label">اسم ولي الأمر <span>*</span></label>
-              <input type="text" class="form-input" id="parentName" required placeholder="أدخل اسم ولي الأمر">
+              <label class="form-label">المنطقة السكنية <span>*</span></label>
+              <input type="text" class="form-input" id="residentialArea" required placeholder="أدخل المنطقة السكنية">
             </div>
             <div class="form-group" style="animation-delay: 0.8s">
-              <label class="form-label">علاقة ولي الأمر <span>*</span></label>
-              <select class="form-select" id="parentRelation" required>
-                <option value="">اختر العلاقة</option>
-                <option value="الأب">الأب</option>
-                <option value="الأم">الأم</option>
-                <option value="الوصي">الوصي</option>
-                <option value="أخ">أخ</option>
-                <option value="أخرى">أخرى</option>
-              </select>
+              <label class="form-label">اسم ولي الأمر (ثلاثي مع القبيلة) <span>*</span></label>
+              <input type="text" class="form-input" id="parentName" required placeholder="أدخل اسم ولي الأمر ثلاثي مع القبيلة">
             </div>
           </div>
         </div>
@@ -1595,16 +1669,12 @@
           <span class="result-value" id="resultCivilId">--</span>
         </div>
         <div class="result-item">
-          <span class="result-label">نقاط الميول:</span>
-          <span class="result-value" id="resultTendencyPoints">--</span>
+          <span class="result-label">المدرسة:</span>
+          <span class="result-value">مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)</span>
         </div>
         <div class="result-item">
-          <span class="result-label">نقاط اللغة الإنجليزية:</span>
-          <span class="result-value" id="resultEnglishPoints">--</span>
-        </div>
-        <div class="result-item">
-          <span class="result-label">المجموع الكلي:</span>
-          <span class="result-value" id="resultTotalPoints">--</span>
+          <span class="result-label">الصف الدراسي:</span>
+          <span class="result-value" id="resultStudentGrade">--</span>
         </div>
       </div>
       
@@ -1712,10 +1782,19 @@
     </div>
 
     <footer>
-      <p>مدرسة خولة بنت حكيم للتعليم الأساسي - مسار السفر والسياحة</p>
-      <p>أخصائيات التوجيه المهني: <strong>أ/ إيمان سعيد البهانتة</strong> | <strong>أ/ فاطمة علي بيت سعيد</strong></p>
+      <p>مدرسة خولة بنت حكيم للتعليم الأساسي (9-12) - مسار السفر والسياحة</p>
+      <p>أخصائيات التوجيه المهني: <strong>أ/ إيمان سعيد فارح البهانتة</strong> | <strong>أ/ فاطمة علي مسلم بيت سعيد</strong></p>
       <p>جميع الحقوق محفوظة &copy; 2025</p>
       <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;">نظام ذكي لتسجيل وترشيح طالبات مسار السفر والسياحة</p>
+      
+      <!-- رابط الاتصال الجديد -->
+      <div class="contact-info">
+        <div class="contact-title">لمزيد من المعلومات عن مسار السفر والسياحة:</div>
+        <a href="tel:+96898949567" class="contact-phone">
+          <i class="fas fa-phone-alt"></i>
+          <span>+968 9894 9567</span>
+        </a>
+      </div>
     </footer>
   </div>
 
@@ -1723,7 +1802,7 @@
   <div id="instructionsModal" class="modal" role="dialog" aria-labelledby="instructionsTitle" aria-modal="true">
     <div class="modal-content">
       <span class="close" aria-label="إغلاق النافذة">&times;</span>
-      <h2 id="instructionsTitle" style="text-align:center;color:var(--primary-color);margin-bottom:20px;">شروط وشروط التسجيل في مسار السفر والسياحة</h2>
+      <h2 id="instructionsTitle" style="text-align:center;color:var(--primary-color);margin-bottom:20px;">شروط التسجيل في مسار السفر والسياحة</h2>
       
       <div style="background:rgba(91,44,111,0.06);padding:16px;border-radius:12px;margin-bottom:20px;border-right:4px solid var(--primary-color);">
         <h3 style="color:var(--primary-color);margin-bottom:10px;"><i class="fas fa-exclamation-circle"></i> معلومات هامة</h3>
@@ -1738,7 +1817,7 @@
             <ol style="padding-right: 20px; margin-top: 10px;">
               <li>أن تكمل الطالبة الصف العاشر بنجاح</li>
               <li>أن تكون الطالبة عمانية أو من أبناء دول مجلس التعاون لدول الخليج العربية</li>
-              <li>أن يكون لدى الطالبة رغبة في الالتحاق بالتعليم المهني والتقني (دبلوم السفر والسياحة)</li>
+              <li>أن يكون لدى الطالبة رغبة في الالتحاق بالتعليم المهني والتقني (دبلوم <strong>مسار السفر والسياحة</strong>)</li>
               <li>أن تكون الطالبة لائقة صحياً بما يتوافق مع التخصص المطلوب</li>
               <li>ألا يتجاوز عمر الطالبة المتقدم (20) عاماً</li>
             </ol>
@@ -1775,7 +1854,7 @@
         
         <div style="margin-top:20px;padding:14px;background:linear-gradient(135deg, rgba(205,127,50,0.12), rgba(0,128,128,0.08));border-radius:12px;border:1px solid rgba(205,127,50,0.25);">
           <p style="text-align:center;font-weight:800;color:var(--primary-color);margin:0;">
-            نرجو لجميع الطالبات التوفيق والنجاح في مسار السفر والسياحة، ونسأل الله أن يوفق الجميع لما فيه الخير والفلاح
+            نرجو لجميع الطالبات التوفيق والنجاح في <strong>مسار السفر والسياحة</strong>، ونسأل الله أن يوفق الجميع لما فيه الخير والفلاح
           </p>
         </div>
       </div>
@@ -1811,14 +1890,14 @@
     const studentRegistrationForm = document.getElementById("studentRegistrationForm");
     const certificateFile = document.getElementById("certificateFile");
     const fileName = document.getElementById("fileName");
+    const studentGradeInput = document.getElementById("studentGrade");
+    const gradeOptions = document.querySelectorAll('.grade-option');
     
     // عناصر النتيجة
     const resultApplicationId = document.getElementById("resultApplicationId");
     const resultStudentName = document.getElementById("resultStudentName");
     const resultCivilId = document.getElementById("resultCivilId");
-    const resultTendencyPoints = document.getElementById("resultTendencyPoints");
-    const resultEnglishPoints = document.getElementById("resultEnglishPoints");
-    const resultTotalPoints = document.getElementById("resultTotalPoints");
+    const resultStudentGrade = document.getElementById("resultStudentGrade");
     const resultStatus = document.getElementById("resultStatus");
     
     // عناصر لوحة الإدارة
@@ -1860,6 +1939,20 @@
     setInterval(updateCountdown, 1000);
     updateCountdown(); // التشغيل الأولي
     
+    // اختيار الصف الدراسي
+    gradeOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        // إزالة التحديد من جميع الخيارات
+        gradeOptions.forEach(opt => opt.classList.remove('selected'));
+        
+        // إضافة التحديد للخيار المختار
+        this.classList.add('selected');
+        
+        // تعيين القيمة في الحقل المخفي
+        studentGradeInput.value = this.getAttribute('data-value');
+      });
+    });
+    
     // عرض نموذج التسجيل
     function showRegistrationForm() {
       registrationForm.classList.add('active');
@@ -1868,6 +1961,10 @@
       statusCheckSection.style.display = 'none';
       studentRegistrationForm.reset();
       fileName.textContent = 'لم يتم اختيار ملف';
+      
+      // إعادة تعيين خيارات الصف
+      gradeOptions.forEach(opt => opt.classList.remove('selected'));
+      studentGradeInput.value = '';
     }
     
     // عرض نتيجة التسجيل
@@ -1954,19 +2051,25 @@
     studentRegistrationForm.addEventListener('submit', function(e) {
       e.preventDefault();
       
+      // التحقق من اختيار الصف
+      if (!studentGradeInput.value) {
+        alert('يرجى اختيار الصف الدراسي');
+        return;
+      }
+      
       const formData = new FormData(this);
       
       // جمع البيانات
       const applicationData = {
         id: applicationCounter++,
         studentName: document.getElementById('studentName').value,
-        studentGrade: document.getElementById('studentGrade').value,
+        schoolName: document.getElementById('schoolName').value,
+        studentGrade: studentGradeInput.value,
         civilId: document.getElementById('civilId').value,
         studentPhone: document.getElementById('studentPhone').value,
         parentPhone: document.getElementById('parentPhone').value,
         residentialArea: document.getElementById('residentialArea').value,
         parentName: document.getElementById('parentName').value,
-        parentRelation: document.getElementById('parentRelation').value,
         englishGrade: parseInt(document.getElementById('englishGrade').value),
         tendencyPoints: calculateTendencyPoints(formData),
         submissionDate: new Date().toISOString(),
@@ -1994,6 +2097,8 @@
       // إعادة تعيين النموذج
       this.reset();
       fileName.textContent = 'لم يتم اختيار ملف';
+      gradeOptions.forEach(opt => opt.classList.remove('selected'));
+      studentGradeInput.value = '';
     });
     
     // عرض نتيجة الطلب
@@ -2001,9 +2106,7 @@
       resultApplicationId.textContent = application.id;
       resultStudentName.textContent = application.studentName;
       resultCivilId.textContent = application.civilId;
-      resultTendencyPoints.textContent = application.tendencyPoints;
-      resultEnglishPoints.textContent = application.englishPoints;
-      resultTotalPoints.textContent = application.totalPoints;
+      resultStudentGrade.textContent = application.studentGrade;
       
       // تحديث حالة النتيجة
       if (application.status === 'مقبول') {
@@ -2134,12 +2237,12 @@
               <span class="result-value">${application.id}</span>
             </div>
             <div class="result-item">
-              <span class="result-label">تاريخ التقديم:</span>
-              <span class="result-value">${new Date(application.submissionDate).toLocaleDateString('ar-OM')}</span>
+              <span class="result-label">المدرسة:</span>
+              <span class="result-value">${application.schoolName}</span>
             </div>
             <div class="result-item">
-              <span class="result-label">المجموع الكلي:</span>
-              <span class="result-value">${application.totalPoints} نقطة</span>
+              <span class="result-label">تاريخ التقديم:</span>
+              <span class="result-value">${new Date(application.submissionDate).toLocaleDateString('ar-OM')}</span>
             </div>
             <div class="result-item">
               <span class="result-label">الحالة:</span>
