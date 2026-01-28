@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>نظام تسجيل وترشيح طالبات مسار السفر والسياحة | مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)</title>
+  <title>مسار السفر والسياحة tourism-dip</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="https://d.top4top.io/p_36520q11g1.png">
+  <link rel="icon" type="image/x-icon" href="https://f.top4top.io/p_368038om11.png">
 
   <style>
     :root {
@@ -77,8 +77,8 @@
     }
 
     .logo-img {
-      width: 120px;
-      height: 120px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
       object-fit: cover;
       border: 4px solid var(--gold-color);
@@ -109,8 +109,8 @@
 
     .logo-glow {
       position: absolute;
-      width: 140px;
-      height: 140px;
+      width: 170px;
+      height: 170px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(205, 127, 50, 0.3) 0%, rgba(91, 44, 111, 0.1) 70%);
       top: 50%;
@@ -1215,13 +1215,13 @@
     /* استجابية */
     @media (max-width: 768px) {
       .logo-img {
-        width: 100px;
-        height: 100px;
+        width: 130px;
+        height: 130px;
       }
       
       .logo-glow {
-        width: 120px;
-        height: 120px;
+        width: 150px;
+        height: 150px;
       }
       
       .countdown-item {
@@ -1334,12 +1334,13 @@
       <!-- إضافة الشعار المحدث - خلفية بيضاء دائرية -->
       <div class="logo-container">
         <div class="logo-glow"></div>
-        <img src="https://d.top4top.io/p_36520q11g1.png" alt="شعار مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)" class="logo-img">
+        <img src="https://f.top4top.io/p_368038om11.png" alt="شعار مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)" class="logo-img">
       </div>
       
       <div class="header-content">
         <h1>نظام تسجيل وترشيح طالبات مسار السفر والسياحة</h1>
-        <div class="header-subtitle">مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)</div>
+        <div class="header-subtitle">مدرسة خولة بنت حكيم للتعليم الأساسي</div>
+        <div style="font-size: 1.5rem; color: var(--accent-color); font-weight: 700; margin: 5px 0 15px;">(9-12)</div>
         <div class="header-meta"> الفصل الدراسي الثاني - العام الدراسي 2025/2026 م</div>
 
         <!-- العد التنازلي للتسجيل -->
@@ -1417,6 +1418,20 @@
           
           <div class="form-row">
             <div class="form-group" style="animation-delay: 0.3s">
+              <label class="form-label">الجنسية <span>*</span></label>
+              <select class="form-select" id="nationality" required>
+                <option value="">اختر الجنسية</option>
+                <option value="عمانية">عمانية</option>
+                <option value="سعودية">سعودية</option>
+                <option value="إماراتية">إماراتية</option>
+                <option value="قطرية">قطرية</option>
+                <option value="بحرينية">بحرينية</option>
+                <option value="كويتية">كويتية</option>
+                <option value="يمنية">يمنية</option>
+                <option value="أخرى">أخرى</option>
+              </select>
+            </div>
+            <div class="form-group" style="animation-delay: 0.4s">
               <label class="form-label">الصف الدراسي <span>*</span></label>
               <div class="grade-options">
                 <div class="grade-option" data-value="10-1">10-1</div>
@@ -1425,25 +1440,15 @@
                 <div class="grade-option" data-value="10-4">10-4</div>
                 <div class="grade-option" data-value="10-5">10-5</div>
                 <div class="grade-option" data-value="10-6">10-6</div>
-                <div class="grade-option" data-value="10-7">10-7</div>
-                <div class="grade-option" data-value="10-8">10-8</div>
-                <div class="grade-option" data-value="10-9">10-9</div>
-                <div class="grade-option" data-value="10-10">10-10</div>
-                <div class="grade-option" data-value="10-11">10-11</div>
-                <div class="grade-option" data-value="10-12">10-12</div>
               </div>
               <input type="hidden" id="studentGrade" required>
-            </div>
-            <div class="form-group" style="animation-delay: 0.4s">
-              <label class="form-label">الرقم المدني <span>*</span></label>
-              <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني" maxlength="11">
             </div>
           </div>
           
           <div class="form-row">
             <div class="form-group" style="animation-delay: 0.5s">
-              <label class="form-label">رقم هاتف الطالبة <span>*</span></label>
-              <input type="tel" class="form-input" id="studentPhone" required placeholder="أدخل رقم الهاتف">
+              <label class="form-label">اسم ولي الأمر (ثلاثي مع القبيلة) <span>*</span></label>
+              <input type="text" class="form-input" id="parentName" required placeholder="أدخل اسم ولي الأمر ثلاثي مع القبيلة">
             </div>
             <div class="form-group" style="animation-delay: 0.6s">
               <label class="form-label">رقم هاتف ولي الأمر <span>*</span></label>
@@ -1453,12 +1458,19 @@
           
           <div class="form-row">
             <div class="form-group" style="animation-delay: 0.7s">
-              <label class="form-label">المنطقة السكنية <span>*</span></label>
-              <input type="text" class="form-input" id="residentialArea" required placeholder="أدخل المنطقة السكنية">
+              <label class="form-label">رقم هاتف الطالبة <span>*</span></label>
+              <input type="tel" class="form-input" id="studentPhone" required placeholder="أدخل رقم الهاتف">
             </div>
             <div class="form-group" style="animation-delay: 0.8s">
-              <label class="form-label">اسم ولي الأمر (ثلاثي مع القبيلة) <span>*</span></label>
-              <input type="text" class="form-input" id="parentName" required placeholder="أدخل اسم ولي الأمر ثلاثي مع القبيلة">
+              <label class="form-label">الرقم المدني <span>*</span></label>
+              <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني" maxlength="11">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group" style="animation-delay: 0.9s">
+              <label class="form-label">المنطقة السكنية <span>*</span></label>
+              <input type="text" class="form-input" id="residentialArea" required placeholder="أدخل المنطقة السكنية">
             </div>
           </div>
         </div>
@@ -1606,7 +1618,7 @@
           <h3 class="section-title"><i class="fas fa-file-contract"></i> الشروط والتعهدات</h3>
           
           <div class="conditions-list">
-            <h4 style="color: var(--primary-color); margin-bottom: 15px;">شروط التسجيل والقبول (تخصص السياحة):</h4>
+            <h4 style="color: var(--primary-color); margin-bottom: 15px;">شروط التسجيل والقبول (مسار السفر والسياحة):</h4>
             
             <div class="condition-item" style="animation-delay: 0.1s">
               <i class="fas fa-check-circle"></i>
@@ -1788,17 +1800,22 @@
     </div>
 
     <footer>
-      <p>مدرسة خولة بنت حكيم للتعليم الأساسي (9-12) - مسار السفر والسياحة</p>
+      <div style="margin-bottom: 20px;">
+        <div style="font-size: 1.8rem; font-weight: 800; color: var(--accent-color); margin-bottom: 10px;">مسار السفر والسياحة</div>
+        <div style="font-size: 1.3rem; font-weight: 700;">مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)</div>
+      </div>
+      
+      <p>مديرة المدرسة: <strong>أ/ ليلى بنت سالم المسهلي</strong></p>
       <p>أخصائيات التوجيه المهني: <strong>أ/ إيمان سعيد فارح البهانتة</strong> | <strong>أ/ فاطمة علي مسلم بيت سعيد</strong></p>
-      <p>جميع الحقوق محفوظة &copy; 2025</p>
+      <p>جميع الحقوق محفوظة &copy; 2026 م</p>
       <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;">نظام ذكي لتسجيل وترشيح طالبات مسار السفر والسياحة</p>
       
       <!-- رابط الاتصال الجديد -->
       <div class="contact-info">
         <div class="contact-title">لمزيد من المعلومات عن مسار السفر والسياحة:</div>
-        <a href="tel:+96898949567" class="contact-phone">
-          <i class="fas fa-phone-alt"></i>
-          <span>+968 9894 9567</span>
+        <a href="https://wa.me/96898949567" target="_blank" class="contact-phone">
+          <i class="fab fa-whatsapp"></i>
+          <span>تواصل عبر واتساب</span>
         </a>
       </div>
     </footer>
@@ -2071,12 +2088,13 @@
         id: applicationCounter++,
         studentName: document.getElementById('studentName').value,
         schoolName: document.getElementById('schoolName').value,
+        nationality: document.getElementById('nationality').value,
         studentGrade: studentGradeInput.value,
         civilId: document.getElementById('civilId').value,
         studentPhone: document.getElementById('studentPhone').value,
         parentPhone: document.getElementById('parentPhone').value,
-        residentialArea: document.getElementById('residentialArea').value,
         parentName: document.getElementById('parentName').value,
+        residentialArea: document.getElementById('residentialArea').value,
         englishGrade: parseInt(document.getElementById('englishGrade').value),
         tendencyPoints: calculateTendencyPoints(formData),
         submissionDate: new Date().toISOString(),
