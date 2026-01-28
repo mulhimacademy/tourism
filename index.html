@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>مسار السفر والسياحة tourism-dip</title>
+  <title>مسار السفر والسياحة  tourism-dip</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -1179,37 +1179,41 @@
       background: rgba(255, 255, 255, 0.15);
       border-radius: var(--border-radius);
       border: 1px solid rgba(255, 255, 255, 0.3);
+      text-align: center;
     }
 
     .contact-title {
       color: var(--accent-color);
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       font-size: 1.1rem;
     }
 
-    .contact-phone {
+    .whatsapp-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(0, 0, 0, 0.2);
-      padding: 10px 20px;
+      justify-content: center;
+      gap: 10px;
+      background: #25D366;
+      padding: 12px 25px;
       border-radius: 50px;
       text-decoration: none;
       color: white;
       font-weight: 700;
       transition: var(--transition);
       border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+      min-width: 200px;
     }
 
-    .contact-phone:hover {
-      background: rgba(0, 206, 209, 0.3);
+    .whatsapp-btn:hover {
+      background: #128C7E;
       transform: translateY(-3px);
-      border-color: var(--accent-color);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
     }
 
-    .contact-phone i {
-      color: var(--accent-color);
+    .whatsapp-btn i {
+      font-size: 1.2rem;
     }
 
     /* استجابية */
@@ -1265,6 +1269,11 @@
       .supervisors-list {
         flex-direction: column;
         gap: 15px;
+      }
+      
+      .whatsapp-btn {
+        min-width: 180px;
+        padding: 10px 20px;
       }
     }
 
@@ -1340,7 +1349,7 @@
       <div class="header-content">
         <h1>نظام تسجيل وترشيح طالبات مسار السفر والسياحة</h1>
         <div class="header-subtitle">مدرسة خولة بنت حكيم للتعليم الأساسي</div>
-        <div style="font-size: 1.5rem; color: var(--accent-color); font-weight: 700; margin: 5px 0 15px;">(9-12)</div>
+        <div style="font-size: 1.5rem; color: var(--gold-color); font-weight: 700; margin: 5px 0 15px;">(9-12)</div>
         <div class="header-meta"> الفصل الدراسي الثاني - العام الدراسي 2025/2026 م</div>
 
         <!-- العد التنازلي للتسجيل -->
@@ -1462,8 +1471,8 @@
               <input type="tel" class="form-input" id="studentPhone" required placeholder="أدخل رقم الهاتف">
             </div>
             <div class="form-group" style="animation-delay: 0.8s">
-              <label class="form-label">الرقم المدني <span>*</span></label>
-              <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني" maxlength="11">
+              <label class="form-label">الرقم المدني للطالبة <span>*</span></label>
+              <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني للطالبة" maxlength="11">
             </div>
           </div>
           
@@ -1683,7 +1692,7 @@
           <span class="result-value" id="resultStudentName">--</span>
         </div>
         <div class="result-item">
-          <span class="result-label">الرقم المدني:</span>
+          <span class="result-label">الرقم المدني للطالبة:</span>
           <span class="result-value" id="resultCivilId">--</span>
         </div>
         <div class="result-item">
@@ -1780,7 +1789,7 @@
       <div class="form-section" style="text-align: center;">
         <div class="form-group" style="max-width: 500px; margin: 0 auto;">
           <label class="form-label">أدخل الرقم المدني للاستعلام</label>
-          <input type="text" class="form-input" id="statusCheckInput" placeholder="أدخل الرقم المدني">
+          <input type="text" class="form-input" id="statusCheckInput" placeholder="أدخل الرقم المدني للطالبة">
         </div>
         
         <button class="nav-btn status-btn" onclick="checkStatusByCivilId()" style="margin-top: 20px; width: 200px;">
@@ -1802,7 +1811,7 @@
     <footer>
       <div style="margin-bottom: 20px;">
         <div style="font-size: 1.8rem; font-weight: 800; color: var(--accent-color); margin-bottom: 10px;">مسار السفر والسياحة</div>
-        <div style="font-size: 1.3rem; font-weight: 700;">مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)</div>
+        <div style="font-size: 1.3rem; font-weight: 700; color: var(--gold-color);">مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)</div>
       </div>
       
       <p>مديرة المدرسة: <strong>أ/ ليلى بنت سالم المسهلي</strong></p>
@@ -1813,7 +1822,7 @@
       <!-- رابط الاتصال الجديد -->
       <div class="contact-info">
         <div class="contact-title">لمزيد من المعلومات عن مسار السفر والسياحة:</div>
-        <a href="https://wa.me/96898949567" target="_blank" class="contact-phone">
+        <a href="https://wa.me/96898949567" target="_blank" class="whatsapp-btn">
           <i class="fab fa-whatsapp"></i>
           <span>تواصل عبر واتساب</span>
         </a>
