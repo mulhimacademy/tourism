@@ -1148,7 +1148,7 @@
       box-shadow: 0 -10px 30px rgba(0,0,0,0.12);
       margin-top: 50px;
       position: relative;
-      overflow: hidden;
+      /* إزالة overflow: hidden; */
     }
     
     footer::before {
@@ -1172,7 +1172,7 @@
       text-shadow: 0 0 10px rgba(0, 206, 209, 0.5);
     }
 
-    /* رابط الاتصال الجديد */
+    /* رابط الاتصال الجديد - تم إصلاحه بشكل كامل */
     .contact-info {
       margin-top: 25px;
       padding: 15px;
@@ -1180,6 +1180,8 @@
       border-radius: var(--border-radius);
       border: 1px solid rgba(255, 255, 255, 0.3);
       text-align: center;
+      position: relative; /* إضافة */
+      z-index: 2; /* إضافة */
     }
 
     .contact-title {
@@ -1204,12 +1206,20 @@
       border: 1px solid rgba(255, 255, 255, 0.3);
       box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
       min-width: 200px;
+      cursor: pointer;
+      position: relative;
+      z-index: 3; /* تأكد أن الزر فوق كل شيء */
     }
 
     .whatsapp-btn:hover {
       background: #128C7E;
       transform: translateY(-3px);
       box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+    }
+
+    .whatsapp-btn:active {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 10px rgba(37, 211, 102, 0.4);
     }
 
     .whatsapp-btn i {
@@ -1862,7 +1872,7 @@
       <p>جميع الحقوق محفوظة &copy; 2026 م</p>
       <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;">نظام ذكي لتسجيل وترشيح طالبات مسار السفر والسياحة</p>
       
-      <!-- رابط الاتصال الجديد -->
+      <!-- رابط الاتصال الجديد - تم إصلاحه بشكل كامل -->
       <div class="contact-info">
         <div class="contact-title">لمزيد من المعلومات عن مسار السفر والسياحة:</div>
         <a href="https://wa.me/+96895665009" target="_blank" class="whatsapp-btn">
@@ -2596,7 +2606,3 @@
   </script>
 </body>
 </html>
-
-
-
-
