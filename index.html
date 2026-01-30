@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>مسار السفر والسياحة  tourism-dip</title>
+  <title>مسار السفر والسياحة tourism-dip</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -1334,6 +1334,39 @@
       color: white; 
       transform: rotate(90deg) scale(1.1);
     }
+    
+    /* تخصيص رسائل التنبيه */
+    .alert {
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin: 15px 0;
+      text-align: center;
+      font-weight: 600;
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .alert-success {
+      background: rgba(0, 128, 128, 0.15);
+      color: var(--secondary-color);
+      border: 1px solid var(--secondary-color);
+    }
+    
+    .alert-warning {
+      background: rgba(205, 127, 50, 0.15);
+      color: var(--gold-color);
+      border: 1px solid var(--gold-color);
+    }
+    
+    .alert-error {
+      background: rgba(220, 53, 69, 0.15);
+      color: #dc3545;
+      border: 1px solid #dc3545;
+    }
   </style>
 </head>
 
@@ -1410,6 +1443,8 @@
     <div class="registration-container" id="registrationForm">
       <h2 class="form-title">تقديم طلب التسجيل في مسار السفر والسياحة</h2>
       
+      <div id="formAlert" class="alert" style="display: none;"></div>
+      
       <form id="studentRegistrationForm">
         <!-- البيانات الشخصية -->
         <div class="form-section">
@@ -1436,7 +1471,7 @@
                 <option value="قطرية">قطرية</option>
                 <option value="بحرينية">بحرينية</option>
                 <option value="كويتية">كويتية</option>
-                <option value="يمنية">يمنية</option>
+             
                 <option value="أخرى">أخرى</option>
               </select>
             </div>
@@ -1461,18 +1496,18 @@
             </div>
             <div class="form-group" style="animation-delay: 0.6s">
               <label class="form-label">رقم هاتف ولي الأمر <span>*</span></label>
-              <input type="tel" class="form-input" id="parentPhone" required placeholder="أدخل رقم ولي الأمر">
+              <input type="tel" class="form-input" id="parentPhone" required placeholder="أدخل رقم ولي الأمر" pattern="[0-9]{8,15}">
             </div>
           </div>
           
           <div class="form-row">
             <div class="form-group" style="animation-delay: 0.7s">
               <label class="form-label">رقم هاتف الطالبة <span>*</span></label>
-              <input type="tel" class="form-input" id="studentPhone" required placeholder="أدخل رقم الهاتف">
+              <input type="tel" class="form-input" id="studentPhone" required placeholder="أدخل رقم الهاتف" pattern="[0-9]{8,15}">
             </div>
             <div class="form-group" style="animation-delay: 0.8s">
               <label class="form-label">الرقم المدني للطالبة <span>*</span></label>
-              <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني للطالبة" maxlength="11">
+              <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني للطالبة" pattern="[0-9]{11}" title="الرقم المدني يجب أن يتكون من 11 رقمًا">
             </div>
           </div>
           
@@ -1668,9 +1703,14 @@
 
         <!-- زر الإرسال -->
         <div style="text-align: center; margin-top: 30px;">
-          <button type="submit" class="nav-btn register-btn" style="width: 100%; max-width: 400px; font-size: 1.2rem; animation-delay: 0.8s">
+          <button type="submit" class="nav-btn register-btn" style="width: 100%; max-width: 400px; font-size: 1.2rem; animation-delay: 0.8s" id="submitBtn">
             <i class="fas fa-paper-plane"></i> إرسال طلب التسجيل
           </button>
+          <div id="loadingSpinner" style="display: none; margin-top: 20px;">
+            <div style="display: inline-block; padding: 15px 30px; background: var(--gradient-primary); color: white; border-radius: 10px;">
+              <i class="fas fa-spinner fa-spin"></i> جاري حفظ البيانات في Google Sheets...
+            </div>
+          </div>
         </div>
       </form>
     </div>
@@ -1732,7 +1772,10 @@
           <input type="text" class="search-input" id="adminSearch" placeholder="البحث بالرقم المدني أو اسم الطالبة">
           <i class="fas fa-search search-icon"></i>
         </div>
-        <button class="nav-btn" onclick="exportApplications()" style="background: var(--gradient-secondary);">
+        <button class="nav-btn" onclick="fetchDataFromGoogleSheets()" style="background: var(--gradient-secondary);">
+          <i class="fas fa-sync-alt"></i> تحديث البيانات
+        </button>
+        <button class="nav-btn" onclick="exportApplications()" style="background: var(--gradient-accent);">
           <i class="fas fa-download"></i> تصدير البيانات
         </button>
         <button class="nav-btn" onclick="showRegistrationForm()" style="background: var(--gradient-primary);">
@@ -1772,11 +1815,11 @@
               <th>المجموع</th>
               <th>الحالة</th>
               <th>ملاحظات</th>
-              <th>إجراءات</th>
+              <th>تاريخ التسجيل</th>
             </tr>
           </thead>
           <tbody id="applicationsTableBody">
-            <!-- سيتم ملؤها بالبيانات من JavaScript -->
+            <!-- سيتم ملؤها بالبيانات من Google Sheets -->
           </tbody>
         </table>
       </div>
@@ -1894,8 +1937,11 @@
   </div>
 
   <script>
+    // رابط Google Apps Script الخاص بك
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxJFiTzHvNA_hNkSKciwXS2Y_dj42A8PmAVZtMOcAUi_9WoAbE7iqZEsqNmE4_jdtYX/exec";
+    
     // البيانات والمتغيرات العامة
-    let applications = JSON.parse(localStorage.getItem('tourismApplications')) || [];
+    let applications = [];
     let applicationCounter = parseInt(localStorage.getItem('applicationCounter')) || 1000;
     
     // عناصر DOM
@@ -1924,6 +1970,9 @@
     const fileName = document.getElementById("fileName");
     const studentGradeInput = document.getElementById("studentGrade");
     const gradeOptions = document.querySelectorAll('.grade-option');
+    const formAlert = document.getElementById("formAlert");
+    const submitBtn = document.getElementById("submitBtn");
+    const loadingSpinner = document.getElementById("loadingSpinner");
     
     // عناصر النتيجة
     const resultApplicationId = document.getElementById("resultApplicationId");
@@ -1994,6 +2043,7 @@
       statusCheckSection.style.display = 'none';
       studentRegistrationForm.reset();
       fileName.textContent = 'لم يتم اختيار ملف';
+      formAlert.style.display = 'none';
       
       // إعادة تعيين خيارات الصف
       gradeOptions.forEach(opt => opt.classList.remove('selected'));
@@ -2016,7 +2066,7 @@
         resultSection.classList.remove('active');
         adminPanel.classList.add('active');
         statusCheckSection.style.display = 'none';
-        updateAdminPanel();
+        fetchDataFromGoogleSheets();
       } else {
         alert("كلمة المرور غير صحيحة!");
       }
@@ -2033,7 +2083,14 @@
     // تحديث اسم الملف المرفوع
     certificateFile.addEventListener('change', function(e) {
       if (this.files && this.files[0]) {
-        fileName.textContent = this.files[0].name;
+        const fileSize = this.files[0].size / 1024 / 1024; // حجم الملف بالميجابايت
+        if (fileSize > 5) {
+          alert("حجم الملف يجب أن يكون أقل من 5 ميجابايت");
+          this.value = "";
+          fileName.textContent = 'لم يتم اختيار ملف';
+        } else {
+          fileName.textContent = this.files[0].name;
+        }
       } else {
         fileName.textContent = 'لم يتم اختيار ملف';
       }
@@ -2058,35 +2115,166 @@
       return total;
     }
     
-    // تحديد حالة الطلب (مقبول/انتظار)
-    function determineApplicationStatus(totalPoints, englishGrade, currentApplications) {
-      // أولوية للغة الإنجليزية الممتازة
-      if (englishGrade >= 90) {
-        return 'مقبول';
+    // عرض رسالة تنبيه
+    function showAlert(message, type = 'success') {
+      formAlert.textContent = message;
+      formAlert.className = `alert alert-${type}`;
+      formAlert.style.display = 'block';
+      
+      if (type === 'error') {
+        setTimeout(() => {
+          formAlert.style.display = 'none';
+        }, 5000);
+      }
+    }
+    
+    // إرسال البيانات إلى Google Sheets
+    async function sendToGoogleSheets(applicationData) {
+      try {
+        // إظهار مؤشر التحميل
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+        loadingSpinner.style.display = 'block';
+        
+        // تحويل البيانات إلى JSON
+        const jsonData = JSON.stringify(applicationData);
+        
+        // استخدام طريقة POST لإرسال البيانات
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors', // مهم لتجنب مشاكل CORS
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: jsonData
+        });
+        
+        // إخفاء مؤشر التحميل
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال طلب التسجيل';
+        loadingSpinner.style.display = 'none';
+        
+        // مع no-cors لا يمكننا قراءة الرد، ولكن نعتقد أن الإرسال ناجح
+        console.log('تم إرسال البيانات إلى Google Sheets');
+        
+        // حفظ نسخة احتياطية محلية
+        saveToLocalStorage(applicationData);
+        
+        return { success: true, message: "تم حفظ البيانات بنجاح" };
+        
+      } catch (error) {
+        console.error('خطأ في الإرسال:', error);
+        
+        // إخفاء مؤشر التحميل
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال طلب التسجيل';
+        loadingSpinner.style.display = 'none';
+        
+        // حفظ محلي كنسخة احتياطية
+        saveToLocalStorage(applicationData);
+        
+        return { 
+          success: false, 
+          message: "تم حفظ البيانات محلياً، سيتم مزامنتها مع الخادم لاحقاً" 
+        };
+      }
+    }
+    
+    // استرجاع البيانات من Google Sheets
+    async function fetchDataFromGoogleSheets() {
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getData`);
+        const data = await response.json();
+        
+        if (data && Array.isArray(data)) {
+          applications = data;
+          updateAdminPanel();
+          showAlert('تم تحديث البيانات بنجاح من Google Sheets', 'success');
+        }
+      } catch (error) {
+        console.error('خطأ في جلب البيانات:', error);
+        showAlert('فشل في جلب البيانات من الخادم', 'error');
+        
+        // محاولة استخدام البيانات المحلية
+        const localData = JSON.parse(localStorage.getItem('tourismBackup')) || [];
+        if (localData.length > 0) {
+          applications = localData;
+          updateAdminPanel();
+          showAlert('تم تحميل البيانات المحلية', 'warning');
+        }
+      }
+    }
+    
+    // حفظ البيانات محلياً
+    function saveToLocalStorage(applicationData) {
+      try {
+        let backupApps = JSON.parse(localStorage.getItem('tourismBackup')) || [];
+        backupApps.push(applicationData);
+        localStorage.setItem('tourismBackup', JSON.stringify(backupApps));
+        console.log('تم حفظ نسخة احتياطية في localStorage');
+        
+        // تحديث العداد
+        applicationCounter = Math.max(applicationCounter, applicationData.id + 1);
+        localStorage.setItem('applicationCounter', applicationCounter.toString());
+        
+      } catch (error) {
+        console.error('خطأ في الحفظ المحلي:', error);
+      }
+    }
+    
+    // محاولة مزامنة البيانات المحلية مع الخادم
+    async function syncLocalData() {
+      const backupApps = JSON.parse(localStorage.getItem('tourismBackup')) || [];
+      
+      if (backupApps.length === 0) return;
+      
+      for (let i = 0; i < backupApps.length; i++) {
+        const app = backupApps[i];
+        try {
+          const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(app)
+          });
+          
+          // إذا نجح الإرسال (افتراضي مع no-cors)، نزيل من النسخة الاحتياطية
+          backupApps.splice(i, 1);
+          i--;
+          
+          console.log('تم مزامنة طلب رقم:', app.id);
+          
+        } catch (error) {
+          console.error('فشل مزامنة طلب رقم:', app.id, error);
+        }
       }
       
-      // إذا وصلنا للحد الأقصى (50 مقبول)
-      const acceptedCount = currentApplications.filter(app => app.status === 'مقبول').length;
-      if (acceptedCount >= 50) {
-        return 'قائمة الانتظار';
-      }
-      
-      // إذا كان المجموع عالي بما يكفي
-      const sortedApplications = [...currentApplications].sort((a, b) => b.totalPoints - a.totalPoints);
-      if (sortedApplications.length < 50 || totalPoints >= sortedApplications[Math.min(49, sortedApplications.length-1)].totalPoints) {
-        return 'مقبول';
-      }
-      
-      return 'قائمة الانتظار';
+      localStorage.setItem('tourismBackup', JSON.stringify(backupApps));
     }
     
     // معالجة تقديم النموذج
-    studentRegistrationForm.addEventListener('submit', function(e) {
+    studentRegistrationForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
       // التحقق من اختيار الصف
       if (!studentGradeInput.value) {
-        alert('يرجى اختيار الصف الدراسي');
+        showAlert('يرجى اختيار الصف الدراسي', 'error');
+        return;
+      }
+      
+      // التحقق من الرقم المدني
+      const civilId = document.getElementById('civilId').value;
+      if (civilId.length !== 11 || !/^\d+$/.test(civilId)) {
+        showAlert('الرقم المدني يجب أن يتكون من 11 رقمًا فقط', 'error');
+        return;
+      }
+      
+      // التحقق من درجة الإنجليزية
+      const englishGrade = parseInt(document.getElementById('englishGrade').value);
+      if (englishGrade < 0 || englishGrade > 100) {
+        showAlert('درجة اللغة الإنجليزية يجب أن تكون بين 0 و 100', 'error');
         return;
       }
       
@@ -2095,19 +2283,19 @@
       // جمع البيانات
       const applicationData = {
         id: applicationCounter++,
-        studentName: document.getElementById('studentName').value,
-        schoolName: document.getElementById('schoolName').value,
+        studentName: document.getElementById('studentName').value.trim(),
+        schoolName: document.getElementById('schoolName').value.trim(),
         nationality: document.getElementById('nationality').value,
         studentGrade: studentGradeInput.value,
-        civilId: document.getElementById('civilId').value,
-        studentPhone: document.getElementById('studentPhone').value,
-        parentPhone: document.getElementById('parentPhone').value,
-        parentName: document.getElementById('parentName').value,
-        residentialArea: document.getElementById('residentialArea').value,
-        englishGrade: parseInt(document.getElementById('englishGrade').value),
+        civilId: civilId,
+        studentPhone: document.getElementById('studentPhone').value.trim(),
+        parentPhone: document.getElementById('parentPhone').value.trim(),
+        parentName: document.getElementById('parentName').value.trim(),
+        residentialArea: document.getElementById('residentialArea').value.trim(),
+        englishGrade: englishGrade,
         tendencyPoints: calculateTendencyPoints(formData),
         submissionDate: new Date().toISOString(),
-        certificateFile: certificateFile.files[0] ? certificateFile.files[0].name : null
+        certificateFileName: certificateFile.files[0] ? certificateFile.files[0].name : null
       };
       
       // حساب النقاط
@@ -2115,24 +2303,27 @@
       applicationData.totalPoints = applicationData.tendencyPoints + applicationData.englishPoints;
       
       // تحديد الحالة
-      applicationData.status = determineApplicationStatus(applicationData.totalPoints, applicationData.englishGrade, applications);
+      applicationData.status = 'جاري المراجعة';
       applicationData.notes = applicationData.englishGrade >= 90 ? 'أولوية للغة الإنجليزية الممتازة' : '';
       
-      // إضافة الطلب
-      applications.push(applicationData);
+      // إرسال البيانات إلى Google Sheets
+      const result = await sendToGoogleSheets(applicationData);
       
-      // حفظ في localStorage
-      localStorage.setItem('tourismApplications', JSON.stringify(applications));
-      localStorage.setItem('applicationCounter', applicationCounter.toString());
-      
-      // عرض النتيجة
-      displayApplicationResult(applicationData);
-      
-      // إعادة تعيين النموذج
-      this.reset();
-      fileName.textContent = 'لم يتم اختيار ملف';
-      gradeOptions.forEach(opt => opt.classList.remove('selected'));
-      studentGradeInput.value = '';
+      if (result.success) {
+        // عرض النتيجة
+        displayApplicationResult(applicationData);
+        showAlert('تم إرسال طلبك بنجاح!', 'success');
+        
+        // إعادة تعيين النموذج
+        this.reset();
+        fileName.textContent = 'لم يتم اختيار ملف';
+        gradeOptions.forEach(opt => opt.classList.remove('selected'));
+        studentGradeInput.value = '';
+        
+      } else {
+        displayApplicationResult(applicationData);
+        showAlert(result.message, 'warning');
+      }
     });
     
     // عرض نتيجة الطلب
@@ -2143,14 +2334,8 @@
       resultStudentGrade.textContent = application.studentGrade;
       resultSchoolName.textContent = application.schoolName;
       
-      // تحديث حالة النتيجة
-      if (application.status === 'مقبول') {
-        resultStatus.textContent = 'تم استلام الطلب - جاري المراجعة';
-        resultStatus.className = 'result-status status-accepted';
-      } else {
-        resultStatus.textContent = 'تم استلام الطلب - جاري المراجعة';
-        resultStatus.className = 'result-status status-waiting';
-      }
+      resultStatus.textContent = 'تم استلام الطلب - جاري المراجعة';
+      resultStatus.className = 'result-status status-waiting';
       
       showResultSection();
     }
@@ -2161,7 +2346,7 @@
       totalApplications.textContent = applications.length;
       
       const accepted = applications.filter(app => app.status === 'مقبول').length;
-      const waiting = applications.filter(app => app.status === 'قائمة الانتظار').length;
+      const waiting = applications.filter(app => app.status === 'قائمة الانتظار' || app.status === 'جاري المراجعة').length;
       const excellent = applications.filter(app => app.englishGrade >= 90).length;
       
       acceptedApplications.textContent = accepted;
@@ -2178,15 +2363,29 @@
       
       let filteredApplications = applications;
       if (filter) {
+        const searchTerm = filter.toLowerCase();
         filteredApplications = applications.filter(app => 
           app.civilId.includes(filter) || 
-          app.studentName.includes(filter) ||
-          app.schoolName.includes(filter)
+          app.studentName.toLowerCase().includes(searchTerm) ||
+          (app.schoolName && app.schoolName.toLowerCase().includes(searchTerm))
         );
       }
       
       // ترتيب حسب المجموع الكلي (تنازلي)
       filteredApplications.sort((a, b) => b.totalPoints - a.totalPoints);
+      
+      if (filteredApplications.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td colspan="10" style="text-align: center; padding: 40px; color: var(--text-light);">
+            <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 15px; display: block; color: var(--accent-color);"></i>
+            <h3 style="color: var(--primary-color);">لا توجد طلبات</h3>
+            <p>لم يتم العثور على أي طلبات تطابق بحثك</p>
+          </td>
+        `;
+        applicationsTableBody.appendChild(row);
+        return;
+      }
       
       filteredApplications.forEach((app, index) => {
         const row = document.createElement('tr');
@@ -2196,53 +2395,33 @@
           row.style.backgroundColor = 'rgba(0, 206, 209, 0.05)';
         }
         
+        // تنسيق التاريخ
+        let submissionDate = '--';
+        if (app.submissionDate) {
+          const date = new Date(app.submissionDate);
+          submissionDate = date.toLocaleDateString('ar-OM');
+        }
+        
         row.innerHTML = `
           <td>${index + 1}</td>
-          <td>${app.studentName}</td>
-          <td>${app.civilId}</td>
-          <td>${app.studentGrade}</td>
-          <td>${app.tendencyPoints}</td>
-          <td>${app.englishPoints}</td>
-          <td><strong>${app.totalPoints}</strong></td>
+          <td>${app.studentName || '--'}</td>
+          <td>${app.civilId || '--'}</td>
+          <td>${app.studentGrade || '--'}</td>
+          <td>${app.tendencyPoints || '0'}</td>
+          <td>${app.englishPoints || '0'}</td>
+          <td><strong>${app.totalPoints || '0'}</strong></td>
           <td>
             <span class="status-badge ${app.status === 'مقبول' ? 'badge-accepted' : 'badge-waiting'}">
-              ${app.status}
+              ${app.status || 'جاري المراجعة'}
             </span>
             ${app.englishGrade >= 90 ? '<span class="status-badge badge-excellent" style="margin-right: 5px;">ممتاز إنجليزي</span>' : ''}
           </td>
           <td>${app.notes || '-'}</td>
-          <td>
-            <button onclick="toggleApplicationStatus(${app.id})" style="background: var(--primary-color); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; transition: var(--transition);">
-              تغيير الحالة
-            </button>
-          </td>
+          <td>${submissionDate}</td>
         `;
         
         applicationsTableBody.appendChild(row);
       });
-    }
-    
-    // تغيير حالة الطلب
-    function toggleApplicationStatus(id) {
-      const appIndex = applications.findIndex(app => app.id === id);
-      if (appIndex !== -1) {
-        applications[appIndex].status = applications[appIndex].status === 'مقبول' ? 'قائمة الانتظار' : 'مقبول';
-        localStorage.setItem('tourismApplications', JSON.stringify(applications));
-        updateAdminPanel();
-      }
-    }
-    
-    // تصدير البيانات
-    function exportApplications() {
-      const dataStr = JSON.stringify(applications, null, 2);
-      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-      
-      const exportFileDefaultName = `طلبات_مسار_السفر_والسياحة_${new Date().toISOString().slice(0,10)}.json`;
-      
-      const linkElement = document.createElement('a');
-      linkElement.setAttribute('href', dataUri);
-      linkElement.setAttribute('download', exportFileDefaultName);
-      linkElement.click();
     }
     
     // البحث في لوحة الإدارة
@@ -2257,9 +2436,22 @@
     
     function checkStatusByCivilId() {
       const civilId = document.getElementById('statusCheckInput').value;
-      const application = applications.find(app => app.civilId === civilId);
-      
       const statusResult = document.getElementById('statusResult');
+      
+      if (!civilId || civilId.length !== 11) {
+        statusResult.innerHTML = `
+          <div class="alert alert-error">
+            <i class="fas fa-exclamation-triangle"></i>
+            الرقم المدني يجب أن يتكون من 11 رقمًا
+          </div>
+        `;
+        statusResult.style.display = 'block';
+        return;
+      }
+      
+      // البحث في البيانات المحلية أولاً
+      const localData = JSON.parse(localStorage.getItem('tourismBackup')) || [];
+      const application = [...applications, ...localData].find(app => app.civilId === civilId);
       
       if (application) {
         let statusHTML = `
@@ -2278,32 +2470,56 @@
             </div>
             <div class="result-item">
               <span class="result-label">تاريخ التقديم:</span>
-              <span class="result-value">${new Date(application.submissionDate).toLocaleDateString('ar-OM')}</span>
+              <span class="result-value">${application.submissionDate ? new Date(application.submissionDate).toLocaleDateString('ar-OM') : '--'}</span>
             </div>
             <div class="result-item">
               <span class="result-label">الحالة:</span>
               <span class="result-value" style="font-weight: 900; color: ${application.status === 'مقبول' ? 'var(--secondary-color)' : 'var(--gold-color)'}">
-                ${application.status === 'مقبول' ? 'جاري المراجعة' : 'جاري المراجعة'}
+                ${application.status || 'جاري المراجعة'}
               </span>
             </div>
+            ${application.totalPoints ? `
+            <div class="result-item">
+              <span class="result-label">المجموع الكلي:</span>
+              <span class="result-value" style="color: var(--primary-color);">${application.totalPoints} نقطة</span>
+            </div>
+            ` : ''}
           </div>
-          <p class="result-note" style="margin-top: 20px;">
+          <div class="result-note" style="margin-top: 20px;">
             <i class="fas fa-info-circle"></i> سيتم إعلامك بالنتيجة النهائية بعد انتهاء فترة التسجيل ومراجعة جميع الطلبات.
-          </p>
+          </div>
         `;
         
         statusResult.innerHTML = statusHTML;
         statusResult.style.display = 'block';
       } else {
         statusResult.innerHTML = `
-          <div style="text-align: center; padding: 20px; background: rgba(0, 206, 209, 0.1); border-radius: 10px; border: 1px solid rgba(0, 206, 209, 0.3);">
-            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 10px;"></i>
-            <h3 style="color: var(--accent-color);">لم يتم العثور على طلب</h3>
-            <p>الرقم المدني المدخل غير مسجل في النظام. يرجى التأكد من الرقم أو تقديم طلب جديد.</p>
+          <div style="text-align: center; padding: 30px; background: rgba(0, 206, 209, 0.1); border-radius: 10px; border: 1px solid rgba(0, 206, 209, 0.3);">
+            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 15px;"></i>
+            <h3 style="color: var(--accent-color); margin-bottom: 10px;">لم يتم العثور على طلب</h3>
+            <p style="color: var(--text-light);">الرقم المدني المدخل غير مسجل في النظام. يرجى التأكد من الرقم أو تقديم طلب جديد.</p>
+            <button class="nav-btn register-btn" onclick="showRegistrationForm()" style="margin-top: 20px;">
+              <i class="fas fa-user-plus"></i> تقديم طلب جديد
+            </button>
           </div>
         `;
         statusResult.style.display = 'block';
       }
+    }
+    
+    // تصدير البيانات
+    function exportApplications() {
+      const dataStr = JSON.stringify(applications, null, 2);
+      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+      
+      const exportFileDefaultName = `طلبات_مسار_السفر_والسياحة_${new Date().toISOString().slice(0,10)}.json`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+      
+      showAlert('تم تصدير البيانات بنجاح', 'success');
     }
     
     // معالجة الأحداث
@@ -2360,10 +2576,20 @@
         item.style.animationDelay = `${index * 0.2}s`;
       });
       
-      // إضافة تأثيرات للعناصر المتأخرة
-      document.querySelectorAll('.form-group, .tendency-question, .condition-item, .checkbox-group, .stat-card').forEach((item, index) => {
-        item.style.animationDelay = `${(index % 10) * 0.1}s`;
+      // محاولة جلب البيانات من Google Sheets عند فتح لوحة الإدارة
+      document.getElementById('adminBtn').addEventListener('click', function() {
+        setTimeout(fetchDataFromGoogleSheets, 100);
       });
+      
+      // محاولة مزامنة البيانات المحلية كل 5 دقائق
+      setInterval(syncLocalData, 5 * 60 * 1000);
+      
+      // جلب البيانات من Google Sheets إذا كان هناك بيانات محلية
+      const localData = JSON.parse(localStorage.getItem('tourismBackup')) || [];
+      if (localData.length > 0) {
+        applications = localData;
+        console.log('تم تحميل البيانات المحلية:', localData.length, 'طلب');
+      }
     }
     
     document.addEventListener("DOMContentLoaded", init);
