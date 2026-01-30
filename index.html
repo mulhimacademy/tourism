@@ -1507,7 +1507,7 @@
             </div>
             <div class="form-group" style="animation-delay: 0.8s">
               <label class="form-label">الرقم المدني للطالبة <span>*</span></label>
-              <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني للطالبة" pattern="[0-9]{11}" title="الرقم المدني يجب أن يتكون من 11 رقمًا">
+              <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني للطالبة" pattern="[0-9]{7}" title="الرقم المدني يجب أن يتكون من 7 رقمًا">
             </div>
           </div>
           
@@ -2266,8 +2266,8 @@
       
       // التحقق من الرقم المدني
       const civilId = document.getElementById('civilId').value;
-      if (civilId.length !== 11 || !/^\d+$/.test(civilId)) {
-        showAlert('الرقم المدني يجب أن يتكون من 11 رقمًا فقط', 'error');
+      if (civilId.length !== 7 || !/^\d+$/.test(civilId)) {
+        showAlert('الرقم المدني يجب أن يتكون من 7 رقمًا فقط', 'error');
         return;
       }
       
@@ -2438,11 +2438,11 @@
       const civilId = document.getElementById('statusCheckInput').value;
       const statusResult = document.getElementById('statusResult');
       
-      if (!civilId || civilId.length !== 11) {
+      if (!civilId || civilId.length !== 7) {
         statusResult.innerHTML = `
           <div class="alert alert-error">
             <i class="fas fa-exclamation-triangle"></i>
-            الرقم المدني يجب أن يتكون من 11 رقمًا
+            الرقم المدني يجب أن يتكون من 7 رقمًا
           </div>
         `;
         statusResult.style.display = 'block';
@@ -2596,4 +2596,5 @@
   </script>
 </body>
 </html>
+
 
