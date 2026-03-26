@@ -11,10 +11,10 @@
 
   <style>
     :root {
-      --primary-color: #5B2C6F; /* Plum / Deep Purple */
-      --secondary-color: #008080; /* Teal */
-      --accent-color: #00CED1; /* Light Cyan / Aqua */
-      --gold-color: #CD7F32; /* Bronze / Gold-Brown */
+      --primary-color: #5B2C6F;
+      --secondary-color: #008080;
+      --accent-color: #00CED1;
+      --gold-color: #CD7F32;
       --dark-color: #2C3E50;
       --text-color: #2d3748;
       --text-light: #4a5568;
@@ -27,7 +27,6 @@
       --gradient-secondary: linear-gradient(135deg, #008080 0%, #006666 100%);
       --gradient-accent: linear-gradient(135deg, #00CED1 0%, #20B2AA 100%);
       --gradient-gold: linear-gradient(135deg, #CD7F32 0%, #B8860B 100%);
-      --gradient-light: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%);
       --glass-bg: rgba(255, 255, 255, 0.15);
       --glass-border: rgba(255, 255, 255, 0.25);
     }
@@ -46,7 +45,6 @@
       position: relative;
     }
 
-    /* تأثيرات ديناميكية للخلفية */
     body::before {
       content: '';
       position: fixed;
@@ -69,7 +67,6 @@
 
     .container { max-width: 1400px; margin: 0 auto; padding: 0 18px; width: 100%; }
 
-    /* إضافة الشعار المحدث - خلفية بيضاء دائرية وثابتة */
     .logo-container {
       text-align: center;
       margin-bottom: 20px;
@@ -82,10 +79,7 @@
       border-radius: 50%;
       object-fit: cover;
       border: 4px solid var(--gold-color);
-      box-shadow: 
-        0 0 30px rgba(205, 127, 50, 0.6),
-        0 0 60px rgba(91, 44, 111, 0.4),
-        inset 0 0 20px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 30px rgba(205, 127, 50, 0.6), 0 0 60px rgba(91, 44, 111, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.3);
       transition: var(--transition);
       position: relative;
       z-index: 10;
@@ -95,16 +89,7 @@
 
     .logo-img:hover {
       transform: scale(1.05);
-      box-shadow: 
-        0 0 40px rgba(205, 127, 50, 0.8),
-        0 0 80px rgba(91, 44, 111, 0.6),
-        inset 0 0 30px rgba(255, 255, 255, 0.5);
-      animation: logoPulse 1s ease-in-out;
-    }
-
-    @keyframes logoPulse {
-      0%, 100% { transform: scale(1.05); }
-      50% { transform: scale(1.08); }
+      box-shadow: 0 0 40px rgba(205, 127, 50, 0.8), 0 0 80px rgba(91, 44, 111, 0.6), inset 0 0 30px rgba(255, 255, 255, 0.5);
     }
 
     .logo-glow {
@@ -160,27 +145,13 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      animation: textGlow 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes textGlow {
-      0% { text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2), 0 0 20px rgba(91, 44, 111, 0.3); }
-      100% { text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 206, 209, 0.4); }
     }
 
     .header-subtitle {
       font-size: clamp(1.2rem, 3.2vw, 2rem);
       color: var(--gold-color);
       font-weight: 800;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.25);
       margin: 10px 0 14px;
-      animation: subtitleFloat 4s ease-in-out infinite;
-    }
-
-    @keyframes subtitleFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
     }
 
     .header-meta {
@@ -192,18 +163,9 @@
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
       max-width: 95%;
-      animation: metaPulse 2s ease-in-out infinite;
     }
 
-    @keyframes metaPulse {
-      0%, 100% { box-shadow: 0 6px 18px rgba(0,0,0,0.15); }
-      50% { box-shadow: 0 6px 25px rgba(91, 44, 111, 0.25); }
-    }
-
-    /* العد التنازلي */
     .countdown-container {
       margin: 25px auto 15px;
       max-width: 800px;
@@ -212,12 +174,6 @@
       padding: 20px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(10px);
-      animation: countdownEntrance 0.8s ease-out 0.2s both;
-    }
-
-    @keyframes countdownEntrance {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
     }
 
     .countdown-title {
@@ -243,19 +199,10 @@
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.3);
       transition: var(--transition);
-      animation: countdownItemPulse 2s ease-in-out infinite;
-      animation-delay: calc(var(--item-index) * 0.2s);
     }
 
     .countdown-item:hover {
       transform: translateY(-5px) scale(1.05);
-      background: rgba(91, 44, 111, 0.3);
-      border-color: var(--accent-color);
-    }
-
-    @keyframes countdownItemPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
     }
 
     .countdown-value {
@@ -264,7 +211,6 @@
       color: white;
       display: block;
       line-height: 1;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
 
     .countdown-label {
@@ -280,31 +226,22 @@
       font-size: 1.1rem;
       color: white;
       font-weight: 600;
-      animation: textFade 3s ease-in-out infinite;
     }
 
-    @keyframes textFade {
-      0%, 100% { opacity: 0.9; }
-      50% { opacity: 1; }
-    }
-
-    /* المشرفات - لون أوضح */
     .supervisors {
       text-align: center;
       margin-top: 30px;
       padding: 20px;
       background: rgba(255, 255, 255, 0.2);
       border-radius: var(--border-radius);
-      animation: supervisorsEntrance 0.6s ease-out 0.8s both;
       border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .supervisors-title {
-      color: var(--accent-color); /* لون أوضح */
+      color: var(--accent-color);
       font-size: 1.3rem;
       font-weight: 800;
       margin-bottom: 15px;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
 
     .supervisors-list {
@@ -317,20 +254,11 @@
     .supervisor {
       font-size: 1.1rem;
       font-weight: 600;
-      color: white; /* لون أبيض لأفضل وضوح */
+      color: white;
       padding: 10px 20px;
       background: rgba(0, 0, 0, 0.2);
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.3);
-      transition: var(--transition);
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    }
-
-    .supervisor:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-      border-color: var(--accent-color);
-      background: rgba(0, 0, 0, 0.3);
     }
 
     .main-nav {
@@ -339,13 +267,6 @@
       gap: 12px;
       margin-top: 18px;
       flex-wrap: wrap;
-      padding: 0 10px;
-      animation: navEntrance 0.8s ease-out 0.4s both;
-    }
-
-    @keyframes navEntrance {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
     }
 
     .nav-btn {
@@ -361,89 +282,32 @@
       justify-content: center;
       gap: 10px;
       transition: var(--transition);
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       min-height: 52px;
       width: min(330px, 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .nav-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: 0.5s;
-    }
-    
-    .nav-btn:hover::before {
-      left: 100%;
     }
     
     .nav-btn:hover { 
       transform: translateY(-5px) scale(1.02); 
-      box-shadow: 0 14px 30px rgba(0,0,0,0.25);
     }
     
-    .instructions-btn { 
-      background: var(--gradient-secondary);
-    }
-    
-    .instructions-btn:hover {
-      box-shadow: 0 14px 30px rgba(0, 128, 128, 0.3);
-    }
-    
-    .register-btn { 
-      background: var(--gradient-gold);
-    }
-    
-    .register-btn:hover {
-      box-shadow: 0 14px 30px rgba(205, 127, 50, 0.3);
-    }
-    
-    .admin-btn {
-      background: linear-gradient(135deg, #5B2C6F 0%, #8E44AD 100%);
-    }
-    
-    .admin-btn:hover {
-      box-shadow: 0 14px 30px rgba(91, 44, 111, 0.3);
-    }
-    
-    .status-btn {
-      background: var(--gradient-accent);
-    }
-    
-    .status-btn:hover {
-      box-shadow: 0 14px 30px rgba(0, 206, 209, 0.3);
-    }
+    .instructions-btn { background: var(--gradient-secondary); }
+    .register-btn { background: var(--gradient-gold); }
+    .admin-btn { background: linear-gradient(135deg, #5B2C6F 0%, #8E44AD 100%); }
+    .status-btn { background: var(--gradient-accent); }
 
-    /* قسم التسجيل */
     .registration-container {
       background: var(--white);
       border-radius: var(--border-radius-lg);
       box-shadow: var(--shadow);
       padding: 30px;
-      border: 1px solid rgba(0,0,0,0.06);
       width: 100%;
       max-width: 100%;
       margin-bottom: 50px;
       display: none;
-      animation: containerEntrance 0.6s ease-out;
     }
 
-    @keyframes containerEntrance {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .registration-container.active {
-      display: block;
-    }
+    .registration-container.active { display: block; }
 
     .form-title {
       color: var(--primary-color);
@@ -453,23 +317,6 @@
       text-align: center;
       padding-bottom: 15px;
       border-bottom: 3px solid var(--accent-color);
-      position: relative;
-    }
-
-    .form-title::after {
-      content: '';
-      position: absolute;
-      bottom: -3px;
-      right: 0;
-      width: 100px;
-      height: 3px;
-      background: var(--gold-color);
-      animation: titleUnderline 3s ease-in-out infinite;
-    }
-
-    @keyframes titleUnderline {
-      0%, 100% { width: 100px; }
-      50% { width: 150px; }
     }
 
     .form-section {
@@ -478,13 +325,6 @@
       background: linear-gradient(135deg, rgba(91, 44, 111, 0.05) 0%, rgba(0, 206, 209, 0.05) 100%);
       border-radius: var(--border-radius);
       border: 1px solid rgba(91, 44, 111, 0.1);
-      transition: var(--transition);
-    }
-
-    .form-section:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      border-color: var(--accent-color);
     }
 
     .section-title {
@@ -497,26 +337,7 @@
       gap: 10px;
     }
 
-    .section-title i {
-      color: var(--gold-color);
-      animation: iconFloat 2s ease-in-out infinite;
-    }
-
-    @keyframes iconFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-      animation: formGroupEntrance 0.5s ease-out;
-      animation-fill-mode: both;
-    }
-
-    @keyframes formGroupEntrance {
-      from { transform: translateX(-20px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
+    .form-group { margin-bottom: 20px; }
 
     .form-row {
       display: grid;
@@ -530,12 +351,10 @@
       font-weight: 700;
       color: var(--primary-color);
       font-size: 1.05rem;
-      position: relative;
     }
 
-    .form-label span {
-      color: var(--secondary-color);
-    }
+    .form-label span { color: var(--secondary-color); }
+    .form-label .hint { font-size: 0.85rem; color: var(--text-light); font-weight: normal; margin-right: 8px; }
 
     .form-input, .form-select {
       width: 100%;
@@ -551,11 +370,8 @@
     .form-input:focus, .form-select:focus {
       outline: none;
       border-color: var(--accent-color);
-      box-shadow: 0 0 0 3px rgba(0, 206, 209, 0.1);
-      transform: translateY(-2px);
     }
 
-    /* تحديث خيارات الصفوف */
     .grade-options {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
@@ -575,17 +391,8 @@
       color: var(--primary-color);
     }
 
-    .grade-option:hover {
-      border-color: var(--accent-color);
-      transform: translateY(-2px);
-      background: rgba(0, 206, 209, 0.05);
-    }
-
-    .grade-option.selected {
-      background: var(--primary-color);
-      color: white;
-      border-color: var(--primary-color);
-    }
+    .grade-option:hover { border-color: var(--accent-color); transform: translateY(-2px); }
+    .grade-option.selected { background: var(--primary-color); color: white; border-color: var(--primary-color); }
 
     .radio-group {
       display: flex;
@@ -606,69 +413,18 @@
       flex: 1;
       min-width: 120px;
       justify-content: center;
-      position: relative;
-      overflow: hidden;
     }
 
-    .radio-option::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, transparent, rgba(91, 44, 111, 0.05), transparent);
-      opacity: 0;
-      transition: var(--transition);
-    }
+    .radio-option:hover { border-color: var(--accent-color); transform: translateY(-3px); }
+    .radio-text { font-weight: 600; color: var(--primary-color); }
+    .radio-points { display: none; }
 
-    .radio-option:hover::before {
-      opacity: 1;
-    }
-
-    .radio-option:hover {
-      border-color: var(--accent-color);
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .radio-option input {
-      margin: 0;
-    }
-
-    .radio-text {
-      font-weight: 600;
-      color: var(--primary-color);
-      position: relative;
-      z-index: 1;
-    }
-
-    /* إخفاء النقاط تماماً */
-    .radio-points {
-      display: none;
-    }
-
-    /* أسئلة الميول */
     .tendency-question {
       margin-bottom: 25px;
       padding: 20px;
       background: white;
       border-radius: var(--border-radius);
       border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      transition: var(--transition);
-      animation: questionEntrance 0.6s ease-out;
-    }
-
-    .tendency-question:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(91, 44, 111, 0.15);
-      border-color: var(--accent-color);
-    }
-
-    @keyframes questionEntrance {
-      from { transform: translateX(20px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
     }
 
     .question-text {
@@ -676,7 +432,6 @@
       font-weight: 700;
       color: var(--primary-color);
       margin-bottom: 15px;
-      line-height: 1.5;
     }
 
     .points-info {
@@ -688,94 +443,51 @@
       font-size: 0.9rem;
       font-weight: 700;
       margin-top: 10px;
-      border: 1px solid rgba(205, 127, 50, 0.3);
-      animation: infoPulse 2s ease-in-out infinite;
     }
 
-    @keyframes infoPulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.8; }
-    }
-
-    /* رفع الملف */
-    .file-upload {
+    .link-input-container {
       position: relative;
       margin-top: 10px;
     }
 
-    .file-input {
-      position: absolute;
+    .link-input {
       width: 100%;
-      height: 100%;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    .file-label {
-      display: block;
-      padding: 20px;
-      background: white;
-      border: 2px dashed rgba(91, 44, 111, 0.3);
+      padding: 14px 16px;
+      border: 2px solid rgba(91, 44, 111, 0.2);
       border-radius: 10px;
-      text-align: center;
-      cursor: pointer;
-      transition: var(--transition);
+      font-size: 1rem;
+      font-family: 'Tajawal', sans-serif;
+      direction: ltr;
+      text-align: left;
     }
 
-    .file-label:hover {
+    .link-input:focus {
+      outline: none;
       border-color: var(--accent-color);
-      background: rgba(0, 206, 209, 0.05);
-      transform: translateY(-2px);
     }
 
-    .file-label i {
-      color: var(--primary-color);
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      display: block;
-      animation: uploadIconFloat 3s ease-in-out infinite;
-    }
-
-    @keyframes uploadIconFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    .file-name {
-      margin-top: 10px;
-      font-size: 0.9rem;
+    .link-hint {
+      font-size: 0.85rem;
       color: var(--text-light);
-    }
-
-    /* شروط القبول */
-    .conditions-list {
-      padding-right: 20px;
-      margin-bottom: 25px;
-    }
-
-    .condition-item {
-      margin-bottom: 12px;
+      margin-top: 8px;
       display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      animation: conditionItemEntrance 0.5s ease-out;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    @keyframes conditionItemEntrance {
-      from { transform: translateX(20px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+    .link-hint i {
+      color: var(--accent-color);
     }
 
-    .condition-item i {
+    .link-hint a {
       color: var(--secondary-color);
-      margin-top: 3px;
-      animation: conditionIconSpin 10s linear infinite;
+      text-decoration: none;
     }
 
-    @keyframes conditionIconSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    .conditions-list { padding-right: 20px; margin-bottom: 25px; }
+    .condition-item { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; }
+    .condition-item i { color: var(--secondary-color); margin-top: 3px; }
 
     .checkbox-group {
       display: flex;
@@ -785,68 +497,17 @@
       padding: 15px;
       background: rgba(91, 44, 111, 0.05);
       border-radius: 10px;
-      border: 1px solid rgba(91, 44, 111, 0.1);
-      transition: var(--transition);
     }
 
-    .checkbox-group:hover {
-      border-color: var(--accent-color);
-      transform: translateX(-5px);
-    }
-
-    .checkbox-group input {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--primary-color);
-    }
-
-    /* النتيجة */
     .result-container {
       background: var(--white);
       border-radius: var(--border-radius-lg);
       box-shadow: var(--shadow);
       padding: 30px;
-      border: 1px solid rgba(0,0,0,0.06);
-      width: 100%;
-      max-width: 100%;
-      margin-bottom: 50px;
       text-align: center;
       display: none;
-      animation: resultEntrance 0.8s ease-out;
     }
-
-    @keyframes resultEntrance {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    .result-container.active {
-      display: block;
-    }
-
-    .result-icon {
-      font-size: 4rem;
-      color: var(--secondary-color);
-      margin-bottom: 20px;
-      animation: resultIconFloat 3s ease-in-out infinite;
-    }
-
-    @keyframes resultIconFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      33% { transform: translateY(-10px) rotate(5deg); }
-      66% { transform: translateY(5px) rotate(-5deg); }
-    }
-
-    .result-title {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--primary-color);
-      margin-bottom: 15px;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    .result-container.active { display: block; }
 
     .result-details {
       background: linear-gradient(135deg, rgba(91, 44, 111, 0.05) 0%, rgba(0, 206, 209, 0.05) 100%);
@@ -854,12 +515,6 @@
       padding: 20px;
       margin: 20px 0;
       text-align: right;
-      animation: detailsEntrance 0.6s ease-out 0.3s both;
-    }
-
-    @keyframes detailsEntrance {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
     }
 
     .result-item {
@@ -867,26 +522,6 @@
       justify-content: space-between;
       padding: 12px 0;
       border-bottom: 1px solid rgba(0,0,0,0.08);
-      transition: var(--transition);
-    }
-
-    .result-item:hover {
-      background: rgba(255, 255, 255, 0.5);
-      padding-right: 10px;
-    }
-
-    .result-item:last-child {
-      border-bottom: none;
-    }
-
-    .result-label {
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-
-    .result-value {
-      font-weight: 800;
-      color: var(--secondary-color);
     }
 
     .result-status {
@@ -896,111 +531,33 @@
       border-radius: 50px;
       display: inline-block;
       margin: 20px 0;
-      animation: statusPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes statusPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    .status-accepted {
-      background: rgba(0, 128, 128, 0.15);
-      color: var(--secondary-color);
-      border: 2px solid var(--secondary-color);
-    }
-
-    .status-waiting {
       background: rgba(205, 127, 50, 0.15);
       color: var(--gold-color);
       border: 2px solid var(--gold-color);
     }
 
-    .result-note {
-      color: var(--text-light);
-      font-size: 1rem;
-      margin-top: 20px;
-      font-style: italic;
-      animation: noteFade 3s ease-in-out infinite;
-    }
-
-    @keyframes noteFade {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 1; }
-    }
-
-    /* لوحة الإدارة */
     .admin-container {
       background: var(--white);
       border-radius: var(--border-radius-lg);
       box-shadow: var(--shadow);
       padding: 30px;
-      border: 1px solid rgba(0,0,0,0.06);
-      width: 100%;
-      max-width: 100%;
-      margin-bottom: 50px;
       display: none;
-      animation: adminEntrance 0.8s ease-out;
     }
-
-    @keyframes adminEntrance {
-      from { transform: translateY(30px) rotateX(-10deg); opacity: 0; }
-      to { transform: translateY(0) rotateX(0); opacity: 1; }
-    }
-
-    .admin-container.active {
-      display: block;
-    }
-
-    .admin-panel {
-      margin-top: 20px;
-    }
+    .admin-container.active { display: block; }
 
     .admin-controls {
       display: flex;
       gap: 15px;
       margin-bottom: 20px;
       flex-wrap: wrap;
-      animation: controlsEntrance 0.6s ease-out 0.2s both;
     }
 
-    @keyframes controlsEntrance {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .search-box {
-      flex: 1;
-      min-width: 300px;
-      position: relative;
-    }
-
+    .search-box { flex: 1; min-width: 300px; position: relative; }
     .search-input {
       width: 100%;
       padding: 12px 45px 12px 16px;
       border: 2px solid rgba(91, 44, 111, 0.2);
       border-radius: 10px;
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .search-input:focus {
-      border-color: var(--accent-color);
-      box-shadow: 0 0 0 3px rgba(0, 206, 209, 0.1);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--primary-color);
-      animation: searchIconFloat 2s ease-in-out infinite;
-    }
-
-    @keyframes searchIconFloat {
-      0%, 100% { transform: translateY(-50%) rotate(0deg); }
-      50% { transform: translateY(-50%) rotate(15deg); }
     }
 
     .stats-grid {
@@ -1008,12 +565,6 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
       margin-bottom: 30px;
-      animation: statsEntrance 0.6s ease-out 0.4s both;
-    }
-
-    @keyframes statsEntrance {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
     }
 
     .stat-card {
@@ -1022,122 +573,30 @@
       padding: 20px;
       text-align: center;
       border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
     }
 
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-      transform: translateX(100%);
-      transition: transform 0.6s ease-out;
-    }
-
-    .stat-card:hover::before {
-      transform: translateX(0);
-    }
-
-    .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(91, 44, 111, 0.15);
-    }
-
-    .stat-value {
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: var(--primary-color);
-      line-height: 1;
-      transition: var(--transition);
-    }
-
-    .stat-card:hover .stat-value {
-      color: var(--secondary-color);
-    }
-
-    .stat-label {
-      color: var(--text-light);
-      margin-top: 10px;
-      font-weight: 600;
-    }
+    .stat-value { font-size: 2.5rem; font-weight: 900; color: var(--primary-color); }
+    .stat-label { color: var(--text-light); margin-top: 10px; font-weight: 600; }
 
     .applications-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
       min-width: 1000px;
-      animation: tableEntrance 0.6s ease-out 0.6s both;
     }
-
-    @keyframes tableEntrance {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
     .applications-table th {
       background: var(--gradient-primary);
       color: var(--white);
       padding: 15px;
       text-align: center;
-      font-weight: 900;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      transition: var(--transition);
     }
-
-    .applications-table th:hover {
-      background: linear-gradient(135deg, rgba(91, 44, 111, 0.95) 0%, rgba(0, 128, 128, 0.95) 100%);
-    }
-
-    .applications-table td {
-      padding: 12px;
-      text-align: center;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      transition: var(--transition);
-    }
-
-    .applications-table tr:hover td {
-      background: rgba(0, 206, 209, 0.05);
-      transform: scale(1.01);
-    }
-
-    .status-badge {
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      display: inline-block;
-      transition: var(--transition);
-    }
-
-    .status-badge:hover {
-      transform: scale(1.1);
-    }
-
-    .badge-accepted {
-      background: rgba(0, 128, 128, 0.15);
-      color: var(--secondary-color);
-      border: 1px solid var(--secondary-color);
-    }
-
-    .badge-waiting {
-      background: rgba(205, 127, 50, 0.15);
-      color: var(--gold-color);
-      border: 1px solid var(--gold-color);
-    }
-
-    .badge-excellent {
-      background: rgba(0, 206, 209, 0.15);
-      color: var(--accent-color);
-      border: 1px solid var(--accent-color);
-    }
+    .applications-table td { padding: 12px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.08); }
+    .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: inline-block; }
+    .badge-accepted { background: rgba(0, 128, 128, 0.15); color: var(--secondary-color); border: 1px solid var(--secondary-color); }
+    .badge-waiting { background: rgba(205, 127, 50, 0.15); color: var(--gold-color); border: 1px solid var(--gold-color); }
+    .badge-excellent { background: rgba(0, 206, 209, 0.15); color: var(--accent-color); border: 1px solid var(--accent-color); }
+    .cert-link { color: var(--accent-color); text-decoration: none; font-weight: 600; }
+    .cert-link:hover { text-decoration: underline; }
 
     footer {
       text-align: center;
@@ -1145,52 +604,17 @@
       background: var(--gradient-primary);
       color: var(--white);
       border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
-      box-shadow: 0 -10px 30px rgba(0,0,0,0.12);
       margin-top: 50px;
-      position: relative;
-      /* إزالة overflow: hidden; */
     }
-    
-    footer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 30% 70%, rgba(0, 206, 209, 0.1) 0%, transparent 50%);
-      animation: footerGlow 5s ease-in-out infinite alternate;
-    }
+    footer strong { color: var(--accent-color); }
 
-    @keyframes footerGlow {
-      0% { opacity: 0.3; }
-      100% { opacity: 0.7; }
-    }
-    
-    footer strong { 
-      color: var(--accent-color); 
-      text-shadow: 0 0 10px rgba(0, 206, 209, 0.5);
-    }
-
-    /* رابط الاتصال الجديد - تم إصلاحه بشكل كامل */
     .contact-info {
       margin-top: 25px;
       padding: 15px;
       background: rgba(255, 255, 255, 0.15);
       border-radius: var(--border-radius);
-      border: 1px solid rgba(255, 255, 255, 0.3);
       text-align: center;
-      position: relative; /* إضافة */
-      z-index: 2; /* إضافة */
     }
-
-    .contact-title {
-      color: var(--accent-color);
-      font-weight: 700;
-      margin-bottom: 15px;
-      font-size: 1.1rem;
-    }
-
     .whatsapp-btn {
       display: inline-flex;
       align-items: center;
@@ -1203,91 +627,9 @@
       color: white;
       font-weight: 700;
       transition: var(--transition);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-      min-width: 200px;
-      cursor: pointer;
-      position: relative;
-      z-index: 3; /* تأكد أن الزر فوق كل شيء */
     }
+    .whatsapp-btn:hover { background: #128C7E; transform: translateY(-3px); }
 
-    .whatsapp-btn:hover {
-      background: #128C7E;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
-    }
-
-    .whatsapp-btn:active {
-      transform: translateY(-1px);
-      box-shadow: 0 3px 10px rgba(37, 211, 102, 0.4);
-    }
-
-    .whatsapp-btn i {
-      font-size: 1.2rem;
-    }
-
-    /* استجابية */
-    @media (max-width: 768px) {
-      .logo-img {
-        width: 130px;
-        height: 130px;
-      }
-      
-      .logo-glow {
-        width: 150px;
-        height: 150px;
-      }
-      
-      .countdown-item {
-        min-width: 80px;
-        padding: 12px;
-      }
-      
-      .countdown-value {
-        font-size: 2rem;
-      }
-      
-      .registration-container, .result-container, .admin-container {
-        padding: 20px 15px;
-      }
-      
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-      
-      .radio-group {
-        flex-direction: column;
-      }
-      
-      .grade-options {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      .applications-table {
-        display: block;
-        overflow-x: auto;
-      }
-      
-      .search-box {
-        min-width: 100%;
-      }
-      
-      .admin-controls {
-        flex-direction: column;
-      }
-      
-      .supervisors-list {
-        flex-direction: column;
-        gap: 15px;
-      }
-      
-      .whatsapp-btn {
-        min-width: 180px;
-        padding: 10px 20px;
-      }
-    }
-
-    /* Modals */
     .modal {
       display: none;
       position: fixed;
@@ -1295,16 +637,8 @@
       inset: 0;
       background: rgba(0,0,0,0.78);
       backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       padding: 12px;
-      animation: modalFadeIn 0.3s ease-out;
     }
-
-    @keyframes modalFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
     .modal-content {
       background: white;
       width: min(900px, 100%);
@@ -1313,19 +647,8 @@
       padding: 22px;
       max-height: 92vh;
       overflow: auto;
-      position: relative;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-      animation: modalContentEntrance 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-
-    @keyframes modalContentEntrance {
-      from { transform: scale(0.8) translateY(50px); opacity: 0; }
-      to { transform: scale(1) translateY(0); opacity: 1; }
-    }
-    
     .close {
-      position: sticky;
-      top: 0;
       float: left;
       width: 42px;
       height: 42px;
@@ -1335,47 +658,16 @@
       justify-content: center;
       font-size: 1.8rem;
       cursor: pointer;
-      background: rgba(0,0,0,0.06);
-      transition: var(--transition);
     }
-    
-    .close:hover { 
-      background: var(--accent-color); 
-      color: white; 
-      transform: rotate(90deg) scale(1.1);
-    }
-    
-    /* تخصيص رسائل التنبيه */
-    .alert {
-      padding: 15px 20px;
-      border-radius: 10px;
-      margin: 15px 0;
-      text-align: center;
-      font-weight: 600;
-      animation: fadeIn 0.5s ease-out;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .alert-success {
-      background: rgba(0, 128, 128, 0.15);
-      color: var(--secondary-color);
-      border: 1px solid var(--secondary-color);
-    }
-    
-    .alert-warning {
-      background: rgba(205, 127, 50, 0.15);
-      color: var(--gold-color);
-      border: 1px solid var(--gold-color);
-    }
-    
-    .alert-error {
-      background: rgba(220, 53, 69, 0.15);
-      color: #dc3545;
-      border: 1px solid #dc3545;
+    .alert { padding: 15px 20px; border-radius: 10px; margin: 15px 0; text-align: center; font-weight: 600; display: none; }
+    .alert-success { background: rgba(0, 128, 128, 0.15); color: var(--secondary-color); }
+    .alert-error { background: rgba(220, 53, 69, 0.15); color: #dc3545; }
+    .alert-warning { background: rgba(205, 127, 50, 0.15); color: var(--gold-color); }
+
+    @media (max-width: 768px) {
+      .countdown-item { min-width: 70px; padding: 10px; }
+      .countdown-value { font-size: 1.5rem; }
+      .applications-table { display: block; overflow-x: auto; }
     }
   </style>
 </head>
@@ -1383,47 +675,26 @@
 <body>
   <div class="container">
     <header>
-      <!-- إضافة الشعار المحدث - خلفية بيضاء دائرية -->
       <div class="logo-container">
         <div class="logo-glow"></div>
-        <img src="https://f.top4top.io/p_368038om11.png" alt="شعار مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)" class="logo-img">
+        <img src="https://f.top4top.io/p_368038om11.png" alt="شعار مدرسة خولة بنت حكيم" class="logo-img">
       </div>
-      
       <div class="header-content">
         <h1>نظام تسجيل وترشيح طالبات مسار السفر والسياحة</h1>
-        <div class="header-subtitle">مدرسة خولة بنت حكيم للتعليم الأساسي</div>
-        <div style="font-size: 1.5rem; color: var(--gold-color); font-weight: 700; margin: 5px 0 15px;">(9-12)</div>
+        <div class="header-subtitle">مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)</div>
         <div class="header-meta"> الفصل الدراسي الثاني - العام الدراسي 2025/2026 م</div>
 
-        <!-- العد التنازلي للتسجيل -->
         <div class="countdown-container">
-          <div class="countdown-title">
-            <i class="fas fa-clock"></i> العد التنازلي لانتهاء فترة التسجيل
-          </div>
+          <div class="countdown-title"><i class="fas fa-clock"></i> العد التنازلي لانتهاء فترة التسجيل</div>
           <div class="countdown-display">
-            <div class="countdown-item" style="--item-index: 0">
-              <span class="countdown-value" id="countdownDays">00</span>
-              <span class="countdown-label">يوم</span>
-            </div>
-            <div class="countdown-item" style="--item-index: 1">
-              <span class="countdown-value" id="countdownHours">00</span>
-              <span class="countdown-label">ساعة</span>
-            </div>
-            <div class="countdown-item" style="--item-index: 2">
-              <span class="countdown-value" id="countdownMinutes">00</span>
-              <span class="countdown-label">دقيقة</span>
-            </div>
-            <div class="countdown-item" style="--item-index: 3">
-              <span class="countdown-value" id="countdownSeconds">00</span>
-              <span class="countdown-label">ثانية</span>
-            </div>
+            <div class="countdown-item"><span class="countdown-value" id="countdownDays">00</span><span class="countdown-label">يوم</span></div>
+            <div class="countdown-item"><span class="countdown-value" id="countdownHours">00</span><span class="countdown-label">ساعة</span></div>
+            <div class="countdown-item"><span class="countdown-value" id="countdownMinutes">00</span><span class="countdown-label">دقيقة</span></div>
+            <div class="countdown-item"><span class="countdown-value" id="countdownSeconds">00</span><span class="countdown-label">ثانية</span></div>
           </div>
-          <div class="registration-period">
-            <i class="fas fa-calendar-alt"></i> فترة التسجيل مفتوحة من 25 يناير إلى 26 فبراير 2026 م
-          </div>
+          <div class="registration-period"><i class="fas fa-calendar-alt"></i> فترة التسجيل مفتوحة من 25 يناير إلى 1 مايو 2026 م</div>
         </div>
 
-        <!-- المشرفات - بأسماء مكتملة ولون واضح -->
         <div class="supervisors">
           <div class="supervisors-title">أخصائيات التوجيه المهني:</div>
           <div class="supervisors-list">
@@ -1433,1174 +704,317 @@
         </div>
 
         <div class="main-nav">
-          <button class="nav-btn instructions-btn" id="instructionsBtn">
-            <i class="fas fa-info-circle"></i>شروط التسجيل
-          </button>
-          <button class="nav-btn register-btn" id="registerBtn">
-            <i class="fas fa-user-plus"></i>تقديم طلب التسجيل
-          </button>
-          <button class="nav-btn status-btn" id="statusBtn">
-            <i class="fas fa-search"></i>الاستعلام عن حالة الطلب
-          </button>
-          <button class="nav-btn admin-btn" id="adminBtn">
-            <i class="fas fa-lock"></i>لوحة الإدارة
-          </button>
+          <button class="nav-btn instructions-btn" id="instructionsBtn"><i class="fas fa-info-circle"></i>شروط التسجيل</button>
+          <button class="nav-btn register-btn" id="registerBtn"><i class="fas fa-user-plus"></i>تقديم طلب التسجيل</button>
+          <button class="nav-btn status-btn" id="statusBtn"><i class="fas fa-search"></i>الاستعلام عن حالة الطلب</button>
+          <button class="nav-btn admin-btn" id="adminBtn"><i class="fas fa-lock"></i>لوحة الإدارة</button>
         </div>
       </div>
     </header>
 
-    <!-- قسم التسجيل -->
     <div class="registration-container" id="registrationForm">
       <h2 class="form-title">تقديم طلب التسجيل في مسار السفر والسياحة</h2>
-      
-      <div id="formAlert" class="alert" style="display: none;"></div>
-      
+      <div id="formAlert" class="alert"></div>
       <form id="studentRegistrationForm">
-        <!-- البيانات الشخصية -->
         <div class="form-section">
           <h3 class="section-title"><i class="fas fa-user-graduate"></i> البيانات الشخصية</h3>
           <div class="form-row">
-            <div class="form-group" style="animation-delay: 0.1s">
-              <label class="form-label">الاسم الثلاثي للطالبة (مع القبيلة) <span>*</span></label>
-              <input type="text" class="form-input" id="studentName" required placeholder="أدخل الاسم الثلاثي مع القبيلة">
-            </div>
-            <div class="form-group" style="animation-delay: 0.2s">
-              <label class="form-label">اسم المدرسة <span>*</span></label>
-              <input type="text" class="form-input" id="schoolName" required placeholder="أدخل اسم المدرسة">
-            </div>
+            <div class="form-group"><label class="form-label">الاسم الثلاثي للطالبة (مع القبيلة) <span>*</span></label><input type="text" class="form-input" id="studentName" required placeholder="أدخل الاسم الثلاثي مع القبيلة"></div>
+            <div class="form-group"><label class="form-label">اسم المدرسة <span>*</span></label><input type="text" class="form-input" id="schoolName" required placeholder="أدخل اسم المدرسة"></div>
           </div>
-          
           <div class="form-row">
-            <div class="form-group" style="animation-delay: 0.3s">
-              <label class="form-label">الجنسية <span>*</span></label>
-              <select class="form-select" id="nationality" required>
-                <option value="">اختر الجنسية</option>
-                <option value="عمانية">عمانية</option>
-                <option value="سعودية">سعودية</option>
-                <option value="إماراتية">إماراتية</option>
-                <option value="قطرية">قطرية</option>
-                <option value="بحرينية">بحرينية</option>
-                <option value="كويتية">كويتية</option>
-              </select>
-            </div>
-            <div class="form-group" style="animation-delay: 0.4s">
-              <label class="form-label">الصف الدراسي <span>*</span></label>
-              <div class="grade-options">
-                <div class="grade-option" data-value="10-1">10-1</div>
-                <div class="grade-option" data-value="10-2">10-2</div>
-                <div class="grade-option" data-value="10-3">10-3</div>
-                <div class="grade-option" data-value="10-4">10-4</div>
-                <div class="grade-option" data-value="10-5">10-5</div>
-                <div class="grade-option" data-value="10-6">10-6</div>
-              </div>
-              <input type="hidden" id="studentGrade" required>
-            </div>
+            <div class="form-group"><label class="form-label">الجنسية <span>*</span></label><select class="form-select" id="nationality" required><option value="">اختر الجنسية</option><option value="عمانية">عمانية</option><option value="سعودية">سعودية</option><option value="إماراتية">إماراتية</option><option value="قطرية">قطرية</option><option value="بحرينية">بحرينية</option><option value="كويتية">كويتية</option></select></div>
+            <div class="form-group"><label class="form-label">الصف الدراسي <span>*</span></label><div class="grade-options"><div class="grade-option" data-value="10-1">10-1</div><div class="grade-option" data-value="10-2">10-2</div><div class="grade-option" data-value="10-3">10-3</div><div class="grade-option" data-value="10-4">10-4</div><div class="grade-option" data-value="10-5">10-5</div><div class="grade-option" data-value="10-6">10-6</div></div><input type="hidden" id="studentGrade" required></div>
           </div>
-          
           <div class="form-row">
-            <div class="form-group" style="animation-delay: 0.5s">
-              <label class="form-label">اسم ولي الأمر (ثلاثي مع القبيلة) <span>*</span></label>
-              <input type="text" class="form-input" id="parentName" required placeholder="أدخل اسم ولي الأمر ثلاثي مع القبيلة">
-            </div>
-            <div class="form-group" style="animation-delay: 0.6s">
-              <label class="form-label">رقم هاتف ولي الأمر <span>*</span></label>
-              <input type="tel" class="form-input" id="parentPhone" required placeholder="أدخل رقم ولي الأمر" pattern="[0-9]{8,15}">
-            </div>
+            <div class="form-group"><label class="form-label">اسم ولي الأمر (ثلاثي مع القبيلة) <span>*</span></label><input type="text" class="form-input" id="parentName" required placeholder="أدخل اسم ولي الأمر"></div>
+            <div class="form-group"><label class="form-label">رقم هاتف ولي الأمر <span>*</span></label><input type="tel" class="form-input" id="parentPhone" required placeholder="أدخل رقم ولي الأمر"></div>
           </div>
-          
           <div class="form-row">
-            <div class="form-group" style="animation-delay: 0.7s">
-              <label class="form-label">رقم هاتف الطالبة <span>*</span></label>
-              <input type="tel" class="form-input" id="studentPhone" required placeholder="أدخل رقم الهاتف" pattern="[0-9]{8,15}">
-            </div>
-            <div class="form-group" style="animation-delay: 0.8s">
-              <label class="form-label">الرقم المدني للطالبة <span>*</span></label>
-              <input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني للطالبة">
-            </div>
+            <div class="form-group"><label class="form-label">رقم هاتف الطالبة <span>*</span></label><input type="tel" class="form-input" id="studentPhone" required placeholder="أدخل رقم الهاتف"></div>
+            <div class="form-group"><label class="form-label">الرقم المدني للطالبة <span>*</span></label><input type="text" class="form-input" id="civilId" required placeholder="أدخل الرقم المدني"></div>
           </div>
-          
-          <div class="form-row">
-            <div class="form-group" style="animation-delay: 0.9s">
-              <label class="form-label">المنطقة السكنية <span>*</span></label>
-              <input type="text" class="form-input" id="residentialArea" required placeholder="أدخل المنطقة السكنية">
-            </div>
-          </div>
+          <div class="form-group"><label class="form-label">المنطقة السكنية <span>*</span></label><input type="text" class="form-input" id="residentialArea" required placeholder="أدخل المنطقة السكنية"></div>
         </div>
 
-        <!-- أسئلة الميول -->
         <div class="form-section">
           <h3 class="section-title"><i class="fas fa-brain"></i> أسئلة الميول المهنية</h3>
-          <p style="margin-bottom: 20px; color: var(--text-color); font-weight: 600; text-align: center; background: rgba(205, 127, 50, 0.1); padding: 12px; border-radius: 8px; border-right: 4px solid var(--gold-color);">
-            <i class="fas fa-lightbulb"></i> أجيبي بكل صدق، لا توجد إجابة صحيحة أو خاطئة. كل إجابة تُحسب بنقاط بشكل تلقائي.
-          </p>
-          
-          <div class="tendency-question" style="animation-delay: 0.1s">
-            <div class="question-text">1. هل تستمتعين بالتحدث مع أشخاص جدد والعمل معهم في فرق صغيرة أو كبيرة؟</div>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="q1" value="2" required>
-                <span class="radio-text">نعم</span>
-                <span class="radio-points">(2 نقطة)</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="q1" value="1">
-                <span class="radio-text">أحيانًا</span>
-                <span class="radio-points">(1 نقطة)</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="q1" value="0">
-                <span class="radio-text">لا</span>
-                <span class="radio-points">(0 نقطة)</span>
-              </label>
-            </div>
-          </div>
-          
-          <div class="tendency-question" style="animation-delay: 0.2s">
-            <div class="question-text">2. هل لديك رغبة في التعرف على ثقافات جديدة وزيارة أماكن سياحية مختلفة؟</div>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="q2" value="2" required>
-                <span class="radio-text">نعم</span>
-                <span class="radio-points">(2 نقطة)</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="q2" value="1">
-                <span class="radio-text">أحيانًا</span>
-                <span class="radio-points">(1 نقطة)</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="q2" value="0">
-                <span class="radio-text">لا</span>
-                <span class="radio-points">(0 نقطة)</span>
-              </label>
-            </div>
-          </div>
-          
-          <div class="tendency-question" style="animation-delay: 0.3s">
-            <div class="question-text">3. هل تحبين ترتيب وتنظيم الأنشطة، أو تخطيط الرحلات والفعاليات؟</div>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="q3" value="2" required>
-                <span class="radio-text">نعم</span>
-                <span class="radio-points">(2 نقطة)</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="q3" value="1">
-                <span class="radio-text">أحيانًا</span>
-                <span class="radio-points">(1 نقطة)</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="q3" value="0">
-                <span class="radio-text">لا</span>
-                <span class="radio-points">(0 نقطة)</span>
-              </label>
-            </div>
-          </div>
-          
-          <div class="tendency-question" style="animation-delay: 0.4s">
-            <div class="question-text">4. هل تستطيعين التعامل مع مواقف غير متوقعة أثناء تنظيم الرحلات أو استقبال الزوار؟</div>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="q4" value="2" required>
-                <span class="radio-text">نعم</span>
-                <span class="radio-points">(2 نقطة)</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="q4" value="1">
-                <span class="radio-text">أحيانًا</span>
-                <span class="radio-points">(1 نقطة)</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="q4" value="0">
-                <span class="radio-text">لا</span>
-                <span class="radio-points">(0 نقطة)</span>
-              </label>
-            </div>
-          </div>
-          
-          <div class="tendency-question" style="animation-delay: 0.5s">
-            <div class="question-text">5. هل تفضلين التعلم العملي والتطبيقي في الأنشطة والرحلات على التعلم النظري فقط؟</div>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="q5" value="2" required>
-                <span class="radio-text">نعم</span>
-                <span class="radio-points">(2 نقطة)</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="q5" value="1">
-                <span class="radio-text">أحيانًا</span>
-                <span class="radio-points">(1 نقطة)</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="q5" value="0">
-                <span class="radio-text">لا</span>
-                <span class="radio-points">(0 نقطة)</span>
-              </label>
-            </div>
-          </div>
+          <div class="tendency-question"><div class="question-text">1. هل تستمتعين بالتحدث مع أشخاص جدد والعمل معهم في فرق صغيرة أو كبيرة؟</div><div class="radio-group"><label class="radio-option"><input type="radio" name="q1" value="2" required><span class="radio-text">نعم</span></label><label class="radio-option"><input type="radio" name="q1" value="1"><span class="radio-text">أحيانًا</span></label><label class="radio-option"><input type="radio" name="q1" value="0"><span class="radio-text">لا</span></label></div></div>
+          <div class="tendency-question"><div class="question-text">2. هل لديك رغبة في التعرف على ثقافات جديدة وزيارة أماكن سياحية مختلفة؟</div><div class="radio-group"><label class="radio-option"><input type="radio" name="q2" value="2" required><span class="radio-text">نعم</span></label><label class="radio-option"><input type="radio" name="q2" value="1"><span class="radio-text">أحيانًا</span></label><label class="radio-option"><input type="radio" name="q2" value="0"><span class="radio-text">لا</span></label></div></div>
+          <div class="tendency-question"><div class="question-text">3. هل تحبين ترتيب وتنظيم الأنشطة، أو تخطيط الرحلات والفعاليات؟</div><div class="radio-group"><label class="radio-option"><input type="radio" name="q3" value="2" required><span class="radio-text">نعم</span></label><label class="radio-option"><input type="radio" name="q3" value="1"><span class="radio-text">أحيانًا</span></label><label class="radio-option"><input type="radio" name="q3" value="0"><span class="radio-text">لا</span></label></div></div>
+          <div class="tendency-question"><div class="question-text">4. هل تستطيعين التعامل مع مواقف غير متوقعة أثناء تنظيم الرحلات أو استقبال الزوار؟</div><div class="radio-group"><label class="radio-option"><input type="radio" name="q4" value="2" required><span class="radio-text">نعم</span></label><label class="radio-option"><input type="radio" name="q4" value="1"><span class="radio-text">أحيانًا</span></label><label class="radio-option"><input type="radio" name="q4" value="0"><span class="radio-text">لا</span></label></div></div>
+          <div class="tendency-question"><div class="question-text">5. هل تفضلين التعلم العملي والتطبيقي في الأنشطة والرحلات على التعلم النظري فقط؟</div><div class="radio-group"><label class="radio-option"><input type="radio" name="q5" value="2" required><span class="radio-text">نعم</span></label><label class="radio-option"><input type="radio" name="q5" value="1"><span class="radio-text">أحيانًا</span></label><label class="radio-option"><input type="radio" name="q5" value="0"><span class="radio-text">لا</span></label></div></div>
         </div>
 
-        <!-- مستوى اللغة الإنجليزية -->
         <div class="form-section">
           <h3 class="section-title"><i class="fas fa-language"></i> مستوى اللغة الإنجليزية</h3>
           <div class="form-row">
-            <div class="form-group" style="animation-delay: 0.1s">
-              <label class="form-label">درجة اللغة الإنجليزية في الفصل الأول <span>*</span></label>
-              <input type="number" class="form-input" id="englishGrade" required min="0" max="100" placeholder="أدخل الدرجة من 0 إلى 100">
-              <div class="points-info" style="margin-top: 10px;">
-                <i class="fas fa-info-circle"></i> سيتم تحويل الدرجة إلى نقاط بشكل تلقائي
+            <div class="form-group"><label class="form-label">درجة اللغة الإنجليزية في الفصل الأول <span>*</span></label><input type="number" class="form-input" id="englishGrade" required min="0" max="100" placeholder="أدخل الدرجة من 0 إلى 100"><div class="points-info"><i class="fas fa-info-circle"></i> سيتم تحويل الدرجة إلى نقاط بشكل تلقائي</div></div>
+            <div class="form-group">
+              <label class="form-label">رابط شهادة الفصل الأول <span>*</span> <span class="hint">(رابط من Google Drive أو أي خدمة تخزين سحابي)</span></label>
+              <div class="link-input-container">
+                <input type="url" class="link-input" id="certificateLink" required placeholder="https://drive.google.com/file/d/... أو https://..." style="direction: ltr;">
               </div>
-            </div>
-            <div class="form-group" style="animation-delay: 0.2s">
-              <label class="form-label">رفع شهادة الفصل الأول (PDF أو صورة) <span>*</span></label>
-              <div class="file-upload">
-                <input type="file" class="file-input" id="certificateFile" accept=".pdf,.jpg,.jpeg,.png" required>
-                <label for="certificateFile" class="file-label">
-                  <i class="fas fa-cloud-upload-alt"></i>
-                  <span>انقر لرفع شهادة الفصل الأول</span>
-                  <div class="file-name" id="fileName">لم يتم اختيار ملف</div>
-                </label>
+              <div class="link-hint">
+                <i class="fas fa-info-circle"></i>
+                <span>كيفية الحصول على الرابط:</span>
+                <a href="#" onclick="showUploadInstructions(); return false;">اضغط هنا للتعليمات</a>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- الشروط والتعهدات -->
         <div class="form-section">
           <h3 class="section-title"><i class="fas fa-file-contract"></i> الشروط والتعهدات</h3>
-          
-          <div class="conditions-list">
-            <h4 style="color: var(--primary-color); margin-bottom: 15px;">شروط التسجيل والقبول (مسار السفر والسياحة):</h4>
-            
-            <div class="condition-item" style="animation-delay: 0.1s">
-              <i class="fas fa-check-circle"></i>
-              <span>أن تكمل الطالبة الصف العاشر بنجاح</span>
-            </div>
-            <div class="condition-item" style="animation-delay: 0.2s">
-              <i class="fas fa-check-circle"></i>
-              <span>أن تكون الطالبة عمانية أو من أبناء دول مجلس التعاون لدول الخليج العربية</span>
-            </div>
-            <div class="condition-item" style="animation-delay: 0.3s">
-              <i class="fas fa-check-circle"></i>
-              <span>أن يكون لدى الطالبة رغبة في الالتحاق بالتعليم المهني والتقني (دبلوم السفر والسياحة)</span>
-            </div>
-            <div class="condition-item" style="animation-delay: 0.4s">
-              <i class="fas fa-check-circle"></i>
-              <span>أن تكون الطالبة لائقة صحياً بما يتوافق مع التخصص المطلوب</span>
-            </div>
-            <div class="condition-item" style="animation-delay: 0.5s">
-              <i class="fas fa-check-circle"></i>
-              <span>ألا يتجاوز عمر الطالبة المتقدم (20) عاماً</span>
-            </div>
-          </div>
-          
-          <div class="checkbox-group" style="animation-delay: 0.6s">
-            <input type="checkbox" id="studentCommitment" required>
-            <label for="studentCommitment" style="font-weight: 600; color: var(--primary-color);">
-              أوافق على الالتزام بحضور الحصص الدراسية ومراعاة ضوابط الحضور والغياب، وتسليم المشاريع والواجبات في الوقت المحدد، والمحافظة على الأجهزة الإلكترونية.
-            </label>
-          </div>
-          
-          <div class="checkbox-group" style="animation-delay: 0.7s">
-            <input type="checkbox" id="parentApproval" required>
-            <label for="parentApproval" style="font-weight: 600; color: var(--primary-color);">
-              أنا ولي أمر الطالبة أوافق على تسجيل ابنتي في مسار السفر والسياحة وأتعهد بمتابعتها والتزامها بجميع الشروط.
-            </label>
-          </div>
+          <div class="conditions-list"><div class="condition-item"><i class="fas fa-check-circle"></i><span>أن تكمل الطالبة الصف العاشر بنجاح</span></div><div class="condition-item"><i class="fas fa-check-circle"></i><span>أن تكون الطالبة عمانية أو من أبناء دول مجلس التعاون لدول الخليج العربية</span></div><div class="condition-item"><i class="fas fa-check-circle"></i><span>أن يكون لدى الطالبة رغبة في الالتحاق بالتعليم المهني والتقني (دبلوم السفر والسياحة)</span></div><div class="condition-item"><i class="fas fa-check-circle"></i><span>أن تكون الطالبة لائقة صحياً بما يتوافق مع التخصص المطلوب</span></div><div class="condition-item"><i class="fas fa-check-circle"></i><span>ألا يتجاوز عمر الطالبة المتقدم (20) عاماً</span></div></div>
+          <div class="checkbox-group"><input type="checkbox" id="studentCommitment" required><label for="studentCommitment" style="font-weight: 600;">أوافق على الالتزام بحضور الحصص الدراسية ومراعاة ضوابط الحضور والغياب، وتسليم المشاريع والواجبات في الوقت المحدد، والمحافظة على الأجهزة الإلكترونية.</label></div>
+          <div class="checkbox-group"><input type="checkbox" id="parentApproval" required><label for="parentApproval" style="font-weight: 600;">أنا ولي أمر الطالبة أوافق على تسجيل ابنتي في مسار السفر والسياحة وأتعهد بمتابعتها والتزامها بجميع الشروط.</label></div>
         </div>
 
-        <!-- زر الإرسال -->
-        <div style="text-align: center; margin-top: 30px;">
-          <button type="submit" class="nav-btn register-btn" style="width: 100%; max-width: 400px; font-size: 1.2rem; animation-delay: 0.8s" id="submitBtn">
-            <i class="fas fa-paper-plane"></i> إرسال طلب التسجيل
-          </button>
-          <div id="loadingSpinner" style="display: none; margin-top: 20px;">
-            <div style="display: inline-block; padding: 15px 30px; background: var(--gradient-primary); color: white; border-radius: 10px;">
-              <i class="fas fa-spinner fa-spin"></i> جاري حفظ البيانات في Google Sheets...
-            </div>
-          </div>
-        </div>
+        <div style="text-align: center;"><button type="submit" class="nav-btn register-btn" style="width: 100%; max-width: 400px;"><i class="fas fa-paper-plane"></i> إرسال طلب التسجيل</button><div id="loadingSpinner" style="display: none; margin-top: 20px;"><div style="display: inline-block; padding: 15px 30px; background: var(--gradient-primary); color: white; border-radius: 10px;"><i class="fas fa-spinner fa-spin"></i> جاري حفظ البيانات...</div></div></div>
       </form>
     </div>
 
-    <!-- قسم النتيجة -->
-    <div class="result-container" id="resultSection">
-      <div class="result-icon">
-        <i class="fas fa-clipboard-check"></i>
-      </div>
-      <h2 class="result-title">تم استلام طلب التسجيل</h2>
-      
-      <div class="result-details">
-        <div class="result-item">
-          <span class="result-label">رقم الطلب:</span>
-          <span class="result-value" id="resultApplicationId">--</span>
-        </div>
-        <div class="result-item">
-          <span class="result-label">اسم الطالبة:</span>
-          <span class="result-value" id="resultStudentName">--</span>
-        </div>
-        <div class="result-item">
-          <span class="result-label">الرقم المدني للطالبة:</span>
-          <span class="result-value" id="resultCivilId">--</span>
-        </div>
-        <div class="result-item">
-          <span class="result-label">المدرسة:</span>
-          <span class="result-value" id="resultSchoolName">--</span>
-        </div>
-        <div class="result-item">
-          <span class="result-label">الصف الدراسي:</span>
-          <span class="result-value" id="resultStudentGrade">--</span>
-        </div>
-      </div>
-      
-      <div class="result-status status-waiting" id="resultStatus">
-        جاري مراجعة الطلب
-      </div>
-      
-      <p class="result-note">
-        <i class="fas fa-info-circle"></i> سيتم مراجعة طلبك من قبل أخصائيات التوجيه المهني، وسيتم إعلامك بالنتيجة لاحقاً.
-      </p>
-      
-      <div style="margin-top: 30px;">
-        <button class="nav-btn instructions-btn" onclick="showRegistrationForm()">
-          <i class="fas fa-arrow-left"></i> العودة للتسجيل
-        </button>
-        <button class="nav-btn status-btn" onclick="checkApplicationStatus()">
-          <i class="fas fa-search"></i> الاستعلام عن حالة الطلب
-        </button>
-      </div>
-    </div>
+    <div class="result-container" id="resultSection"><div class="result-icon"><i class="fas fa-clipboard-check"></i></div><h2 class="result-title">تم استلام طلب التسجيل</h2><div class="result-details"><div class="result-item"><span class="result-label">رقم الطلب:</span><span class="result-value" id="resultApplicationId">--</span></div><div class="result-item"><span class="result-label">اسم الطالبة:</span><span class="result-value" id="resultStudentName">--</span></div><div class="result-item"><span class="result-label">الرقم المدني للطالبة:</span><span class="result-value" id="resultCivilId">--</span></div><div class="result-item"><span class="result-label">المدرسة:</span><span class="result-value" id="resultSchoolName">--</span></div><div class="result-item"><span class="result-label">الصف الدراسي:</span><span class="result-value" id="resultStudentGrade">--</span></div></div><div class="result-status status-waiting" id="resultStatus">جاري مراجعة الطلب</div><p class="result-note"><i class="fas fa-info-circle"></i> سيتم مراجعة طلبك من قبل أخصائيات التوجيه المهني، وسيتم إعلامك بالنتيجة لاحقاً.</p><div><button class="nav-btn instructions-btn" onclick="showRegistrationForm()"><i class="fas fa-arrow-left"></i> العودة للتسجيل</button><button class="nav-btn status-btn" onclick="checkApplicationStatus()"><i class="fas fa-search"></i> الاستعلام عن حالة الطلب</button></div></div>
 
-    <!-- لوحة الإدارة -->
-    <div class="admin-container" id="adminPanel">
-      <h2 class="form-title">لوحة إدارة نظام التسجيل</h2>
-      
-      <div class="admin-controls">
-        <div class="search-box">
-          <input type="text" class="search-input" id="adminSearch" placeholder="البحث بالرقم المدني أو اسم الطالبة">
-          <i class="fas fa-search search-icon"></i>
-        </div>
-        <button class="nav-btn" onclick="fetchDataFromGoogleSheets()" style="background: var(--gradient-secondary);">
-          <i class="fas fa-sync-alt"></i> تحديث البيانات
-        </button>
-        <button class="nav-btn" onclick="exportApplications()" style="background: var(--gradient-accent);">
-          <i class="fas fa-download"></i> تصدير البيانات
-        </button>
-        <button class="nav-btn" onclick="showRegistrationForm()" style="background: var(--gradient-primary);">
-          <i class="fas fa-home"></i> العودة للرئيسية
-        </button>
-      </div>
-      
-      <div class="stats-grid">
-        <div class="stat-card" style="animation-delay: 0.1s">
-          <div class="stat-value" id="totalApplications">0</div>
-          <div class="stat-label">إجمالي الطلبات</div>
-        </div>
-        <div class="stat-card" style="animation-delay: 0.2s">
-          <div class="stat-value" id="acceptedApplications">0</div>
-          <div class="stat-label">مقبولين</div>
-        </div>
-        <div class="stat-card" style="animation-delay: 0.3s">
-          <div class="stat-value" id="waitingApplications">0</div>
-          <div class="stat-label">قائمة الانتظار</div>
-        </div>
-        <div class="stat-card" style="animation-delay: 0.4s">
-          <div class="stat-value" id="excellentEnglish">0</div>
-          <div class="stat-label">ممتاز في الإنجليزية</div>
-        </div>
-      </div>
-      
-      <div style="overflow-x: auto;">
-        <table class="applications-table">
-          <thead>
-            <tr>
-              <th>م</th>
-              <th>اسم الطالبة</th>
-              <th>الرقم المدني</th>
-              <th>الصف</th>
-              <th>نقاط الميول</th>
-              <th>نقاط الإنجليزية</th>
-              <th>المجموع</th>
-              <th>الحالة</th>
-              <th>ملاحظات</th>
-              <th>تاريخ التسجيل</th>
-            </tr>
-          </thead>
-          <tbody id="applicationsTableBody">
-            <!-- سيتم ملؤها بالبيانات من Google Sheets -->
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <div class="admin-container" id="adminPanel"><h2 class="form-title">لوحة إدارة نظام التسجيل</h2><div class="admin-controls"><div class="search-box"><input type="text" class="search-input" id="adminSearch" placeholder="البحث بالرقم المدني أو اسم الطالبة"><i class="fas fa-search search-icon"></i></div><button class="nav-btn" onclick="fetchDataFromGoogleSheets()" style="background: var(--gradient-secondary);"><i class="fas fa-sync-alt"></i> تحديث البيانات</button><button class="nav-btn" onclick="exportApplications()" style="background: var(--gradient-accent);"><i class="fas fa-download"></i> تصدير البيانات</button><button class="nav-btn" onclick="showRegistrationForm()" style="background: var(--gradient-primary);"><i class="fas fa-home"></i> العودة للرئيسية</button></div><div class="stats-grid"><div class="stat-card"><div class="stat-value" id="totalApplications">0</div><div class="stat-label">إجمالي الطلبات</div></div><div class="stat-card"><div class="stat-value" id="acceptedApplications">0</div><div class="stat-label">مقبولين</div></div><div class="stat-card"><div class="stat-value" id="waitingApplications">0</div><div class="stat-label">قائمة الانتظار</div></div><div class="stat-card"><div class="stat-value" id="excellentEnglish">0</div><div class="stat-label">ممتاز في الإنجليزية</div></div></div><div style="overflow-x: auto;"><table class="applications-table"><thead><tr><th>م</th><th>اسم الطالبة</th><th>الرقم المدني</th><th>الصف</th><th>نقاط الميول</th><th>نقاط الإنجليزية</th><th>المجموع</th><th>الحالة</th><th>رابط الشهادة</th><th>تاريخ التسجيل</th></tr></thead><tbody id="applicationsTableBody"></tbody></table></div></div>
 
-    <!-- قسم الاستعلام عن حالة الطلب -->
-    <div class="registration-container" id="statusCheckSection" style="display: none;">
-      <h2 class="form-title">الاستعلام عن حالة طلب التسجيل</h2>
-      
-      <div class="form-section" style="text-align: center;">
-        <div class="form-group" style="max-width: 500px; margin: 0 auto;">
-          <label class="form-label">أدخل الرقم المدني للاستعلام</label>
-          <input type="text" class="form-input" id="statusCheckInput" placeholder="أدخل الرقم المدني للطالبة">
-        </div>
-        
-        <button class="nav-btn status-btn" onclick="checkStatusByCivilId()" style="margin-top: 20px; width: 200px;">
-          <i class="fas fa-search"></i> بحث
-        </button>
-        
-        <div id="statusResult" style="margin-top: 30px; display: none;">
-          <!-- سيتم عرض نتيجة الاستعلام هنا -->
-        </div>
-      </div>
-      
-      <div style="text-align: center; margin-top: 30px;">
-        <button class="nav-btn instructions-btn" onclick="showRegistrationForm()">
-          <i class="fas fa-arrow-left"></i> العودة للتسجيل
-        </button>
-      </div>
-    </div>
+    <div class="registration-container" id="statusCheckSection" style="display: none;"><h2 class="form-title">الاستعلام عن حالة طلب التسجيل</h2><div class="form-section" style="text-align: center;"><div class="form-group" style="max-width: 500px; margin: 0 auto;"><label class="form-label">أدخل الرقم المدني للاستعلام</label><input type="text" class="form-input" id="statusCheckInput" placeholder="أدخل الرقم المدني للطالبة"></div><button class="nav-btn status-btn" onclick="checkStatusByCivilId()" style="margin-top: 20px;"><i class="fas fa-search"></i> بحث</button><div id="statusResult" style="margin-top: 30px; display: none;"></div></div><div style="text-align: center;"><button class="nav-btn instructions-btn" onclick="showRegistrationForm()"><i class="fas fa-arrow-left"></i> العودة للتسجيل</button></div></div>
 
     <footer>
-      <div style="margin-bottom: 20px;">
-        <div style="font-size: 1.8rem; font-weight: 800; color: var(--accent-color); margin-bottom: 10px;">مسار السفر والسياحة</div>
-        <div style="font-size: 1.3rem; font-weight: 700; color: var(--gold-color);">مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)</div>
-      </div>
-      
+      <div><div style="font-size: 1.8rem; font-weight: 800; color: var(--accent-color);">مسار السفر والسياحة</div><div style="font-size: 1.3rem; font-weight: 700; color: var(--gold-color);">مدرسة خولة بنت حكيم للتعليم الأساسي (9-12)</div></div>
       <p>مديرة المدرسة: <strong>أ/ ليلى بنت سالم المسهلي</strong></p>
       <p>أخصائيات التوجيه المهني: <strong>أ/ إيمان سعيد فارح البهانتة</strong> | <strong>أ/ فاطمة علي مسلم بيت سعيد</strong></p>
-      <p>جميع الحقوق محفوظة &copy; 2026 م</p>
-      <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;">نظام ذكي لتسجيل وترشيح طالبات مسار السفر والسياحة</p>
-      
-      <!-- رابط الاتصال الجديد - تم إصلاحه بشكل كامل -->
-      <div class="contact-info">
-        <div class="contact-title">لمزيد من المعلومات عن مسار السفر والسياحة:</div>
-        <a href="https://wa.me/+96898949567" target="_blank" class="whatsapp-btn">
-          <i class="fab fa-whatsapp"></i>
-          <span>تواصل عبر واتساب</span>
-        </a>
-      </div>
+      <div class="contact-info"><div class="contact-title">لمزيد من المعلومات عن مسار السفر والسياحة:</div><a href="https://wa.me/+96898949567" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i><span>تواصل عبر واتساب</span></a></div>
     </footer>
   </div>
 
-  <!-- Modal شروط التسجيل -->
-  <div id="instructionsModal" class="modal" role="dialog" aria-labelledby="instructionsTitle" aria-modal="true">
+  <div id="instructionsModal" class="modal"><div class="modal-content"><span class="close">&times;</span><h2 style="text-align:center;color:var(--primary-color);">شروط التسجيل في مسار السفر والسياحة</h2><div style="background:rgba(91,44,111,0.06);padding:16px;border-radius:12px;margin-bottom:20px;"><p>يرجى الاطلاع على الشروط التالية بعناية قبل تقديم طلب التسجيل.</p></div><div><div class="condition-item"><i class="fas fa-user-graduate"></i><div><strong>الشروط الأساسية:</strong><ol><li>أن تكمل الطالبة الصف العاشر بنجاح</li><li>أن تكون الطالبة عمانية أو من أبناء دول مجلس التعاون</li><li>أن يكون لدى الطالبة رغبة في الالتحاق بالتعليم المهني</li><li>أن تكون الطالبة لائقة صحياً</li><li>ألا يتجاوز عمر الطالبة (20) عاماً</li></ol></div></div></div></div></div>
+
+  <div id="uploadInstructionsModal" class="modal" style="display: none;">
     <div class="modal-content">
-      <span class="close" aria-label="إغلاق النافذة">&times;</span>
-      <h2 id="instructionsTitle" style="text-align:center;color:var(--primary-color);margin-bottom:20px;">شروط التسجيل في مسار السفر والسياحة</h2>
-      
-      <div style="background:rgba(91,44,111,0.06);padding:16px;border-radius:12px;margin-bottom:20px;border-right:4px solid var(--primary-color);">
-        <h3 style="color:var(--primary-color);margin-bottom:10px;"><i class="fas fa-exclamation-circle"></i> معلومات هامة</h3>
-        <p style="color:var(--text-color);font-weight:500;">يرجى الاطلاع على الشروط التالية بعناية قبل تقديم طلب التسجيل.</p>
-      </div>
-      
-      <div style="max-height:65vh;overflow-y:auto;padding-right:8px;">
-        <div class="condition-item" style="margin-bottom: 15px; padding: 15px; background: white; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);">
-          <i class="fas fa-user-graduate" style="color: var(--primary-color);"></i>
-          <div>
-            <div style="font-weight: 800; color: var(--primary-color); margin-bottom: 5px;">الشروط الأساسية:</div>
-            <ol style="padding-right: 20px; margin-top: 10px;">
-              <li>أن تكمل الطالبة الصف العاشر بنجاح</li>
-              <li>أن تكون الطالبة عمانية أو من أبناء دول مجلس التعاون لدول الخليج العربية</li>
-              <li>أن يكون لدى الطالبة رغبة في الالتحاق بالتعليم المهني والتقني (دبلوم <strong>مسار السفر والسياحة</strong>)</li>
-              <li>أن تكون الطالبة لائقة صحياً بما يتوافق مع التخصص المطلوب</li>
-              <li>ألا يتجاوز عمر الطالبة المتقدم (20) عاماً</li>
-            </ol>
-          </div>
-        </div>
-        
-        <div class="condition-item" style="margin-bottom: 15px; padding: 15px; background: white; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);">
-          <i class="fas fa-clipboard-check" style="color: var(--primary-color);"></i>
-          <div>
-            <div style="font-weight: 800; color: var(--primary-color); margin-bottom: 5px;">الضوابط العامة:</div>
-            <ul style="padding-right: 20px; margin-top: 10px;">
-              <li>استكمال متطلبات البرنامج</li>
-              <li>الالتزام بحضور الحصص الدراسية ومراعاة ضوابط الحضور والغياب (وفق لائحة شؤون الطلبة)</li>
-              <li>الالتزام بمواعيد تسليم المشاريع والواجبات في الوقت المحدد</li>
-              <li>المحافظة على الأجهزة الإلكترونية ومراعاة ضوابط الأمن والسلامة عند استخدامها</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="condition-item" style="margin-bottom: 15px; padding: 15px; background: white; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);">
-          <i class="fas fa-chart-bar" style="color: var(--primary-color);"></i>
-          <div>
-            <div style="font-weight: 800; color: var(--primary-color); margin-bottom: 5px;">آلية التقييم والترشيح:</div>
-            <ul style="padding-right: 20px; margin-top: 10px;">
-              <li>يتم احتساب نقاط الميول من 5 أسئلة بشكل تلقائي</li>
-              <li>يتم تحويل درجة اللغة الإنجليزية إلى نقاط بشكل تلقائي</li>
-              <li>يتم جمع نقاط الميول ونقاط اللغة الإنجليزية للحصول على المجموع الكلي</li>
-              <li>يتم قبول أول 50 طالبة ذات أعلى مجموع</li>
-              <li>يتم إعطاء أولوية للطالبات الحاصلات على مستوى ممتاز في اللغة الإنجليزية (90-100)</li>
-              <li>يتم وضع باقي الطالبات في قائمة الانتظار</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div style="margin-top:20px;padding:14px;background:linear-gradient(135deg, rgba(205,127,50,0.12), rgba(0,128,128,0.08));border-radius:12px;border:1px solid rgba(205,127,50,0.25);">
-          <p style="text-align:center;font-weight:800;color:var(--primary-color);margin:0;">
-            نرجو لجميع الطالبات التوفيق والنجاح في <strong>مسار السفر والسياحة</strong>، ونسأل الله أن يوفق الجميع لما فيه الخير والفلاح
-          </p>
+      <span class="close" onclick="closeUploadInstructions()">&times;</span>
+      <h2 style="text-align:center;color:var(--primary-color);">طريقة رفع الشهادة والحصول على الرابط</h2>
+      <div style="padding: 20px;">
+        <h3 style="color: var(--secondary-color);"><i class="fab fa-google-drive"></i> طريقة رفع الملف على Google Drive:</h3>
+        <ol style="margin: 20px 0; padding-right: 30px;">
+          <li>افتح موقع <a href="https://drive.google.com" target="_blank">Google Drive</a> وقم بتسجيل الدخول بحسابك</li>
+          <li>اضغط على زر "جديد" ثم "رفع ملف" واختر صورة أو PDF الشهادة</li>
+          <li>بعد رفع الملف، اضغط عليه بالزر الأيمن واختر "الحصول على رابط"</li>
+          <li>قم بتغيير الإعدادات إلى "أي شخص لديه الرابط"</li>
+          <li>انسخ الرابط والصقه في حقل رابط الشهادة</li>
+        </ol>
+        <h3 style="color: var(--secondary-color);"><i class="fas fa-cloud-upload-alt"></i> طريقة رفع الملف على أي خدمة أخرى:</h3>
+        <ul style="margin: 20px 0; padding-right: 30px;">
+          <li>قم برفع الملف على أي خدمة تخزين سحابي (OneDrive, Dropbox, iCloud, etc.)</li>
+          <li>احصل على رابط المشاركة (Share Link)</li>
+          <li>تأكد من أن الرابط عام (Public) أو متاح لأي شخص لديه الرابط</li>
+          <li>انسخ الرابط بالكامل والصقه في الحقل المخصص</li>
+        </ul>
+        <div style="background: #f0f8ff; padding: 15px; border-radius: 10px; margin-top: 20px;">
+          <p><i class="fas fa-exclamation-triangle" style="color: var(--gold-color);"></i> <strong>ملاحظة هامة:</strong> تأكدي من أن الرابط يعمل بشكل صحيح قبل إرسال الطلب، وتأكدي من أن الملف مرئي لأي شخص لديه الرابط.</p>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // رابط Google Apps Script الخاص بك
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqb6zE467MKDNucNQlCHhPsUumgRC-12pyCUegNTPK8mTqp8tFENbuN6xjipqiFVca/exec";
-    
-    // البيانات والمتغيرات العامة
     let applications = [];
     let applicationCounter = parseInt(localStorage.getItem('applicationCounter')) || 1000;
     
-    // عناصر DOM
-    const instructionsModal = document.getElementById("instructionsModal");
-    const registrationForm = document.getElementById("registrationForm");
-    const resultSection = document.getElementById("resultSection");
-    const adminPanel = document.getElementById("adminPanel");
-    const statusCheckSection = document.getElementById("statusCheckSection");
+    const registrationEndDate = new Date('2026-05-01T23:59:59');
     
-    const instructionsBtn = document.getElementById("instructionsBtn");
-    const registerBtn = document.getElementById("registerBtn");
-    const adminBtn = document.getElementById("adminBtn");
-    const statusBtn = document.getElementById("statusBtn");
-    
-    const closeEls = document.getElementsByClassName("close");
-    
-    // العد التنازلي
-    const countdownDays = document.getElementById("countdownDays");
-    const countdownHours = document.getElementById("countdownHours");
-    const countdownMinutes = document.getElementById("countdownMinutes");
-    const countdownSeconds = document.getElementById("countdownSeconds");
-    
-    // عناصر النموذج
-    const studentRegistrationForm = document.getElementById("studentRegistrationForm");
-    const certificateFile = document.getElementById("certificateFile");
-    const fileName = document.getElementById("fileName");
-    const studentGradeInput = document.getElementById("studentGrade");
-    const gradeOptions = document.querySelectorAll('.grade-option');
-    const formAlert = document.getElementById("formAlert");
-    const submitBtn = document.getElementById("submitBtn");
-    const loadingSpinner = document.getElementById("loadingSpinner");
-    
-    // عناصر النتيجة
-    const resultApplicationId = document.getElementById("resultApplicationId");
-    const resultStudentName = document.getElementById("resultStudentName");
-    const resultCivilId = document.getElementById("resultCivilId");
-    const resultStudentGrade = document.getElementById("resultStudentGrade");
-    const resultSchoolName = document.getElementById("resultSchoolName");
-    const resultStatus = document.getElementById("resultStatus");
-    
-    // عناصر لوحة الإدارة
-    const totalApplications = document.getElementById("totalApplications");
-    const acceptedApplications = document.getElementById("acceptedApplications");
-    const waitingApplications = document.getElementById("waitingApplications");
-    const excellentEnglish = document.getElementById("excellentEnglish");
-    const applicationsTableBody = document.getElementById("applicationsTableBody");
-    const adminSearch = document.getElementById("adminSearch");
-    
-    // تاريخ بداية ونهاية التسجيل
-    const registrationEndDate = new Date('2026-02-26T23:59:59');
-    
-    // تهيئة العد التنازلي
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = registrationEndDate - now;
-      
-      if (distance < 0) {
-        countdownDays.textContent = "00";
-        countdownHours.textContent = "00";
-        countdownMinutes.textContent = "00";
-        countdownSeconds.textContent = "00";
-        return;
-      }
-      
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      
-      countdownDays.textContent = days.toString().padStart(2, '0');
-      countdownHours.textContent = hours.toString().padStart(2, '0');
-      countdownMinutes.textContent = minutes.toString().padStart(2, '0');
-      countdownSeconds.textContent = seconds.toString().padStart(2, '0');
+      if (distance < 0) { document.getElementById('countdownDays').textContent = "00"; document.getElementById('countdownHours').textContent = "00"; document.getElementById('countdownMinutes').textContent = "00"; document.getElementById('countdownSeconds').textContent = "00"; return; }
+      document.getElementById('countdownDays').textContent = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+      document.getElementById('countdownHours').textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+      document.getElementById('countdownMinutes').textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+      document.getElementById('countdownSeconds').textContent = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
     }
-    
-    // تحديث العد التنازلي كل ثانية
     setInterval(updateCountdown, 1000);
-    updateCountdown(); // التشغيل الأولي
+    updateCountdown();
     
-    // اختيار الصف الدراسي
-    gradeOptions.forEach(option => {
-      option.addEventListener('click', function() {
-        // إزالة التحديد من جميع الخيارات
-        gradeOptions.forEach(opt => opt.classList.remove('selected'));
-        
-        // إضافة التحديد للخيار المختار
-        this.classList.add('selected');
-        
-        // تعيين القيمة في الحقل المخفي
-        studentGradeInput.value = this.getAttribute('data-value');
-      });
-    });
-    
-    // عرض نموذج التسجيل
-    function showRegistrationForm() {
-      registrationForm.classList.add('active');
-      resultSection.classList.remove('active');
-      adminPanel.classList.remove('active');
-      statusCheckSection.style.display = 'none';
-      studentRegistrationForm.reset();
-      fileName.textContent = 'لم يتم اختيار ملف';
-      formAlert.style.display = 'none';
-      
-      // إعادة تعيين خيارات الصف
-      gradeOptions.forEach(opt => opt.classList.remove('selected'));
-      studentGradeInput.value = '';
+    function showUploadInstructions() {
+      document.getElementById('uploadInstructionsModal').style.display = 'block';
+      document.body.style.overflow = 'hidden';
     }
     
-    // عرض نتيجة التسجيل
-    function showResultSection() {
-      registrationForm.classList.remove('active');
-      resultSection.classList.add('active');
-      adminPanel.classList.remove('active');
-      statusCheckSection.style.display = 'none';
+    function closeUploadInstructions() {
+      document.getElementById('uploadInstructionsModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
     }
     
-    // عرض لوحة الإدارة
-    function showAdminPanel() {
-      const password = prompt("أدخل كلمة المرور للوصول إلى لوحة الإدارة:");
-      if (password === "7211") {
-        registrationForm.classList.remove('active');
-        resultSection.classList.remove('active');
-        adminPanel.classList.add('active');
-        statusCheckSection.style.display = 'none';
-        fetchDataFromGoogleSheets();
-      } else {
-        alert("كلمة المرور غير صحيحة!");
-      }
-    }
+    document.querySelectorAll('.grade-option').forEach(opt => opt.addEventListener('click', function() { document.querySelectorAll('.grade-option').forEach(o => o.classList.remove('selected')); this.classList.add('selected'); document.getElementById('studentGrade').value = this.dataset.value; }));
     
-    // عرض قسم الاستعلام
-    function showStatusCheck() {
-      registrationForm.classList.remove('active');
-      resultSection.classList.remove('active');
-      adminPanel.classList.remove('active');
-      statusCheckSection.style.display = 'block';
-    }
+    function calculateEnglishPoints(grade) { if (grade >= 90) return 5; if (grade >= 80) return 4; if (grade >= 70) return 3; if (grade >= 60) return 2; if (grade >= 50) return 1; return 0; }
+    function calculateTendencyPoints(formData) { let total = 0; for (let i = 1; i <= 5; i++) total += parseInt(formData.get(`q${i}`)) || 0; return total; }
     
-    // تحديث اسم الملف المرفوع
-    certificateFile.addEventListener('change', function(e) {
-      if (this.files && this.files[0]) {
-        const fileSize = this.files[0].size / 1024 / 1024; // حجم الملف بالميجابايت
-        if (fileSize > 5) {
-          alert("حجم الملف يجب أن يكون أقل من 5 ميجابايت");
-          this.value = "";
-          fileName.textContent = 'لم يتم اختيار ملف';
-        } else {
-          fileName.textContent = this.files[0].name;
-        }
-      } else {
-        fileName.textContent = 'لم يتم اختيار ملف';
-      }
-    });
-    
-    // تحويل درجة الإنجليزية إلى نقاط
-    function calculateEnglishPoints(grade) {
-      if (grade >= 90 && grade <= 100) return 5;
-      if (grade >= 80 && grade <= 89) return 4;
-      if (grade >= 70 && grade <= 79) return 3;
-      if (grade >= 60 && grade <= 69) return 2;
-      if (grade >= 50 && grade <= 59) return 1;
-      return 0;
-    }
-    
-    // حساب نقاط الميول
-    function calculateTendencyPoints(formData) {
-      let total = 0;
-      for (let i = 1; i <= 5; i++) {
-        total += parseInt(formData.get(`q${i}`)) || 0;
-      }
-      return total;
-    }
-    
-    // عرض رسالة تنبيه
-    function showAlert(message, type = 'success') {
-      formAlert.textContent = message;
-      formAlert.className = `alert alert-${type}`;
-      formAlert.style.display = 'block';
-      
-      if (type === 'error') {
-        setTimeout(() => {
-          formAlert.style.display = 'none';
-        }, 5000);
-      }
-    }
-    
-    // إرسال البيانات إلى Google Sheets
-    async function sendToGoogleSheets(applicationData) {
+    function isValidUrl(string) {
       try {
-        // إظهار مؤشر التحميل
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
-        loadingSpinner.style.display = 'block';
-        
-        // تحويل البيانات إلى JSON
-        const jsonData = JSON.stringify(applicationData);
-        
-        // استخدام طريقة POST لإرسال البيانات
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors', // مهم لتجنب مشاكل CORS
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: jsonData
-        });
-        
-        // إخفاء مؤشر التحميل
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال طلب التسجيل';
-        loadingSpinner.style.display = 'none';
-        
-        // مع no-cors لا يمكننا قراءة الرد، ولكن نعتقد أن الإرسال ناجح
-        console.log('تم إرسال البيانات إلى Google Sheets');
-        
-        // حفظ نسخة احتياطية محلية
-        saveToLocalStorage(applicationData);
-        
-        return { success: true, message: "تم حفظ البيانات بنجاح" };
-        
-      } catch (error) {
-        console.error('خطأ في الإرسال:', error);
-        
-        // إخفاء مؤشر التحميل
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال طلب التسجيل';
-        loadingSpinner.style.display = 'none';
-        
-        // حفظ محلي كنسخة احتياطية
-        saveToLocalStorage(applicationData);
-        
-        return { 
-          success: false, 
-          message: "تم حفظ البيانات محلياً، سيتم مزامنتها مع الخادم لاحقاً" 
-        };
+        new URL(string);
+        return true;
+      } catch (_) {
+        return false;
       }
     }
     
-    // استرجاع البيانات من Google Sheets
+    function showAlert(message, type) { const alertDiv = document.getElementById('formAlert'); alertDiv.textContent = message; alertDiv.className = `alert alert-${type}`; alertDiv.style.display = 'block'; if (type !== 'error') setTimeout(() => alertDiv.style.display = 'none', 5000); }
+    
+    async function sendToGoogleSheets(applicationData) {
+      const submitBtn = document.getElementById('submitBtn');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      if(submitBtn) submitBtn.disabled = true; 
+      loadingSpinner.style.display = 'block';
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(applicationData) });
+        if(submitBtn) submitBtn.disabled = false; 
+        loadingSpinner.style.display = 'none';
+        return { success: true };
+      } catch (error) {
+        if(submitBtn) submitBtn.disabled = false; 
+        loadingSpinner.style.display = 'none';
+        return { success: false };
+      }
+    }
+    
+    document.getElementById('studentRegistrationForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (!document.getElementById('studentGrade').value) { showAlert('يرجى اختيار الصف الدراسي', 'error'); return; }
+      const civilId = document.getElementById('civilId').value;
+      if (!civilId || !/^\d+$/.test(civilId)) { showAlert('الرقم المدني يجب أن يتكون من أرقام فقط', 'error'); return; }
+      const englishGrade = parseInt(document.getElementById('englishGrade').value);
+      if (englishGrade < 0 || englishGrade > 100) { showAlert('درجة اللغة الإنجليزية يجب أن تكون بين 0 و 100', 'error'); return; }
+      
+      const certificateLink = document.getElementById('certificateLink').value.trim();
+      if (!certificateLink) { showAlert('يرجى إدخال رابط شهادة الفصل الأول', 'error'); return; }
+      if (!isValidUrl(certificateLink)) { showAlert('الرجاء إدخال رابط صحيح يبدأ بـ http:// أو https://', 'error'); return; }
+      
+      const formData = new FormData(this);
+      const applicationData = {
+        id: applicationCounter++, 
+        studentName: document.getElementById('studentName').value.trim(), 
+        schoolName: document.getElementById('schoolName').value.trim(),
+        nationality: document.getElementById('nationality').value, 
+        studentGrade: document.getElementById('studentGrade').value, 
+        civilId: civilId,
+        studentPhone: document.getElementById('studentPhone').value.trim(), 
+        parentPhone: document.getElementById('parentPhone').value.trim(),
+        parentName: document.getElementById('parentName').value.trim(), 
+        residentialArea: document.getElementById('residentialArea').value.trim(),
+        englishGrade: englishGrade, 
+        tendencyPoints: calculateTendencyPoints(formData), 
+        submissionDate: new Date().toISOString(),
+        certificateLink: certificateLink,
+        englishPoints: calculateEnglishPoints(englishGrade),
+        totalPoints: calculateTendencyPoints(formData) + calculateEnglishPoints(englishGrade), 
+        status: 'جاري المراجعة'
+      };
+      const result = await sendToGoogleSheets(applicationData);
+      document.getElementById('resultApplicationId').textContent = applicationData.id;
+      document.getElementById('resultStudentName').textContent = applicationData.studentName;
+      document.getElementById('resultCivilId').textContent = applicationData.civilId;
+      document.getElementById('resultStudentGrade').textContent = applicationData.studentGrade;
+      document.getElementById('resultSchoolName').textContent = applicationData.schoolName;
+      document.getElementById('resultStatus').textContent = 'تم استلام الطلب - جاري المراجعة';
+      showResultSection();
+      this.reset(); 
+      document.querySelectorAll('.grade-option').forEach(opt => opt.classList.remove('selected'));
+      document.getElementById('studentGrade').value = '';
+      localStorage.setItem('applicationCounter', applicationCounter);
+      if(result.success) showAlert('تم إرسال طلبك بنجاح!', 'success');
+      else showAlert('تم حفظ الطلب محلياً، سيتم المزامنة لاحقاً', 'warning');
+    });
+    
     async function fetchDataFromGoogleSheets() {
       try {
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getData`);
         const data = await response.json();
-        
-        if (data && Array.isArray(data)) {
-          applications = data;
-          updateAdminPanel();
-          showAlert('تم تحديث البيانات بنجاح من Google Sheets', 'success');
-        }
-      } catch (error) {
-        console.error('خطأ في جلب البيانات:', error);
-        showAlert('فشل في جلب البيانات من الخادم', 'error');
-        
-        // محاولة استخدام البيانات المحلية
-        const localData = JSON.parse(localStorage.getItem('tourismBackup')) || [];
-        if (localData.length > 0) {
-          applications = localData;
-          updateAdminPanel();
-          showAlert('تم تحميل البيانات المحلية', 'warning');
-        }
-      }
+        if (data && Array.isArray(data)) { applications = data; updateAdminPanel(); showAlert('تم تحديث البيانات', 'success'); }
+      } catch(e) { console.error(e); }
     }
     
-    // حفظ البيانات محلياً
-    function saveToLocalStorage(applicationData) {
-      try {
-        let backupApps = JSON.parse(localStorage.getItem('tourismBackup')) || [];
-        backupApps.push(applicationData);
-        localStorage.setItem('tourismBackup', JSON.stringify(backupApps));
-        console.log('تم حفظ نسخة احتياطية في localStorage');
-        
-        // تحديث العداد
-        applicationCounter = Math.max(applicationCounter, applicationData.id + 1);
-        localStorage.setItem('applicationCounter', applicationCounter.toString());
-        
-      } catch (error) {
-        console.error('خطأ في الحفظ المحلي:', error);
-      }
-    }
-    
-    // محاولة مزامنة البيانات المحلية مع الخادم
-    async function syncLocalData() {
-      const backupApps = JSON.parse(localStorage.getItem('tourismBackup')) || [];
-      
-      if (backupApps.length === 0) return;
-      
-      for (let i = 0; i < backupApps.length; i++) {
-        const app = backupApps[i];
-        try {
-          const response = await fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(app)
-          });
-          
-          // إذا نجح الإرسال (افتراضي مع no-cors)، نزيل من النسخة الاحتياطية
-          backupApps.splice(i, 1);
-          i--;
-          
-          console.log('تم مزامنة طلب رقم:', app.id);
-          
-        } catch (error) {
-          console.error('فشل مزامنة طلب رقم:', app.id, error);
-        }
-      }
-      
-      localStorage.setItem('tourismBackup', JSON.stringify(backupApps));
-    }
-    
-    // معالجة تقديم النموذج
-    studentRegistrationForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      // التحقق من اختيار الصف
-      if (!studentGradeInput.value) {
-        showAlert('يرجى اختيار الصف الدراسي', 'error');
-        return;
-      }
-      
-      // التحقق من الرقم المدني
-      const civilId = document.getElementById('civilId').value;
-      if (!civilId || !/^\d+$/.test(civilId)) {
-        showAlert('الرقم المدني يجب أن يتكون من أرقام فقط', 'error');
-        return;
-      }
-      
-      // التحقق من درجة الإنجليزية
-      const englishGrade = parseInt(document.getElementById('englishGrade').value);
-      if (englishGrade < 0 || englishGrade > 100) {
-        showAlert('درجة اللغة الإنجليزية يجب أن تكون بين 0 و 100', 'error');
-        return;
-      }
-      
-      const formData = new FormData(this);
-      
-      // جمع البيانات
-      const applicationData = {
-        id: applicationCounter++,
-        studentName: document.getElementById('studentName').value.trim(),
-        schoolName: document.getElementById('schoolName').value.trim(),
-        nationality: document.getElementById('nationality').value,
-        studentGrade: studentGradeInput.value,
-        civilId: civilId,
-        studentPhone: document.getElementById('studentPhone').value.trim(),
-        parentPhone: document.getElementById('parentPhone').value.trim(),
-        parentName: document.getElementById('parentName').value.trim(),
-        residentialArea: document.getElementById('residentialArea').value.trim(),
-        englishGrade: englishGrade,
-        tendencyPoints: calculateTendencyPoints(formData),
-        submissionDate: new Date().toISOString(),
-        certificateFileName: certificateFile.files[0] ? certificateFile.files[0].name : null
-      };
-      
-      // حساب النقاط
-      applicationData.englishPoints = calculateEnglishPoints(applicationData.englishGrade);
-      applicationData.totalPoints = applicationData.tendencyPoints + applicationData.englishPoints;
-      
-      // تحديد الحالة
-      applicationData.status = 'جاري المراجعة';
-      applicationData.notes = applicationData.englishGrade >= 90 ? 'أولوية للغة الإنجليزية الممتازة' : '';
-      
-      // إرسال البيانات إلى Google Sheets
-      const result = await sendToGoogleSheets(applicationData);
-      
-      if (result.success) {
-        // عرض النتيجة
-        displayApplicationResult(applicationData);
-        showAlert('تم إرسال طلبك بنجاح!', 'success');
-        
-        // إعادة تعيين النموذج
-        this.reset();
-        fileName.textContent = 'لم يتم اختيار ملف';
-        gradeOptions.forEach(opt => opt.classList.remove('selected'));
-        studentGradeInput.value = '';
-        
-      } else {
-        displayApplicationResult(applicationData);
-        showAlert(result.message, 'warning');
-      }
-    });
-    
-    // عرض نتيجة الطلب
-    function displayApplicationResult(application) {
-      resultApplicationId.textContent = application.id;
-      resultStudentName.textContent = application.studentName;
-      resultCivilId.textContent = application.civilId;
-      resultStudentGrade.textContent = application.studentGrade;
-      resultSchoolName.textContent = application.schoolName;
-      
-      resultStatus.textContent = 'تم استلام الطلب - جاري المراجعة';
-      resultStatus.className = 'result-status status-waiting';
-      
-      showResultSection();
-    }
-    
-    // تحديث لوحة الإدارة
     function updateAdminPanel() {
-      // تحديث الإحصائيات
-      totalApplications.textContent = applications.length;
-      
-      const accepted = applications.filter(app => app.status === 'مقبول').length;
-      const waiting = applications.filter(app => app.status === 'قائمة الانتظار' || app.status === 'جاري المراجعة').length;
-      const excellent = applications.filter(app => app.englishGrade >= 90).length;
-      
-      acceptedApplications.textContent = accepted;
-      waitingApplications.textContent = waiting;
-      excellentEnglish.textContent = excellent;
-      
-      // تحديث الجدول
+      document.getElementById('totalApplications').textContent = applications.length;
+      document.getElementById('acceptedApplications').textContent = applications.filter(a => a.status === 'مقبول').length;
+      document.getElementById('waitingApplications').textContent = applications.filter(a => a.status === 'قائمة الانتظار' || a.status === 'جاري المراجعة').length;
+      document.getElementById('excellentEnglish').textContent = applications.filter(a => a.englishGrade >= 90).length;
       updateApplicationsTable();
     }
     
-    // تحديث جدول الطلبات
     function updateApplicationsTable(filter = '') {
-      applicationsTableBody.innerHTML = '';
-      
-      let filteredApplications = applications;
-      if (filter) {
-        const searchTerm = filter.toLowerCase();
-        filteredApplications = applications.filter(app => 
-          app.civilId.includes(filter) || 
-          app.studentName.toLowerCase().includes(searchTerm) ||
-          (app.schoolName && app.schoolName.toLowerCase().includes(searchTerm))
-        );
-      }
-      
-      // ترتيب حسب المجموع الكلي (تنازلي)
-      filteredApplications.sort((a, b) => b.totalPoints - a.totalPoints);
-      
-      if (filteredApplications.length === 0) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td colspan="10" style="text-align: center; padding: 40px; color: var(--text-light);">
-            <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 15px; display: block; color: var(--accent-color);"></i>
-            <h3 style="color: var(--primary-color);">لا توجد طلبات</h3>
-            <p>لم يتم العثور على أي طلبات تطابق بحثك</p>
-          </td>
-        `;
-        applicationsTableBody.appendChild(row);
-        return;
-      }
-      
-      filteredApplications.forEach((app, index) => {
-        const row = document.createElement('tr');
-        
-        // تحديد لون الصف للغة الإنجليزية الممتازة
-        if (app.englishGrade >= 90) {
-          row.style.backgroundColor = 'rgba(0, 206, 209, 0.05)';
-        }
-        
-        // تنسيق التاريخ
-        let submissionDate = '--';
-        if (app.submissionDate) {
-          const date = new Date(app.submissionDate);
-          submissionDate = date.toLocaleDateString('ar-OM');
-        }
-        
-        row.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${app.studentName || '--'}</td>
-          <td>${app.civilId || '--'}</td>
-          <td>${app.studentGrade || '--'}</td>
-          <td>${app.tendencyPoints || '0'}</td>
-          <td>${app.englishPoints || '0'}</td>
-          <td><strong>${app.totalPoints || '0'}</strong></td>
-          <td>
-            <span class="status-badge ${app.status === 'مقبول' ? 'badge-accepted' : 'badge-waiting'}">
-              ${app.status || 'جاري المراجعة'}
-            </span>
-            ${app.englishGrade >= 90 ? '<span class="status-badge badge-excellent" style="margin-right: 5px;">ممتاز إنجليزي</span>' : ''}
-          </td>
-          <td>${app.notes || '-'}</td>
-          <td>${submissionDate}</td>
-        `;
-        
-        applicationsTableBody.appendChild(row);
+      const tbody = document.getElementById('applicationsTableBody');
+      tbody.innerHTML = '';
+      let filtered = applications.filter(a => filter ? a.civilId.includes(filter) || (a.studentName && a.studentName.includes(filter)) : true);
+      filtered.sort((a,b) => (b.totalPoints || 0) - (a.totalPoints || 0));
+      filtered.forEach((app, i) => {
+        const row = tbody.insertRow();
+        row.insertCell(0).textContent = i+1;
+        row.insertCell(1).textContent = app.studentName || '--';
+        row.insertCell(2).textContent = app.civilId || '--';
+        row.insertCell(3).textContent = app.studentGrade || '--';
+        row.insertCell(4).textContent = app.tendencyPoints || '0';
+        row.insertCell(5).textContent = app.englishPoints || '0';
+        row.insertCell(6).innerHTML = `<strong>${app.totalPoints || '0'}</strong>`;
+        row.insertCell(7).innerHTML = `<span class="status-badge ${app.status === 'مقبول' ? 'badge-accepted' : 'badge-waiting'}">${app.status || 'جاري المراجعة'}</span>`;
+        row.insertCell(8).innerHTML = app.certificateLink ? `<a href="${app.certificateLink}" target="_blank" class="cert-link" onclick="return validateAndOpenLink('${app.certificateLink}')"><i class="fas fa-external-link-alt"></i> فتح الرابط</a>` : '--';
+        row.insertCell(9).textContent = app.submissionDate ? new Date(app.submissionDate).toLocaleDateString('ar-OM') : '--';
       });
     }
     
-    // البحث في لوحة الإدارة
-    adminSearch.addEventListener('input', function() {
-      updateApplicationsTable(this.value);
-    });
-    
-    // الاستعلام عن حالة الطلب بالرقم المدني
-    function checkApplicationStatus() {
-      showStatusCheck();
+    function validateAndOpenLink(url) {
+      if(url && (url.startsWith('http://') || url.startsWith('https://'))) {
+        window.open(url, '_blank');
+        return true;
+      }
+      alert('الرابط غير صالح');
+      return false;
     }
+    
+    document.getElementById('adminSearch').addEventListener('input', function() { updateApplicationsTable(this.value); });
     
     function checkStatusByCivilId() {
       const civilId = document.getElementById('statusCheckInput').value;
-      const statusResult = document.getElementById('statusResult');
-      
-      if (!civilId || !/^\d+$/.test(civilId)) {
-        statusResult.innerHTML = `
-          <div class="alert alert-error">
-            <i class="fas fa-exclamation-triangle"></i>
-            الرقم المدني يجب أن يتكون من أرقام فقط
-          </div>
-        `;
-        statusResult.style.display = 'block';
-        return;
+      const resultDiv = document.getElementById('statusResult');
+      if (!civilId) { resultDiv.innerHTML = '<div class="alert alert-error">الرجاء إدخال الرقم المدني</div>'; resultDiv.style.display = 'block'; return; }
+      const app = applications.find(a => a.civilId === civilId);
+      if (app) {
+        resultDiv.innerHTML = `<div class="result-details"><div class="result-item"><span class="result-label">اسم الطالبة:</span><span class="result-value">${app.studentName}</span></div><div class="result-item"><span class="result-label">رقم الطلب:</span><span class="result-value">${app.id}</span></div><div class="result-item"><span class="result-label">الحالة:</span><span class="result-value" style="color: ${app.status === 'مقبول' ? 'var(--secondary-color)' : 'var(--gold-color)'}">${app.status || 'جاري المراجعة'}</span></div><div class="result-item"><span class="result-label">المجموع الكلي:</span><span class="result-value">${app.totalPoints} نقطة</span></div>${app.certificateLink ? `<div class="result-item"><span class="result-label">رابط الشهادة:</span><span class="result-value"><a href="${app.certificateLink}" target="_blank" style="color: var(--accent-color);">فتح الرابط</a></span></div>` : ''}</div>`;
+      } else { resultDiv.innerHTML = '<div class="alert alert-warning">لم يتم العثور على طلب بهذا الرقم المدني</div>'; }
+      resultDiv.style.display = 'block';
+    }
+    
+    function exportApplications() { const dataStr = JSON.stringify(applications, null, 2); const link = document.createElement('a'); link.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr); link.download = `طلبات_مسار_السفر_${new Date().toISOString().slice(0,10)}.json`; link.click(); }
+    function showRegistrationForm() { document.getElementById('registrationForm').classList.add('active'); document.getElementById('resultSection').classList.remove('active'); document.getElementById('adminPanel').classList.remove('active'); document.getElementById('statusCheckSection').style.display = 'none'; }
+    function showResultSection() { document.getElementById('registrationForm').classList.remove('active'); document.getElementById('resultSection').classList.add('active'); document.getElementById('adminPanel').classList.remove('active'); document.getElementById('statusCheckSection').style.display = 'none'; }
+    function showAdminPanel() { const pwd = prompt("أدخل كلمة المرور:"); if (pwd === "7211") { document.getElementById('registrationForm').classList.remove('active'); document.getElementById('resultSection').classList.remove('active'); document.getElementById('adminPanel').classList.add('active'); document.getElementById('statusCheckSection').style.display = 'none'; fetchDataFromGoogleSheets(); } else alert("كلمة المرور غير صحيحة!"); }
+    function showStatusCheck() { document.getElementById('registrationForm').classList.remove('active'); document.getElementById('resultSection').classList.remove('active'); document.getElementById('adminPanel').classList.remove('active'); document.getElementById('statusCheckSection').style.display = 'block'; }
+    function checkApplicationStatus() { showStatusCheck(); }
+    
+    document.getElementById('instructionsBtn').onclick = () => { document.getElementById('instructionsModal').style.display = 'block'; document.body.style.overflow = 'hidden'; };
+    document.getElementById('registerBtn').onclick = showRegistrationForm;
+    document.getElementById('adminBtn').onclick = showAdminPanel;
+    document.getElementById('statusBtn').onclick = showStatusCheck;
+    document.querySelectorAll('.close').forEach(el => el.onclick = function() { 
+      document.getElementById('instructionsModal').style.display = 'none'; 
+      document.getElementById('uploadInstructionsModal').style.display = 'none';
+      document.body.style.overflow = 'auto'; 
+    });
+    window.onclick = (e) => { 
+      if (e.target === document.getElementById('instructionsModal')) { 
+        document.getElementById('instructionsModal').style.display = 'none'; 
+        document.body.style.overflow = 'auto'; 
       }
-      
-      // البحث في البيانات المحلية أولاً
-      const localData = JSON.parse(localStorage.getItem('tourismBackup')) || [];
-      const application = [...applications, ...localData].find(app => app.civilId === civilId);
-      
-      if (application) {
-        let statusHTML = `
-          <div class="result-details">
-            <div class="result-item">
-              <span class="result-label">اسم الطالبة:</span>
-              <span class="result-value">${application.studentName}</span>
-            </div>
-            <div class="result-item">
-              <span class="result-label">رقم الطلب:</span>
-              <span class="result-value">${application.id}</span>
-            </div>
-            <div class="result-item">
-              <span class="result-label">المدرسة:</span>
-              <span class="result-value">${application.schoolName}</span>
-            </div>
-            <div class="result-item">
-              <span class="result-label">تاريخ التقديم:</span>
-              <span class="result-value">${application.submissionDate ? new Date(application.submissionDate).toLocaleDateString('ar-OM') : '--'}</span>
-            </div>
-            <div class="result-item">
-              <span class="result-label">الحالة:</span>
-              <span class="result-value" style="font-weight: 900; color: ${application.status === 'مقبول' ? 'var(--secondary-color)' : 'var(--gold-color)'}">
-                ${application.status || 'جاري المراجعة'}
-              </span>
-            </div>
-            ${application.totalPoints ? `
-            <div class="result-item">
-              <span class="result-label">المجموع الكلي:</span>
-              <span class="result-value" style="color: var(--primary-color);">${application.totalPoints} نقطة</span>
-            </div>
-            ` : ''}
-          </div>
-          <div class="result-note" style="margin-top: 20px;">
-            <i class="fas fa-info-circle"></i> سيتم إعلامك بالنتيجة النهائية بعد انتهاء فترة التسجيل ومراجعة جميع الطلبات.
-          </div>
-        `;
-        
-        statusResult.innerHTML = statusHTML;
-        statusResult.style.display = 'block';
-      } else {
-        statusResult.innerHTML = `
-          <div style="text-align: center; padding: 30px; background: rgba(0, 206, 209, 0.1); border-radius: 10px; border: 1px solid rgba(0, 206, 209, 0.3);">
-            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 15px;"></i>
-            <h3 style="color: var(--accent-color); margin-bottom: 10px;">لم يتم العثور على طلب</h3>
-            <p style="color: var(--text-light);">الرقم المدني المدخل غير مسجل في النظام. يرجى التأكد من الرقم أو تقديم طلب جديد.</p>
-            <button class="nav-btn register-btn" onclick="showRegistrationForm()" style="margin-top: 20px;">
-              <i class="fas fa-user-plus"></i> تقديم طلب جديد
-            </button>
-          </div>
-        `;
-        statusResult.style.display = 'block';
-      }
-    }
-    
-    // تصدير البيانات
-    function exportApplications() {
-      const dataStr = JSON.stringify(applications, null, 2);
-      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-      
-      const exportFileDefaultName = `طلبات_مسار_السفر_والسياحة_${new Date().toISOString().slice(0,10)}.json`;
-      
-      const linkElement = document.createElement('a');
-      linkElement.setAttribute('href', dataUri);
-      linkElement.setAttribute('download', exportFileDefaultName);
-      linkElement.click();
-      
-      showAlert('تم تصدير البيانات بنجاح', 'success');
-    }
-    
-    // معالجة الأحداث
-    instructionsBtn.onclick = () => {
-      instructionsModal.style.display = "block";
-      document.body.style.overflow = "hidden";
-    };
-    
-    registerBtn.onclick = showRegistrationForm;
-    adminBtn.onclick = showAdminPanel;
-    statusBtn.onclick = showStatusCheck;
-    
-    for (let i = 0; i < closeEls.length; i++) {
-      closeEls[i].onclick = function() {
-        instructionsModal.style.display = "none";
-        document.body.style.overflow = "auto";
-      };
-    }
-    
-    window.onclick = (e) => {
-      if (e.target === instructionsModal) {
-        instructionsModal.style.display = "none";
-        document.body.style.overflow = "auto";
+      if (e.target === document.getElementById('uploadInstructionsModal')) {
+        document.getElementById('uploadInstructionsModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
       }
     };
     
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        instructionsModal.style.display = "none";
-        document.body.style.overflow = "auto";
-      }
-    });
-    
-    // إضافة تأثيرات تفاعلية للعناصر
-    document.querySelectorAll('.radio-option').forEach(option => {
-      option.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-3px) scale(1.02)';
-        this.style.boxShadow = '0 8px 20px rgba(91, 44, 111, 0.15)';
-      });
-      
-      option.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-        this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.05)';
-      });
-    });
-    
-    // التهيئة الأولية
-    function init() {
-      showRegistrationForm();
-      updateCountdown();
-      
-      // إضافة تأثيرات للعدادات
-      document.querySelectorAll('.countdown-item').forEach((item, index) => {
-        item.style.animationDelay = `${index * 0.2}s`;
-      });
-      
-      // محاولة جلب البيانات من Google Sheets عند فتح لوحة الإدارة
-      document.getElementById('adminBtn').addEventListener('click', function() {
-        setTimeout(fetchDataFromGoogleSheets, 100);
-      });
-      
-      // محاولة مزامنة البيانات المحلية كل 5 دقائق
-      setInterval(syncLocalData, 5 * 60 * 1000);
-      
-      // جلب البيانات من Google Sheets إذا كان هناك بيانات محلية
-      const localData = JSON.parse(localStorage.getItem('tourismBackup')) || [];
-      if (localData.length > 0) {
-        applications = localData;
-        console.log('تم تحميل البيانات المحلية:', localData.length, 'طلب');
-      }
-    }
-    
-    document.addEventListener("DOMContentLoaded", init);
+    showRegistrationForm();
+    fetchDataFromGoogleSheets();
   </script>
 </body>
 </html>
